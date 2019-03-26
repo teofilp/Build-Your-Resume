@@ -1,10 +1,14 @@
 <template>
     <div id="preview_wrapper">
-        <div id="resume_preview"></div>
+        <div id="resume_preview">
+            <div class="resume_overlay">
+                <i class="fas fa-eye"></i>
+            </div>
+        </div>
         <ul class="options">
-            <li><div><h2>Share</h2></div></li>
+            <li><div><h2><i class="fas fa-share"></i> Share</h2></div></li>
             <li><button class="download">Download</button></li>
-            <li><div><h2>Preview</h2></div></li>
+            <li><div><h2><i class="fas fa-eye"></i>Preview</h2></div></li>
             
         </ul>
     </div>
@@ -18,6 +22,10 @@ export default {
 }
 </script>
 <style>
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+* {
+    font-family: 'Open Sans', sans-serif;
+}
     #preview_wrapper {
         position: absolute;
         left: 50%;
@@ -37,7 +45,30 @@ export default {
         background: white;
         box-shadow: 2px 2px 15px #222;
     }
-
+    .resume_overlay {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    .resume_overlay:hover {
+        cursor: pointer;
+    }
+    .resume_overlay:hover i {
+        font-size: 40px;
+        padding: 15px;
+    }
+    .resume_overlay i {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 0px;
+        padding: 0px;
+        background: #2d6fd8;
+        color: white;
+        border-radius: 50%;
+        transition: font-size .1s, padding .1s;
+    }
     .options {
         display: table;
         margin: 0;
@@ -54,18 +85,18 @@ export default {
         height: 100%;
     }
 
-    .option li button {
-        height: 100%;
-    }
-
-    .options li div {
-        border: 2px solid transparent;
+    .options li div h2{
+        color: white;
+        font-weight: 300;
+        font-size: 1em;
         border-radius: 12px;
+        padding: 8px 8px;
         transition: background-color .3s;
     }
 
-    .options li div:hover {
-        background: #888;
+    .options li:hover div h2 {
+        background: #999;
+        cursor: pointer;
     }
 
     button.download {
@@ -75,10 +106,15 @@ export default {
         padding: 15px 30px;
         border-radius: 8px;
         color: white;
+        transition: background-color .3s;
+    }
+    i {
+        padding-right: 5px;
     }
 
     button.download:hover {
         cursor: pointer;
+        background: rgb(25, 91, 196);
     }
 </style>
 
