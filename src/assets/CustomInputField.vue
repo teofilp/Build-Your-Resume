@@ -1,12 +1,17 @@
 <template>
   <div>
-    <input :type="type" :placeholder="placeholder">
+    <input :type="type" :placeholder="placeholder" v-model="model[attr]" @click="selectInput">
     <div class="after"></div>
   </div>
 </template>
 <script>
 export default {
-  props: ["type", "placeholder"]
+  props: ["type", "placeholder", "model", "attr"],
+  methods: {
+    selectInput(ev) {
+      ev.target.select();
+    }
+  }
 };
 </script>
 <style scoped>

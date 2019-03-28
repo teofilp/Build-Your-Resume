@@ -3,47 +3,19 @@
     <h2>
       <b>Professional Summary</b>
     </h2>
-    <div class="row mb-5 mt-3">
+    <div class="row mb-5 mt-3" style="position: relative">
       <label class="col-md-12">Include 2-3 clear sentences about your overall experience</label>
       <textarea
         placeholder="e.g. Passionate science teacher with 8+ years of experience and a track record of ..."
         class="col-md-11"
         rows="5"
       ></textarea>
-      <div class="col-md-11 stylers">
-        <ul>
-          <li @click="execCommand('bold')"><i class="fas fa-bold"
-          :class="{active : commands.bold}"></i></li>
-          <li @click="execCommand('italic')"
-          ><i class="fas fa-italic"
-          :class="{active : commands.italic}"></i></li>
-          <li @click="execCommand('underline')"><i class="fas fa-underline"
-          :class="{active : commands.underline}"></i></li>
-          <li><i class="fas fa-backspace inactive"></i></li>
-        </ul>
-      </div>
+      <div class="after"></div>
     </div>
   </div>
 </template>
 <script>
-export default {
-  data(){
-    return {
-      commands: {
-        italic: false,
-        bold: false,
-        underline: false
-       }
-    }
-  },
-  methods: {
-    execCommand(command){
-      this.commands[command] = !this.commands[command];
-      console.log(this.commands[command]);
-      document.execCommand(command);
-    }
-  }
-};
+export default {};
 </script>
 <style scoped>
 .wrapper {
@@ -60,6 +32,7 @@ export default {
 
 textarea {
   resize: none;
+  position: relative;
   border: none;
   background: #eee;
   padding: 12px 15px;
@@ -74,44 +47,19 @@ textarea::-webkit-input-placeholder {
   color: #aaa;
 }
 
-div.stylers {
-  background: #eee;
-  height: 40px;
+div.after {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 0;
+  height: 2px;
+  background: #32abdb;
+  transition: width 0.3s, left 0.3s;
 }
 
-.stylers ul {
-  padding: 0;
-  margin: 0;
-  height: 100%;
-  width: 100%;
-  list-style: none;
-}
-
-.stylers ul li {
-  display: inline-block;
-  margin-left: 12px;
-}
-
-.stylers ul li i {
-  transition: color .3s;
-}
-
-.stylers ul li i {
-  font-size: .8em;
-}
-
-.stylers ul li:hover i {
-  color: #32abdb;
-  cursor: pointer;
-}
-
-.stylers ul li i.active {
-  color: #32abdb;
-}
-
-.stylers ul li i.inactive {
-  color: #bbb;
-  cursor: not-allowed;
+textarea:focus ~ div.after {
+  width: 91.66%;
+  left: 0;
 }
 </style>
 

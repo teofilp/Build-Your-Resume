@@ -6,29 +6,50 @@
     <div class="row mt-3">
       <div class="col-md-5 p-0">
         <label class="col-md-12">Job title</label>
-        <custom-input-field placeholder="e.g. Teacher" type="text"></custom-input-field>
+        <custom-input-field
+          placeholder="e.g. Teacher"
+          type="text"
+          :model="$store.state.resume.personal_details"
+          :attr="'job_title'"
+        ></custom-input-field>
       </div>
     </div>
 
     <div class="row mt-3">
       <div class="col-md-5 p-0">
         <label class="col-md-12">First Name</label>
-        <custom-input-field type="text"></custom-input-field>
+        <custom-input-field
+          type="text"
+          :model="$store.state.resume.personal_details"
+          :attr="'first_name'"
+        ></custom-input-field>
       </div>
       <div class="col-md-5 offset-md-1 p-0">
         <label class="col-md-12">Last Name</label>
-        <custom-input-field type="text"></custom-input-field>
+        <custom-input-field
+          type="text"
+          :model="$store.state.resume.personal_details"
+          :attr="'last_name'"
+        ></custom-input-field>
       </div>
     </div>
 
     <div class="row mt-3">
       <div class="col-md-5 p-0">
         <label class="col-md-12">Email</label>
-        <custom-input-field type="email"></custom-input-field>
+        <custom-input-field
+          type="email"
+          :model="$store.state.resume.personal_details"
+          :attr="'email'"
+        ></custom-input-field>
       </div>
       <div class="col-md-5 offset-md-1 p-0">
         <label class="col-md-12">Phone Number</label>
-        <custom-input-field type="text"></custom-input-field>
+        <custom-input-field
+          type="text"
+          :model="$store.state.resume.personal_details"
+          :attr="'phone_number'"
+        ></custom-input-field>
       </div>
     </div>
 
@@ -36,37 +57,65 @@
       <div class="row mt-3">
         <div class="col-md-5 p-0">
           <label class="col-md-12">Country</label>
-          <custom-input-field type="text"></custom-input-field>
+          <custom-input-field
+            type="text"
+            :model="$store.state.resume.personal_details"
+            :attr="'country'"
+          ></custom-input-field>
         </div>
         <div class="col-md-5 offset-md-1 p-0">
           <label class="col-md-12">City</label>
-          <custom-input-field type="text"></custom-input-field>
+          <custom-input-field
+            type="text"
+            :model="$store.state.resume.personal_details"
+            :attr="'job_title'"
+          ></custom-input-field>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-md-5 p-0">
           <label class="col-md-12">Address</label>
-          <custom-input-field type="address"></custom-input-field>
+          <custom-input-field
+            type="address"
+            :model="$store.state.resume.personal_details"
+            :attr="'address'"
+          ></custom-input-field>
         </div>
         <div class="col-md-5 offset-md-1 p-0">
           <label class="col-md-12">Postal Code</label>
-          <custom-input-field type="text"></custom-input-field>
+          <custom-input-field
+            type="text"
+            :model="$store.state.resume.personal_details"
+            :attr="'postal_code'"
+          ></custom-input-field>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-md-5 p-0">
           <label class="col-md-12">Nationality</label>
-          <custom-input-field type="text"></custom-input-field>
+          <custom-input-field
+            type="text"
+            :model="$store.state.resume.personal_details"
+            :attr="'nationality'"
+          ></custom-input-field>
         </div>
         <div class="col-md-5 offset-md-1 p-0">
           <label class="col-md-12">Place of Birth</label>
-          <custom-input-field type="text"></custom-input-field>
+          <custom-input-field
+            type="text"
+            :model="$store.state.resume.personal_details"
+            :attr="'place_of_birth'"
+          ></custom-input-field>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-md-5 p-0">
           <label class="col-md-12">Date of Birth</label>
-          <custom-input-field type="email"></custom-input-field>
+          <custom-input-field
+            type="email"
+            :model="$store.state.resume.personal_details"
+            :attr="'date_of_birth'"
+          ></custom-input-field>
         </div>
       </div>
     </div>

@@ -43,8 +43,12 @@
       <personal-details-section class="col-md-12"></personal-details-section>
     </div>
 
-    <div class="row mt-5">
+    <div class="row mt-3">
       <professional-summary></professional-summary>
+    </div>
+
+    <div class="row mt-3">
+      <social-links></social-links>
     </div>
   </div>
 </template>
@@ -53,6 +57,7 @@ import { mapGetters } from "vuex";
 import CustomDropDown from "../assets/CustomDropDown.vue";
 import PersonalDetailsSection from "./sections/PersonalDetailsSection.vue";
 import ProfessionalSummary from "./sections/ProfessionalSummary.vue";
+import SocialLinks from "./sections/SocialLinks.vue";
 export default {
   created() {
     console.log("from resume builder");
@@ -68,7 +73,8 @@ export default {
   components: {
     CustomDropDown,
     PersonalDetailsSection,
-    ProfessionalSummary
+    ProfessionalSummary,
+    SocialLinks
   }
 };
 </script>
@@ -179,7 +185,7 @@ export default {
   max-height: 200px;
   overflow-x: hidden;
 }
-
+label.label,
 label.col-md-12,
 label.col-md-6 {
   font-size: 0.8em;

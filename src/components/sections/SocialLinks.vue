@@ -1,0 +1,161 @@
+<template>
+  <div class="wrapper container">
+    <h2>
+      <b>Websites & Social Links</b>
+    </h2>
+    <!-- here goes array with social links -->
+    <div class="row mt-3">
+      <!-- individual els -->
+      <div v-for="(link, index) in getLinks" :key="index" class="link_wrapper col-md-11">
+        <div class="row">
+          <h5 class="col-md-10">{{link.label}}</h5>
+          <i class="fas fa-trash-alt delete_icon col-md-1 mt-3 px-2" @click="deleteLink(link)"></i>
+          <i class="fas fa-chevron-down expand_icon col-md-1 mt-3" @click="expand(link)"></i>
+        </div>
+        <div class="links_details mb-3" :class="{'inactive': !link.expanded}">
+          <div class="row">
+            <label for class="col-md-5 label">Label</label>
+            <label for class="col-md-5 label offset-md-1">Link</label>
+            <custom-input-field class="col-md-5" :model="link" :attr="'label'"></custom-input-field>
+            <custom-input-field class="col-md-5 offset-md-1" :model="link" :attr="'link'"></custom-input-field>
+          </div>
+        </div>
+      </div>
+      <!-- end of individual els -->
+    </div>
+
+    <!-- 
+        --------
+    -->
+
+    <!-- END -->
+
+    <div
+      class="col-md-11 add_link"
+      @click="$store.commit('resetLinks');
+    $store.commit('addLink')"
+    >
+      <div class="row" style="height: 100%">
+        <i class="fas fa-plus mt-3"></i>
+        <h5>Add link</h5>
+      </div>
+    </div>
+    <label
+      class="col-md-11 label mt-2"
+      for
+    >You can add links to websites you want hiring managers to see! Perhaps It will be a link to your portfolio, LinkedIn profile, or personal website</label>
+  </div>
+</template>
+<script>
+import { mapGetters } from "vuex";
+import CustomInputField from "../../assets/CustomInputField.vue";
+export default {
+  computed: {
+    ...mapGetters(["getLinks"])
+  },
+  components: {
+    CustomInputField
+  },
+  methods: {
+    expand(link) {
+      if (link.expanded === true) {
+        link.expanded = false;
+      } else {
+        this.$store.commit("resetLinks");
+        link.expanded = true;
+      }
+    },
+    deleteLink(link) {
+      this.$store.commit("deleteLink", link);
+    }
+  }
+};
+</script>
+<style scoped>
+.wrapper {
+  width: 100%;
+}
+
+.wrapper h2 {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+.row {
+  margin: 0;
+}
+.add_link {
+  border: 1px dashed #eee;
+  border-left: none;
+  border-right: none;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.add_link:hover {
+  cursor: pointer;
+  border-color: transparent;
+  background: rgba(50, 171, 219, 0.2);
+}
+.add_link h5 {
+  height: 100%;
+  margin: 0;
+  padding: 15px 10px;
+  font-size: 0.9em;
+  color: #32abdb;
+}
+
+.add_link i {
+  font-size: 0.9em;
+  color: #32abdb;
+}
+
+.link_wrapper {
+  border-top: 1px solid #eee;
+}
+.link_wrapper h5 {
+  height: 100%;
+  font-size: 0.9em;
+  margin: 0;
+  padding: 15px 10px;
+}
+
+.delete_icon,
+.expand_icon {
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.delete_icon {
+  opacity: 0;
+}
+
+.expand_icon {
+  color: #bbb;
+}
+
+.link_wrapper:hover {
+  cursor: pointer;
+}
+.link_wrapper:hover h5 {
+  color: #32abdb;
+}
+
+.link_wrapper:hover i {
+  color: #32abdb;
+  opacity: 1;
+}
+
+.links_details {
+  width: 100%;
+  position: relative;
+  height: auto;
+  left: 0;
+  bottom: 0;
+}
+
+.links_details.inactive {
+  position: absolute;
+  height: 0;
+  overflow: hidden;
+}
+</style>
+
+
