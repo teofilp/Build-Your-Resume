@@ -50,6 +50,10 @@
     <div class="row mt-3">
       <social-links></social-links>
     </div>
+
+    <div class="row mt-3">
+      <skills></skills>
+    </div>
   </div>
 </template>
 <script>
@@ -58,10 +62,8 @@ import CustomDropDown from "../assets/CustomDropDown.vue";
 import PersonalDetailsSection from "./sections/PersonalDetailsSection.vue";
 import ProfessionalSummary from "./sections/ProfessionalSummary.vue";
 import SocialLinks from "./sections/SocialLinks.vue";
+import Skills from "./sections/Skills.vue";
 export default {
-  created() {
-    console.log("from resume builder");
-  },
   methods: {
     selectTitle() {
       document.getElementById("resume_title").select();
@@ -74,7 +76,8 @@ export default {
     CustomDropDown,
     PersonalDetailsSection,
     ProfessionalSummary,
-    SocialLinks
+    SocialLinks,
+    Skills
   }
 };
 </script>
@@ -180,11 +183,11 @@ export default {
   width: 10%;
 }
 
-.scrollable-menu {
+/* .scrollable-menu {
   height: auto;
   max-height: 200px;
   overflow-x: hidden;
-}
+} */
 label.label,
 label.col-md-12,
 label.col-md-6 {
@@ -192,5 +195,65 @@ label.col-md-6 {
   padding: 0;
   user-select: none;
   color: #aaa;
+}
+
+.add_button {
+  border: 1px dashed #eee;
+  border-left: none;
+  border-right: none;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.add_button:hover {
+  cursor: pointer;
+  border-color: transparent;
+  background: rgba(50, 171, 219, 0.2);
+}
+.add_button h5 {
+  height: 100%;
+  margin: 0;
+  padding: 15px 10px;
+  font-size: 0.9em;
+  color: #32abdb;
+}
+
+.add_button i {
+  font-size: 0.9em;
+  color: #32abdb;
+}
+
+.item_wrapper:hover {
+  cursor: pointer;
+}
+.item_wrapper:hover h5 {
+  color: #32abdb;
+}
+
+.item_wrapper:hover i {
+  color: #32abdb;
+  opacity: 1;
+}
+
+.item_wrapper {
+  border-top: 1px solid #eee;
+}
+.item_wrapper h5 {
+  height: 100%;
+  font-size: 0.9em;
+  margin: 0;
+  padding: 15px 10px;
+}
+
+.delete_icon,
+.expand_icon {
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.delete_icon {
+  opacity: 0;
+}
+
+.expand_icon {
+  color: #bbb;
 }
 </style>

@@ -1,6 +1,11 @@
 <template>
   <div>
-    <input :type="type" :placeholder="placeholder" v-model="model[attr]" @click="selectInput">
+    <input
+      :type="type"
+      :placeholder="placeholder"
+      v-model="model[attr]"
+      @click="selectInputContent"
+    >
     <div class="after"></div>
   </div>
 </template>
@@ -8,7 +13,7 @@
 export default {
   props: ["type", "placeholder", "model", "attr"],
   methods: {
-    selectInput(ev) {
+    selectInputContent(ev) {
       ev.target.select();
     }
   }
