@@ -43,7 +43,7 @@ export default {
   font-family: "Open Sans", sans-serif;
 }
 #preview_wrapper {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 0;
   height: 100%;

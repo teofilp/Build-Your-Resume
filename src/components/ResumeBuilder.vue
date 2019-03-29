@@ -95,7 +95,6 @@ export default {
   width: 50%;
   padding-left: 5em;
   padding-right: 5em;
-  overflow-y: auto;
   background: white;
 }
 
