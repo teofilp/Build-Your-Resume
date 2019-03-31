@@ -9,7 +9,7 @@
       <div v-for="(skill, index) in getSkills" :key="index" class="item_wrapper col-md-12">
         <div class="row item_expand" @click="toggleExpand(skill)">
           <h5 class="col-md-10">{{skill.name}} - {{skill.level | capitalize}}</h5>
-          <i class="fas fa-trash-alt delete_icon col-md-1 mt-3 px-2" @click="deleteSkill(skill);"></i>
+          <i class="fas fa-trash delete_icon col-md-1 mt-3 px-2" @click="deleteSkill(skill);"></i>
           <i class="fas fa-chevron-down expand_icon col-md-1 mt-3"></i>
         </div>
 

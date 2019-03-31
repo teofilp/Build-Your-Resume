@@ -162,7 +162,7 @@ export default {
 }
 .additional_info_toggler {
   font-size: 0.8em;
-  color: #32abdb;
+  color: #4286f4;
 }
 .additional_info_toggler:hover {
   cursor: pointer;

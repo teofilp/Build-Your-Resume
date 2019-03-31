@@ -96,7 +96,7 @@ export default {
 .wrapper_after.active {
   width: 100%;
   left: 0;
-  background: #32abdb;
+  background: #4286f4;
 }
 .wrapper:hover {
   cursor: pointer;
@@ -124,8 +124,8 @@ export default {
 }
 
 .dropdown_options_wrapper ul li:hover {
-  background: rgba(50, 171, 219, 0.2);
-  color: rgba(50, 171, 219, 1);
+  background: rgba(81, 131, 211, 0.7);
+  color: white;
 }
 
 ul li.active {
@@ -137,12 +137,12 @@ ul li.active {
 }
 
 .dropdown_options_wrapper::-webkit-scrollbar-thumb {
-  background: rgba(50, 171, 219, 0.4);
+  background: #5183d3;
   border-radius: 10px;
 }
 
 .dropdown_options_wrapper::-webkit-scrollbar-thumb:hover {
-  background: rgba(50, 171, 219, 0.6);
+  background: #5183d3;
 }
 </style>
 

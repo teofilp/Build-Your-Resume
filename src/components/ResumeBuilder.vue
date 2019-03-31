@@ -213,14 +213,14 @@ export default {
 label.label,
 label.col-md-12,
 label.col-md-6 {
-  font-size: 0.8em;
+  font-size: 0.85em;
   padding: 0;
   user-select: none;
   color: #aaa;
 }
 
 .add_button {
-  border: 1px dashed #eee;
+  border: 1px dashed rgba(66, 134, 244, 0.3);
   border-left: none;
   border-right: none;
   transition: background-color 0.3s, border-color 0.3s;
@@ -228,31 +228,51 @@ label.col-md-6 {
 .add_button:hover {
   cursor: pointer;
   border-color: transparent;
-  background: rgba(50, 171, 219, 0.2);
+  background: rgba(66, 134, 244, 0.2);
 }
 .add_button h5 {
   height: 100%;
   margin: 0;
   padding: 15px 10px;
   font-size: 0.9em;
-  color: #32abdb;
+  font-weight: 700;
+  color: #4286f4;
 }
 
 .add_button i {
   font-size: 0.9em;
-  color: #32abdb;
+  color: #4286f4;
 }
 
 .item_expand:hover {
   cursor: pointer;
 }
 .item_expand:hover h5 {
-  color: #32abdb;
+  color: #4286f4;
 }
 
+.delete_icon,
+.expand_icon {
+  font-size: 0.95em;
+  text-align: center;
+  transition: opacity 0.1s, color 0.1s;
+}
+.delete_icon {
+  text-align: right;
+  opacity: 0;
+}
+
+.expand_icon {
+  color: #bbb;
+}
+
+.expand_icon:hover,
+.delete_icon:hover {
+  color: #5c8cda;
+}
 .item_expand:hover i.delete_icon,
 .item_expand:hover i.expand_icon {
-  color: #32abdb;
+  color: #4286f4;
   opacity: 1;
 }
 
@@ -264,19 +284,5 @@ label.col-md-6 {
   font-size: 0.9em;
   margin: 0;
   padding: 15px 10px;
-}
-
-.delete_icon,
-.expand_icon {
-  font-size: 0.9em;
-  text-align: center;
-}
-
-.delete_icon {
-  opacity: 0;
-}
-
-.expand_icon {
-  color: #bbb;
 }
 </style>

@@ -7,10 +7,7 @@
     <div v-for="(education, index) in getEducation" :key="index" class="item_wrapper">
       <div class="row item_expand" @click="toggleExpand(education)">
         <h5 class="col-md-10">{{education.school}} - {{education.degree}}</h5>
-        <i
-          class="fas fa-trash-alt delete_icon col-md-1 mt-3 px-2"
-          @click="deleteEducation(education);"
-        ></i>
+        <i class="fas fa-trash delete_icon col-md-1 mt-3 px-2" @click="deleteEducation(education);"></i>
         <i class="fas fa-chevron-down expand_icon col-md-1 mt-3"></i>
       </div>
       <shared-custom-item

@@ -9,7 +9,7 @@
       <div v-for="(link, index) in getLinks" :key="index" class="item_wrapper col-md-12">
         <div class="row item_expand" @click="toggleExpand(link)">
           <h5 class="col-md-10">{{link.label}}</h5>
-          <i class="fas fa-trash-alt delete_icon col-md-1 mt-3 px-2" @click="deleteLink(link)"></i>
+          <i class="fas fa-trash delete_icon col-md-1 mt-3 px-2" @click="deleteLink(link)"></i>
           <i class="fas fa-chevron-down expand_icon col-md-1 mt-3"></i>
         </div>
         <div class="link_details mb-3" :class="{'inactive': !link.expanded}">

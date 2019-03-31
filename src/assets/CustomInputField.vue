@@ -47,7 +47,7 @@ div.after {
   top: 100%;
   width: 0;
   height: 2px;
-  background: #32abdb;
+  background: #4286f4;
   transition: width 0.3s, left 0.3s;
 }
 

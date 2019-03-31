@@ -155,13 +155,14 @@ input::-webkit-input-placeholder {
   color: #aaa;
 }
 
-div.after {
+div.after,
+div.pr-1.after {
   position: absolute;
   left: 50%;
   top: 100%;
   width: 0;
   height: 2px;
-  background: #32abdb;
+  background: #4286f4;
   transition: width 0.3s, left 0.3s;
 }
 
@@ -169,7 +170,10 @@ input:focus ~ div.after {
   width: 100%;
   left: 0;
 }
-
+div.pr-1 input:focus ~ div.after {
+  width: 98%;
+  left: 0;
+}
 .date_picker {
   z-index: 10;
   position: absolute;
@@ -194,13 +198,14 @@ input:focus ~ div.after {
 
 .date_picker i {
   transition: color 0.3s;
+  color: rgb(66, 134, 244);
 }
 .date_picker .col-md-2:hover {
   cursor: pointer;
 }
 
 .date_picker .col-md-2:hover i {
-  color: #32abdb;
+  color: #4286f4;
 }
 
 .row ul {
@@ -219,13 +224,16 @@ input:focus ~ div.after {
   transition: background-color 0.3s, color 0.3s;
 }
 .row ul li.active {
-  background: #32abdb;
+  background: #4286f4;
   color: white;
 }
 .row ul li:hover {
-  background: rgba(50, 171, 219, 0.6);
+  background: rgba(66, 134, 244, 0.7);
   color: white;
   cursor: pointer;
+}
+.row ul li.active:hover {
+  background: #4286f4;
 }
 </style>
 
