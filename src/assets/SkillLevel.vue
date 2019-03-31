@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper">
     <div class="row">
-      <div class="col-md-3" :class="activeClass" @click="updateLevel('beginner')"></div>
-      <div class="col-md-3" :class="activeClass" @click="updateLevel('novice')"></div>
-      <div class="col-md-3" :class="activeClass" @click="updateLevel('experienced')"></div>
-      <div class="col-md-3 no_after" :class="activeClass" @click="updateLevel('expert')"></div>
+      <div class="col-md-3 hoverable" :class="activeClass" @click="updateLevel('beginner')"></div>
+      <div class="col-md-3 hoverable" :class="activeClass" @click="updateLevel('novice')"></div>
+      <div class="col-md-3 hoverable" :class="activeClass" @click="updateLevel('experienced')"></div>
+      <div class="col-md-3 hoverable no_after" :class="activeClass" @click="updateLevel('expert')"></div>
       <div id="thumb" :class="activeThumbClass"></div>
     </div>
   </div>
@@ -34,7 +34,9 @@ export default {
   overflow: hidden;
   border-radius: 4px;
 }
-
+.hoverable:hover {
+  cursor: pointer;
+}
 .wrapper .row .col-md-3 {
   padding: 22px 10px;
   margin-top: 0;
@@ -48,7 +50,7 @@ export default {
   top: 40%;
   height: 20%;
   width: 1px;
-  background: black;
+  transition: background-color 0.3s;
 }
 
 .no_after::after {
@@ -85,17 +87,26 @@ export default {
   background: #ffe0e0;
   transition: background-color 0.3s;
 }
-
+.beginner::after {
+  background: #ff5959;
+}
 .novice {
   background: #f2da9f;
 }
-
+.novice::after {
+  background: #f3b721;
+}
 .experienced {
   background: rgba(128, 204, 20, 0.4);
 }
-
+.experienced::after {
+  background: #80cc14;
+}
 .expert {
-  background: #d7f2e3;
+  background: #b7e9cd;
+}
+.expert::after {
+  background: #25b869;
 }
 </style>
 
