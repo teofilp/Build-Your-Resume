@@ -59,7 +59,6 @@ export default {
     document
       .querySelector(".dropdown_wrapper")
       .addEventListener("click", function(ev) {
-        console.log("stopped");
         ev.stopPropagation();
       });
   }
@@ -112,6 +111,7 @@ export default {
   height: 0px;
   overflow: auto;
   transition: height 0.3s;
+  box-shadow: 2px 3px 8px #aaa;
 }
 
 .dropdown_options_wrapper.active {

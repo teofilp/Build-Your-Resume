@@ -7,7 +7,7 @@
       <label class="col-md-12">Include 2-3 clear sentences about your overall experience</label>
       <textarea
         placeholder="e.g. Passionate science teacher with 8+ years of experience and a track record of ..."
-        class="col-md-11"
+        class="col-md-12"
         rows="5"
       ></textarea>
       <div class="after"></div>
@@ -18,18 +18,6 @@
 export default {};
 </script>
 <style scoped>
-.wrapper {
-  width: 100%;
-}
-
-.wrapper h2 {
-  font-size: 1.2em;
-  font-weight: 500;
-}
-.row {
-  margin: 0;
-}
-
 textarea {
   resize: none;
   position: relative;
@@ -58,7 +46,7 @@ div.after {
 }
 
 textarea:focus ~ div.after {
-  width: 91.66%;
+  width: 100%;
   left: 0;
 }
 </style>

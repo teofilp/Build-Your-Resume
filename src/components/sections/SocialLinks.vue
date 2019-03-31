@@ -6,8 +6,8 @@
     <!-- here goes array with social links -->
     <div class="row mt-3">
       <!-- individual els -->
-      <div v-for="(link, index) in getLinks" :key="index" class="item_wrapper col-md-11">
-        <div class="row" @click="toggleExpand(link)">
+      <div v-for="(link, index) in getLinks" :key="index" class="item_wrapper col-md-12">
+        <div class="row item_expand" @click="toggleExpand(link)">
           <h5 class="col-md-10">{{link.label}}</h5>
           <i class="fas fa-trash-alt delete_icon col-md-1 mt-3 px-2" @click="deleteLink(link)"></i>
           <i class="fas fa-chevron-down expand_icon col-md-1 mt-3"></i>
@@ -15,9 +15,9 @@
         <div class="link_details mb-3" :class="{'inactive': !link.expanded}">
           <div class="row">
             <label for class="col-md-5 label">Label</label>
-            <label for class="col-md-5 label offset-md-1">Link</label>
+            <label for class="col-md-5 label offset-md-2">Link</label>
             <custom-input-field class="col-md-5" :model="link" :attr="'label'"></custom-input-field>
-            <custom-input-field class="col-md-5 offset-md-1" :model="link" :attr="'link'"></custom-input-field>
+            <custom-input-field class="col-md-5 offset-md-2" :model="link" :attr="'link'"></custom-input-field>
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@
     <!-- END -->
 
     <div
-      class="col-md-11 add_button"
+      class="col-md-12 add_button"
       @click="$store.commit('hide', getLinks);
     $store.commit('addLink')"
     >
@@ -72,18 +72,6 @@ export default {
 };
 </script>
 <style scoped>
-.wrapper {
-  width: 100%;
-}
-
-.wrapper h2 {
-  font-size: 1.2em;
-  font-weight: 500;
-}
-.row {
-  margin: 0;
-}
-
 .link_details {
   width: 100%;
   position: relative;

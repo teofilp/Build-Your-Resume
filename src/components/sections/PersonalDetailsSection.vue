@@ -24,7 +24,7 @@
           :attr="'first_name'"
         ></custom-input-field>
       </div>
-      <div class="col-md-5 offset-md-1 p-0">
+      <div class="col-md-5 offset-md-2 p-0">
         <label class="col-md-12">Last Name</label>
         <custom-input-field
           type="text"
@@ -43,7 +43,7 @@
           :attr="'email'"
         ></custom-input-field>
       </div>
-      <div class="col-md-5 offset-md-1 p-0">
+      <div class="col-md-5 offset-md-2 p-0">
         <label class="col-md-12">Phone Number</label>
         <custom-input-field
           type="text"
@@ -63,7 +63,7 @@
             :attr="'country'"
           ></custom-input-field>
         </div>
-        <div class="col-md-5 offset-md-1 p-0">
+        <div class="col-md-5 offset-md-2 p-0">
           <label class="col-md-12">City</label>
           <custom-input-field
             type="text"
@@ -81,7 +81,7 @@
             :attr="'address'"
           ></custom-input-field>
         </div>
-        <div class="col-md-5 offset-md-1 p-0">
+        <div class="col-md-5 offset-md-2 p-0">
           <label class="col-md-12">Postal Code</label>
           <custom-input-field
             type="text"
@@ -99,7 +99,7 @@
             :attr="'nationality'"
           ></custom-input-field>
         </div>
-        <div class="col-md-5 offset-md-1 p-0">
+        <div class="col-md-5 offset-md-2 p-0">
           <label class="col-md-12">Place of Birth</label>
           <custom-input-field
             type="text"
@@ -149,17 +149,6 @@ export default {
 };
 </script>
 <style scoped>
-.wrapper {
-  width: 100%;
-}
-
-.wrapper h2 {
-  font-size: 1.2em;
-  font-weight: 500;
-}
-.row {
-  margin: 0;
-}
 .additional_details {
   height: 0;
   overflow: hidden;

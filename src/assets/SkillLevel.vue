@@ -86,10 +86,6 @@ export default {
   transition: background-color 0.3s;
 }
 
-.beginner:hover {
-  background: #ffc1c1;
-}
-
 .novice {
   background: #f2da9f;
 }

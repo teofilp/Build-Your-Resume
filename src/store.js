@@ -24,7 +24,19 @@ export default new Vuex.Store({
       title: 'Untitled',
       links: [{ label: 'something something label', link: 'https://google.com', expanded: false },
       { label: 'something another label', link: 'https://facebook.com', expanded: false }],
-      skills: [{ level: 'beginner', name: 'HTML', expanded: false }]
+      skills: [{ level: 'beginner', name: 'HTML', expanded: false }],
+      education: [{
+        school: "'Emil Racovita' National College", degree: 'Software Engineering', date: {
+          start: {
+            month: 'Mar',
+            year: 2019
+          },
+          end: {
+            month: 'Jun',
+            year: 2020
+          }
+        }, city: 'Cluj-Napoca', description: '', expanded: true
+      }]
     }
   },
   getters: {
@@ -36,6 +48,9 @@ export default new Vuex.Store({
     },
     getSkills(state) {
       return state.resume.skills;
+    },
+    getEducation(state) {
+      return state.resume.education;
     }
   },
   mutations: {
@@ -63,6 +78,25 @@ export default new Vuex.Store({
     deleteSkill(state, skill) {
       let skillIndex = state.resume.skills.indexOf(skill);
       state.resume.skills.splice(skillIndex, 1);
+    },
+    addEducation(state) {
+      state.resume.education.push({
+        school: "(Not specified)", degree: '(Not specified)', date: {
+          start: {
+            month: 'Mar',
+            year: 2019
+          },
+          end: {
+            month: 'Jun',
+            year: 2020
+          }
+        }, city: '(Not specified)', description: '', expanded: true
+
+      });
+    },
+    deleteEducation(state, educationItem) {
+      let educationIndex = state.resume.education.indexOf(educationItem);
+      state.resume.education.splice(educationIndex, 1);
     }
   },
   actions: {

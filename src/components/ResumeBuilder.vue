@@ -51,8 +51,16 @@
       <social-links></social-links>
     </div>
 
-    <div class="row mt-3">
+    <div class="row mt-5">
       <skills></skills>
+    </div>
+
+    <div class="row mt-5">
+      <education></education>
+    </div>
+
+    <div class="row mt-5">
+      <div style="width: 2px; height: 200px"></div>
     </div>
   </div>
 </template>
@@ -63,6 +71,7 @@ import PersonalDetailsSection from "./sections/PersonalDetailsSection.vue";
 import ProfessionalSummary from "./sections/ProfessionalSummary.vue";
 import SocialLinks from "./sections/SocialLinks.vue";
 import Skills from "./sections/Skills.vue";
+import Education from "./sections/Education.vue";
 export default {
   methods: {
     selectTitle() {
@@ -77,7 +86,8 @@ export default {
     PersonalDetailsSection,
     ProfessionalSummary,
     SocialLinks,
-    Skills
+    Skills,
+    Education
   }
 };
 </script>
@@ -109,6 +119,19 @@ export default {
 }
 ::-webkit-input-placeholder {
   color: black;
+}
+
+.wrapper {
+  width: 100%;
+}
+
+.wrapper h2 {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+.row {
+  margin: 0;
+  padding: 0;
 }
 
 .rename_title {
@@ -220,14 +243,15 @@ label.col-md-6 {
   color: #32abdb;
 }
 
-.item_wrapper:hover {
+.item_expand:hover {
   cursor: pointer;
 }
-.item_wrapper:hover h5 {
+.item_expand:hover h5 {
   color: #32abdb;
 }
 
-.item_wrapper:hover i {
+.item_expand:hover i.delete_icon,
+.item_expand:hover i.expand_icon {
   color: #32abdb;
   opacity: 1;
 }

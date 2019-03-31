@@ -6,8 +6,8 @@
 
     <div class="row mt-3">
       <!-- individual els -->
-      <div v-for="(skill, index) in getSkills" :key="index" class="item_wrapper col-md-11">
-        <div class="row" @click="toggleExpand(skill)">
+      <div v-for="(skill, index) in getSkills" :key="index" class="item_wrapper col-md-12">
+        <div class="row item_expand" @click="toggleExpand(skill)">
           <h5 class="col-md-10">{{skill.name}} - {{skill.level | capitalize}}</h5>
           <i class="fas fa-trash-alt delete_icon col-md-1 mt-3 px-2" @click="deleteSkill(skill);"></i>
           <i class="fas fa-chevron-down expand_icon col-md-1 mt-3"></i>
@@ -22,7 +22,7 @@
 
             <div class="col-md-6 offset-md-1" style="padding: 0; height: 100%">
               <label for class="col-md-12 label">Level - {{skill.level | capitalize}}</label>
-              <skill-level class="col-md-12" :skill="skill"></skill-level>
+              <skill-level class="col-md-12" style="padding:0;" :skill="skill"></skill-level>
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@
     </div>
 
     <div
-      class="col-md-11 add_button"
+      class="col-md-12 add_button"
       @click="
       $store.commit('hide', getSkills);
       $store.commit('addSkill');
@@ -80,19 +80,6 @@ export default {
 };
 </script>
 <style scoped>
-.wrapper {
-  width: 100%;
-}
-
-.wrapper h2 {
-  font-size: 1.2em;
-  font-weight: 500;
-}
-.row {
-  margin: 0;
-  padding: 0;
-}
-
 .skill_details {
   width: 100%;
   position: relative;
