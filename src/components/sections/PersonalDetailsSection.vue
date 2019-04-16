@@ -68,7 +68,7 @@
           <custom-input-field
             type="text"
             :model="$store.state.resume.personal_details"
-            :attr="'job_title'"
+            :attr="'city'"
           ></custom-input-field>
         </div>
       </div>

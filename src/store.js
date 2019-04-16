@@ -22,21 +22,11 @@ export default new Vuex.Store({
         date_of_birth: ''
       },
       title: 'Untitled',
-      links: [{ label: 'something something label', link: 'https://google.com', expanded: false },
-      { label: 'something another label', link: 'https://facebook.com', expanded: false }],
-      skills: [{ level: 'beginner', name: 'HTML', expanded: false }],
-      education: [{
-        school: "'Emil Racovita' National College", degree: 'Software Engineering', date: {
-          start: {
-            month: 'Mar',
-            year: 2019
-          },
-          end: {
-            month: 'Jun',
-            year: 2020
-          }
-        }, city: 'Cluj-Napoca', description: '', expanded: true
-      }]
+      professionalSummary: '',
+      links: [],
+      skills: [],
+      education: [],
+      employmentHistory: []
     }
   },
   getters: {
@@ -51,6 +41,39 @@ export default new Vuex.Store({
     },
     getEducation(state) {
       return state.resume.education;
+    },
+    getEmploymentHistory(state) {
+      return state.resume.employmentHistory;
+    },
+    getCompleteness(state) {
+      let completeness = 0;
+      // check personal details
+
+      let personal_details = state.resume.personal_details;
+
+      for (var atr in personal_details) {
+        if (personal_details[atr] !== '')
+          completeness += 4;
+      }
+
+      if (state.resume.professionalSummary.length > 20)
+        completeness += 10;
+
+      if (state.resume.links.length > 0)
+        completeness += 15;
+
+
+      if (state.resume.skills.length > 0)
+        completeness += 15;
+
+      if (state.resume.education.length > 0)
+        completeness += 15;
+
+      if (state.resume.employmentHistory.length > 0)
+        completeness += 15;
+
+      return completeness > 100 ? 100 : completeness;
+
     }
   },
   mutations: {
@@ -97,9 +120,27 @@ export default new Vuex.Store({
     deleteEducation(state, educationItem) {
       let educationIndex = state.resume.education.indexOf(educationItem);
       state.resume.education.splice(educationIndex, 1);
+    },
+    addEmploymentItem(state) {
+      state.resume.employmentHistory.push({
+        title: "(Not specified)", employer: '(Not specified)', date: {
+          start: {
+            month: 'Mar',
+            year: 2019
+          },
+          end: {
+            month: 'Jun',
+            year: 2020
+          }
+        }, city: '(Not specified)', description: '', expanded: true
+
+      }
+      );
+    },
+    deleteEmploymentItem(state, employmentItem) {
+      let employmentIndex = state.resume.employmentHistory.indexOf(employmentItem);
+      state.resume.employmentHistory.splice(employmentIndex, 1);
     }
   },
-  actions: {
-
-  }
+  actions: {}
 })

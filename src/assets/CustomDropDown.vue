@@ -1,9 +1,9 @@
 <template>
   <div class="dropdown_wrapper wrapper" @click="toggleDropDown">
     <div class="row">
-      <h5 class="col-md-8">{{ active_option }}</h5>
+      <h5 class="col-xs-8 col-sm-8 col-md-8">{{ active_option }}</h5>
       <i
-        class="fas col-md-2 offset-md-2 mt-3"
+        class="fas col-xs-2 col-sm-2 col-md-2 offset-xs-2 offset-sm-2 offset-md-2 mt-3"
         :class="{'fa-chevron-up': isActive, 'fa-chevron-down': !isActive}"
       ></i>
       <div class="wrapper_after" :class="{'active': isActive}"></div>

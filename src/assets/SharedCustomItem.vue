@@ -63,16 +63,18 @@ textarea::-webkit-input-placeholder {
 }
 
 div.after {
-  position: absolute;
+  position: relative;
   left: 50%;
   top: 100%;
-  width: 0;
+  opacity: 0;
+  width: 1px;
   height: 2px;
-  background: #32abdb;
-  transition: width 0.3s, left 0.3s;
+  background: #4286f4;
+  transition: width 0.3s, left 0.3s, opacity 0.1s;
 }
 
 textarea:focus ~ div.after {
+  opacity: 1;
   width: 100%;
   left: 0;
 }

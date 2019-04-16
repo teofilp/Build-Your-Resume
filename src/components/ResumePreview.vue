@@ -54,7 +54,7 @@ export default {
 
 #resume_preview {
   position: relative;
-  width: 55%;
+  width: 60%;
   left: 50%;
   top: 45%;
   transform: translate(-50%, -50%);

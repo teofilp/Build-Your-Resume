@@ -19,24 +19,20 @@
       <div class="row col-md-12">
         <div class="col-md-6">
           <span>
-            <span class="mr-2 text_danger">10 %</span>
+            <span class="mr-2" :style="{'color': getColor}">{{getCompleteness}} %</span>
             Profile completeness
           </span>
         </div>
-        <div class="col-md-6">
-          <span style="float: right">
-            <span class="text-success mr-2">+10 %</span> Add Profile Summary
-          </span>
-        </div>
+
         <div class="completeness_bar_wrapper mt-3">
-          <div class="bg_danger"></div>
+          <div :style="{'width': getCompleteness + '%', 'background-color': getColor}"></div>
         </div>
       </div>
     </div>
 
     <div class="row mt-5 px-3">
-      <label class="col-md-12">Template</label>
-      <custom-drop-down class="col-md-5"></custom-drop-down>
+      <label class="col-xs-12 col-sm-12 col-md-12">Template</label>
+      <custom-drop-down class="col-xs-5 col-sm-5 col-md-5"></custom-drop-down>
     </div>
 
     <div class="row mt-5">
@@ -60,6 +56,10 @@
     </div>
 
     <div class="row mt-5">
+      <employment-history></employment-history>
+    </div>
+
+    <div class="row mt-5">
       <div style="width: 2px; height: 200px"></div>
     </div>
   </div>
@@ -72,6 +72,7 @@ import ProfessionalSummary from "./sections/ProfessionalSummary.vue";
 import SocialLinks from "./sections/SocialLinks.vue";
 import Skills from "./sections/Skills.vue";
 import Education from "./sections/Education.vue";
+import EmploymentHistory from "./sections/EmploymentHistory.vue";
 export default {
   methods: {
     selectTitle() {
@@ -79,7 +80,18 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getTitle"])
+    ...mapGetters(["getTitle", "getCompleteness"]),
+    getColor() {
+      if (this.getCompleteness < 30) {
+        return "red";
+      } else if (this.getCompleteness > 70) {
+        return "#60d13e";
+      } else if (this.getCompleteness > 50) {
+        return "#f4df41";
+      } else if (this.getCompleteness > 30) {
+        return "#f4b942";
+      }
+    }
   },
   components: {
     CustomDropDown,
@@ -87,7 +99,8 @@ export default {
     ProfessionalSummary,
     SocialLinks,
     Skills,
-    Education
+    Education,
+    EmploymentHistory
   }
 };
 </script>
@@ -170,6 +183,8 @@ export default {
 }
 
 .resume_completeness_section {
+  background: white;
+  z-index: 11;
   width: 100%;
 }
 
@@ -202,7 +217,6 @@ export default {
 
 .completeness_bar_wrapper div {
   height: 100%;
-  width: 10%;
 }
 
 /* .scrollable-menu {
