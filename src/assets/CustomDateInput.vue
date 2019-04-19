@@ -140,7 +140,7 @@ div {
 input {
   width: 100%;
   height: 100%;
-  background: #efefef;
+  background: rgba(151, 177, 219, 0.2);
   border: none;
   font-size: 1em;
   padding: 12px 15px;
@@ -179,7 +179,7 @@ div.pr-1 input:focus ~ div.after {
   position: absolute;
   top: calc(100% + 5px);
   width: 140%;
-  background: #eee;
+  background: rgba(181, 207, 249, 1);
   border-radius: 4px;
   box-shadow: 1px 2px 10px #aaa;
   overflow: hidden;

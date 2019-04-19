@@ -22,7 +22,7 @@ textarea {
   resize: none;
   position: relative;
   border: none;
-  background: #eee;
+  background: rgba(151, 177, 219, 0.2);
   padding: 12px 15px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -39,13 +39,15 @@ div.after {
   position: relative;
   left: 50%;
   top: 100%;
-  width: 0;
+  width: 1px;
   height: 2px;
   background: #4286f4;
+  opacity: 0;
   transition: width 0.3s, left 0.3s;
 }
 
 textarea:focus ~ div.after {
+  opacity: 1;
   width: 100%;
   left: 0;
 }

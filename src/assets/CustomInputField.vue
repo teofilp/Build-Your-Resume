@@ -26,7 +26,7 @@ div {
 input {
   width: 100%;
   height: 100%;
-  background: #efefef;
+  background: rgba(151, 177, 219, 0.2);
   border: none;
   font-size: 1em;
   padding: 12px 15px;

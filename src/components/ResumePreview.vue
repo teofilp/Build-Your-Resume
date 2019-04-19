@@ -1,6 +1,7 @@
 <template>
   <div id="preview_wrapper">
     <div id="resume_preview">
+      <resume></resume>
       <div class="resume_overlay">
         <i class="fas fa-eye"></i>
       </div>
@@ -27,7 +28,11 @@
   </div>
 </template>
 <script>
+import Resume from "./Resume.vue";
 export default {
+  components: {
+    Resume
+  },
   mounted() {
     let resume_preview = document.querySelector("#resume_preview");
     let resume_options = document.querySelector(".options");
@@ -48,22 +53,25 @@ export default {
   top: 0;
   height: 100%;
   width: 50%;
-  background: #aaa;
+  background: rgba(151, 177, 219, 1);
   overflow-y: auto;
 }
 
 #resume_preview {
   position: relative;
-  width: 60%;
+  width: 58%;
   left: 50%;
   top: 45%;
   transform: translate(-50%, -50%);
   background: white;
+  border-radius: 4px;
   box-shadow: 2px 2px 15px #222;
 }
 
 .resume_overlay {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
 }
@@ -115,7 +123,7 @@ export default {
 }
 
 .options li:hover div h2 {
-  background: #999;
+  background: rgba(45, 111, 216, 0.3);
   cursor: pointer;
 }
 

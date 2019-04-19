@@ -67,7 +67,7 @@ export default {
 <style scoped>
 .wrapper {
   z-index: 10;
-  background: #efefef;
+  background: rgba(151, 177, 219, 0.2);
   border-radius: 4px;
 }
 .wrapper h5 {
@@ -107,7 +107,7 @@ export default {
   position: absolute;
   left: 0;
   top: 100%;
-  background: #efefef;
+  background: rgba(181, 207, 249, 1);
   height: 0px;
   overflow: auto;
   transition: height 0.3s;
@@ -129,7 +129,7 @@ export default {
 }
 
 ul li.active {
-  color: #c1c1c1;
+  color: #fff;
 }
 
 .dropdown_options_wrapper::-webkit-scrollbar {

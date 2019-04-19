@@ -47,8 +47,8 @@ export default new Vuex.Store({
     },
     getCompleteness(state) {
       let completeness = 0;
-      // check personal details
 
+      // check personal details
       let personal_details = state.resume.personal_details;
 
       for (var atr in personal_details) {
@@ -61,7 +61,6 @@ export default new Vuex.Store({
 
       if (state.resume.links.length > 0)
         completeness += 15;
-
 
       if (state.resume.skills.length > 0)
         completeness += 15;

@@ -36,7 +36,7 @@
     </div>
 
     <div class="row mt-5">
-      <personal-details-section class="col-md-12"></personal-details-section>
+      <personal-details class="col-md-12"></personal-details>
     </div>
 
     <div class="row mt-3">
@@ -67,7 +67,7 @@
 <script>
 import { mapGetters } from "vuex";
 import CustomDropDown from "../assets/CustomDropDown.vue";
-import PersonalDetailsSection from "./sections/PersonalDetailsSection.vue";
+import PersonalDetails from "./sections/PersonalDetails.vue";
 import ProfessionalSummary from "./sections/ProfessionalSummary.vue";
 import SocialLinks from "./sections/SocialLinks.vue";
 import Skills from "./sections/Skills.vue";
@@ -95,7 +95,7 @@ export default {
   },
   components: {
     CustomDropDown,
-    PersonalDetailsSection,
+    PersonalDetails,
     ProfessionalSummary,
     SocialLinks,
     Skills,
@@ -166,7 +166,7 @@ export default {
   left: 50%;
   width: 0;
   height: 3px;
-  background: black;
+  background: rgb(66, 134, 244);
   transition: left 0.2s, width 0.2s;
 }
 #resume_title:hover ~ .rename_title {
@@ -217,6 +217,7 @@ export default {
 
 .completeness_bar_wrapper div {
   height: 100%;
+  transition: width 0.3s;
 }
 
 /* .scrollable-menu {
