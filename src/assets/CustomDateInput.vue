@@ -179,7 +179,7 @@ div.pr-1 input:focus ~ div.after {
   position: absolute;
   top: calc(100% + 5px);
   width: 140%;
-  background: rgba(181, 207, 249, 1);
+  background: white;
   border-radius: 4px;
   box-shadow: 1px 2px 10px #aaa;
   overflow: hidden;

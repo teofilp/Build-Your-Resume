@@ -1,11 +1,12 @@
 <template>
-  <div id="preview_wrapper">
+  <div id="preview_wrapper" :class="{active: activeClass}">
     <div id="resume_preview">
       <resume></resume>
-      <div class="resume_overlay">
+      <div class="resume_overlay" @click="enablePreview">
         <i class="fas fa-eye"></i>
       </div>
     </div>
+    <i class="far fa-times-circle disable_preview" v-if="activeClass" @click="disablePreview"></i>
     <ul class="options">
       <li>
         <div>
@@ -15,10 +16,10 @@
         </div>
       </li>
       <li>
-        <button class="download">Download</button>
+        <button class="download" @click="download">Download</button>
       </li>
-      <li>
-        <div>
+      <li class="preview_button">
+        <div @click="enablePreview">
           <h2>
             <i class="fas fa-eye"></i>Preview
           </h2>
@@ -29,16 +30,67 @@
 </template>
 <script>
 import Resume from "./Resume.vue";
+import { EventBus } from "../main.js";
+import * as jsPDF from "jspdf";
+import * as html2canvas from "html2canvas";
 export default {
+  data() {
+    return {
+      activeClass: false,
+      previewActive: false
+    };
+  },
   components: {
     Resume
   },
   mounted() {
-    let resume_preview = document.querySelector("#resume_preview");
-    let resume_options = document.querySelector(".options");
-    resume_preview.style.height = resume_preview.offsetWidth * 1.41 + "px";
-    resume_options.style.top =
-      resume_preview.offsetHeight / 2 + resume_preview.offsetTop + 30 + "px";
+    this.setInitialPositionAndDimensionsResumePreview();
+  },
+  methods: {
+    setInitialPositionAndDimensionsResumePreview() {
+      let resume_preview = document.querySelector("#resume_preview");
+      let resume_options = document.querySelector(".options");
+      resume_preview.style.height = resume_preview.offsetWidth * 1.41 + "px";
+    },
+    enablePreview() {
+      if (this.previewActive) return;
+
+      this.previewActive = true;
+      EventBus.$emit("previewUpdated", false);
+      this.activeClass = true;
+      this.previewActive = true;
+
+      let bodyWidth = document.body.offsetWidth;
+      let previewWidth = bodyWidth * 0.3;
+      let previewHeight = previewWidth * 1.41 + "px";
+
+      previewWidth += "px";
+
+      document.querySelector("#resume_preview").style.height = previewHeight;
+      document.querySelector("#resume_preview").style.width = previewWidth;
+
+      document.querySelector("#resume_preview").style.top =
+        (document.body.offsetHeight -
+          document.querySelector("#resume_preview").offsetHeight) /
+        2;
+    },
+    disablePreview() {
+      this.previewActive = false;
+      this.activeClass = false;
+      EventBus.$emit("previewUpdated", true);
+      this.setInitialPositionAndDimensionsResumePreview();
+    },
+    download() {
+      const filename = "your_resume.pdf";
+      const quality = 3;
+      html2canvas(document.querySelector("#root"), {
+        scale: quality
+      }).then(canvas => {
+        let pdf = new jsPDF("p", "mm", "a4");
+        pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 211, 298);
+        pdf.save(filename);
+      });
+    }
   }
 };
 </script>
@@ -55,6 +107,17 @@ export default {
   width: 50%;
   background: rgba(151, 177, 219, 1);
   overflow-y: auto;
+}
+
+#preview_wrapper.active {
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  user-select: none;
+}
+#preview_wrapper.active .resume_overlay {
+  display: none;
 }
 
 #resume_preview {
@@ -105,8 +168,12 @@ export default {
   width: 60%;
   height: 60px;
   left: 20%;
+  bottom: 2%;
 }
-
+#preview_wrapper.active .options {
+  width: 30%;
+  left: 35%;
+}
 .options li {
   display: table-cell;
   text-align: center;
@@ -116,7 +183,7 @@ export default {
 .options li div h2 {
   color: white;
   font-weight: 300;
-  font-size: 1em;
+  font-size: 1rem;
   border-radius: 12px;
   padding: 8px 8px;
   transition: background-color 0.3s;
@@ -129,7 +196,7 @@ export default {
 
 button.download {
   background: #2d6fd8;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   border: none;
   padding: 15px 30px;
   border-radius: 8px;
@@ -144,6 +211,28 @@ i {
 button.download:hover {
   cursor: pointer;
   background: rgb(25, 91, 196);
+}
+
+.disable_preview {
+  font-size: 3rem;
+  color: #ccc;
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  transition: color 0.3s;
+}
+.disable_preview:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+#preview_wrapper.active .preview_button {
+  opacity: 0;
+}
+
+#preview_wrapper.active .preview_button:hover,
+#preview_wrapper.active .preview_button:hover h2 {
+  cursor: default;
 }
 </style>
 

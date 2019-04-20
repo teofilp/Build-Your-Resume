@@ -67,7 +67,7 @@
           <div class="level_bar_wrapper">
             <div class="level_bar" style="width: 50%"></div>
           </div>
-          <h6 class="level_name">Intermidiate</h6>
+          <h6 class="level_name">Intermediate</h6>
         </div>
 
         <div class="skill_item mt-3">
@@ -103,7 +103,131 @@
       </div>
     </div>
 
-    <div id="relevant_info_panel"></div>
+    <div id="relevant_info_panel">
+      <div class="professional_summary">
+        <h2 class="title">Professional Summary</h2>
+        <p>
+          IT Professional with over 10 years of experience specializing in IT department management for international logistics
+          companies. I can implement effective IT strategies at local and global levels.
+        </p>
+      </div>
+
+      <div class="experience">
+        <h2 class="title">Experience</h2>
+
+        <!-- start of experience items -->
+        <!-- 1 -->
+        <div class="experience_item">
+          <div class="active_period">
+            <h2>2006-12 - 2009-11</h2>
+          </div>
+          <div class="description">
+            <h2 class="job_title">Software Engineer</h2>
+            <h4 class="employer">
+              <i>Microsoft</i>
+            </h4>
+            <p>
+              Loem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+            </p>
+          </div>
+        </div>
+        <!-- 2 -->
+        <div class="experience_item">
+          <div class="active_period">
+            <h2>2004-06 - 2006-12</h2>
+          </div>
+          <div class="description">
+            <h2 class="job_title">Junior Software Developer</h2>
+            <h4 class="employer">
+              <i>Instagram</i>
+            </h4>
+            <p>
+              Loem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua.
+            </p>
+          </div>
+        </div>
+        <!-- 3 -->
+        <div class="experience_item">
+          <div class="active_period">
+            <h2>2004-06 - 2006-12</h2>
+          </div>
+          <div class="description">
+            <h2 class="job_title">iOS Software Developer</h2>
+            <h4 class="employer">
+              <i>BytesForce</i>
+            </h4>
+            <p>
+              Loem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. dipiscing elit, sed do eiusmod tempor
+            </p>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- end of experience items -->
+      </div>
+
+      <div class="education">
+        <h2 class="title">Education</h2>
+        <!-- start of education items -->
+
+        <!-- 1 -->
+        <div class="education_item">
+          <div class="active_period">
+            <h2>2004-06 - 2006-12</h2>
+          </div>
+          <div class="description">
+            <h2 class="headline">
+              <b>Master of Computer Science, University of Maryland</b>
+            </h2>
+            <p>Loem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="education_item">
+          <div class="active_period">
+            <h2>2004-06 - 2006-12</h2>
+          </div>
+          <div class="description">
+            <h2 class="headline">
+              <b>Bachelor of Computer Science, University of Maryland</b>
+            </h2>
+            <p>Loem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </div>
+        </div>
+
+        <!-- end of education items -->
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="certifications">
+        <h2 class="title">Certifications</h2>
+        <!-- start of certicate items -->
+        <!-- 1 -->
+        <div class="certifcate_item">
+          <div class="active_period">
+            <h2>2010-05</h2>
+          </div>
+          <div class="description">
+            <p class="pt-2">PMP - Project Management Institute</p>
+          </div>
+        </div>
+        <!-- 2 -->
+        <div class="certifcate_item">
+          <div class="active_period">
+            <h2>2010-05</h2>
+          </div>
+          <div class="description">
+            <p class="pt-2">CAPM - Project Management Institute</p>
+          </div>
+        </div>
+
+        <!-- end of certificate items -->
+        <div class="clearfix"></div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -111,8 +235,9 @@ export default {};
 </script>
 <style scoped>
 #root {
-  --smurf-bg: #88ccff;
-  --smurf-dark-bg: #68beff;
+  --smurf-bg: #77abff;
+  --smurf-dark-bg: #5495ff;
+  font-size: 16px;
 }
 .wrapper {
   width: 100%;
@@ -135,49 +260,54 @@ a {
 
 #relevant_info_panel {
   position: absolute;
+  width: 70%;
+  height: 100%;
+  left: 30%;
+  top: 0;
 }
 
 .smurf #general_info_panel .head h2.name {
   font-weight: 600;
-  font-size: 1.4rem;
-  letter-spacing: 0.05rem;
-  padding: 0.5rem 0 0 0.5rem;
+  font-size: 1.4em;
+  letter-spacing: 0.05em;
+  padding: 0.5em 0 0 0.5em;
   color: white;
 }
 
 .smurf #general_info_panel .head h4.title {
   font-weight: 500;
   color: white;
-  font-size: 0.9rem;
-  padding: 0.3rem 0 0 0.5rem;
+  font-size: 0.9em;
+  padding: 0.3em 0 0 0.5em;
 }
 
 .smurf h2.head {
   color: white;
   width: 100%;
   font-weight: 500;
-  padding: 0.3rem 0 0.5rem 0.5rem;
+  font-size: 1em;
+  padding: 0.3em 0 0.5em 0.5em;
   background: var(--smurf-dark-bg);
 }
 
 .smurf #general_info_panel h5.title,
 .smurf #general_info_panel h6 {
   color: white;
-  font-size: 0.7rem;
+  font-size: 0.7em;
   font-weight: 400;
-  padding: 0.3rem 0 0 0.5rem;
+  padding: 0.3em 0 0 0.5em;
 }
 
 .smurf #general_info_panel .personal_info h6 {
-  padding-top: 0.1rem;
-  font-size: 0.7rem;
+  padding-top: 0.1em;
+  font-size: 0.7em;
 }
 
 .smurf .level_bar_wrapper {
-  width: calc(100% - 1rem);
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  height: 0.4rem;
+  width: calc(100% - 1em);
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  height: 0.4em;
   border-radius: 8px;
   overflow: hidden;
   background: var(--smurf-dark-bg);
@@ -191,7 +321,78 @@ a {
 
 .level_name {
   float: right;
-  margin-right: 0.5rem;
+  margin-right: 0.5em;
+}
+
+.smurf #relevant_info_panel h2.title {
+  font-size: 1em;
+  position: relative;
+  margin: 0.5em 0 0.5em 0.5em;
+  padding: 0.3em 0 0.3em 0;
+  width: calc(100% - 1em);
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  color: var(--smurf-dark-bg);
+}
+
+.smurf #relevant_info_panel .professional_summary h2.title {
+  display: none;
+}
+
+.smurf #relevant_info_panel .professional_summary p {
+  font-size: 0.7em;
+  padding: 0.7em 0.7em 0 0.7em;
+}
+.smurf .experience {
+  position: relative;
+  width: 100%;
+}
+
+.smurf #relevant_info_panel .experience {
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+.smurf #relevant_info_panel div .active_period {
+  position: relative;
+  overflow: hidden;
+  float: left;
+  width: 20%;
+  height: 100%;
+}
+
+.smurf #relevant_info_panel div .active_period h2 {
+  font-size: 0.65em;
+  padding: 0.8em;
+  padding-left: 0.8em;
+  line-height: 1.1em;
+  font-weight: 500;
+}
+
+.smurf #relevant_info_panel div .description {
+  position: relative;
+  width: 80%;
+  height: 100%;
+  float: left;
+}
+
+.smurf #relevant_info_panel div .description .job_title,
+.smurf #relevant_info_panel div .description .headline {
+  padding-left: 0.3em;
+  padding-top: 0.3em;
+  font-size: 0.7em;
+  font-weight: 700;
+}
+
+.smurf #relevant_info_panel div .description .employer {
+  padding-left: 0.3em;
+  font-size: 0.7em;
+}
+
+.smurf #relevant_info_panel div .description p {
+  padding: 0em 0.5em 0 0.3em;
+  font-size: 0.6em;
 }
 </style>
 
