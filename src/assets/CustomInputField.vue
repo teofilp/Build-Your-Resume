@@ -3,7 +3,7 @@
     <input
       :type="type"
       :placeholder="placeholder"
-      v-model="model[attr]"
+      v-model.lazy="model[attr]"
       @click="selectInputContent"
     >
     <div class="after"></div>

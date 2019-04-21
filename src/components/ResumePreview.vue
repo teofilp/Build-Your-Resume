@@ -8,7 +8,7 @@
     </div>
     <i class="far fa-times-circle disable_preview" v-if="activeClass" @click="disablePreview"></i>
     <ul class="options">
-      <li>
+      <li @click="saveResume">
         <div>
           <h2>
             <i class="fas fa-share"></i> Share
@@ -45,6 +45,11 @@ export default {
   },
   mounted() {
     this.setInitialPositionAndDimensionsResumePreview();
+    let instance = this;
+    window.addEventListener("resize", () => {
+      if (!instance._data.previewActive)
+        instance.setInitialPositionAndDimensionsResumePreview();
+    });
   },
   methods: {
     setInitialPositionAndDimensionsResumePreview() {
@@ -68,11 +73,6 @@ export default {
 
       document.querySelector("#resume_preview").style.height = previewHeight;
       document.querySelector("#resume_preview").style.width = previewWidth;
-
-      document.querySelector("#resume_preview").style.top =
-        (document.body.offsetHeight -
-          document.querySelector("#resume_preview").offsetHeight) /
-        2;
     },
     disablePreview() {
       this.previewActive = false;
@@ -90,6 +90,9 @@ export default {
         pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 211, 298);
         pdf.save(filename);
       });
+    },
+    saveResume() {
+      this.$store.dispatch("saveResume");
     }
   }
 };

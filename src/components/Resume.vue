@@ -2,236 +2,260 @@
   <div id="root" class="wrapper smurf">
     <div id="general_info_panel">
       <div class="head">
-        <h2 class="name">John Smith</h2>
-        <h4 class="title">IT Project Manager</h4>
+        <h2 class="name">{{getPersonalDetails.first_name + " " + getPersonalDetails.last_name}}</h2>
+        <h4 class="title">{{getPersonalDetails.job_title}}</h4>
       </div>
 
-      <div class="personal_info mt-3">
+      <div class="personal_info mt-3" v-if="isEmptyPersonalInfo">
         <h2 class="head">Personal info</h2>
 
-        <div class="mt-2">
+        <div class="mt-2" v-if="getAddress != ''">
           <h5 class="title">
             <b>Address</b>
           </h5>
-          <h6>
-            134 Rightward Way
-            <br>Portland, ME, 04019
-          </h6>
+          <h6>{{getAddress}}</h6>
         </div>
 
-        <div class="mt-2">
+        <div class="mt-2" v-if="getPersonalDetails.phone_number != ''">
           <h5 class="title">
             <b>Phone</b>
           </h5>
-          <h6>774-987-4009</h6>
+          <h6>{{getPhoneNumber}}</h6>
         </div>
 
-        <div class="mt-2">
+        <div class="mt-2" v-if="getPersonalDetails.email != ''">
           <h5 class="title">
             <b>E-mail</b>
           </h5>
-          <h6>j.smith@uptowork.com</h6>
+          <h6>{{getPersonalDetails.email}}</h6>
         </div>
 
-        <div class="mt-2">
-          <h5 class="title">
-            <b>LinkedIn</b>
-          </h5>
-          <h6>
-            <a href="#">linkedIn.com/johnutw</a>
-          </h6>
+        <div class="links" v-if="getLinks.length">
+          <div class="mt-2" v-for="(link, index) in getImportantLinks" :key="index">
+            <h5 class="title">
+              <b>{{link.label}}</b>
+            </h5>
+            <h6>
+              <a :href="link.link" target="_blank">{{link.link}}</a>
+            </h6>
+          </div>
         </div>
       </div>
 
-      <div class="skills mt-3">
+      <div class="skills mt-3" v-if="getImportantSkills.length">
         <h2 class="head">Skills</h2>
 
-        <div class="skill_item">
-          <h5 class="title">C#</h5>
+        <div
+          class="skill_item"
+          :class="{'mt-3': index!=0}"
+          v-for="(skill, index) in getImportantSkills"
+          :key="index"
+        >
+          <h5 class="title">{{skill.name}}</h5>
           <div class="level_bar_wrapper">
-            <div class="level_bar" style="width: 75%"></div>
+            <div class="level_bar" :style="{'width': skillLevel[skill.level]}"></div>
           </div>
-          <h6 class="level_name">Advanced</h6>
+          <h6 class="level_name">{{skill.level | capitalize}}</h6>
         </div>
 
-        <div class="skill_item mt-3">
-          <h5 class="title">Java</h5>
-          <div class="level_bar_wrapper">
-            <div class="level_bar" style="width: 25%"></div>
-          </div>
-          <h6 class="level_name">Beginner</h6>
-        </div>
-
-        <div class="skill_item mt-3">
-          <h5 class="title">MongoDB</h5>
-          <div class="level_bar_wrapper">
-            <div class="level_bar" style="width: 50%"></div>
-          </div>
-          <h6 class="level_name">Intermediate</h6>
-        </div>
-
-        <div class="skill_item mt-3">
-          <h5 class="title">UNIX</h5>
-          <div class="level_bar_wrapper">
-            <div class="level_bar" style="width: 100%"></div>
-          </div>
-          <h6 class="level_name">Master</h6>
-        </div>
-
-        <!-- end of skill list -->
         <div class="clearfix"></div>
       </div>
 
-      <div class="languages mt-2">
+      <div class="languages mt-2" v-if="getLanguages.length">
         <h2 class="head">Languages</h2>
 
-        <div class="language_item mt-3">
-          <h5 class="title">English</h5>
+        <div
+          class="language_item mt-3"
+          v-for="(language, index) in 
+        getRelevantLanguages"
+          :key="index"
+        >
+          <h5 class="title">{{language.language}}</h5>
           <div class="level_bar_wrapper">
-            <div class="level_bar" style="width: 100%"></div>
+            <div class="level_bar" :style="{'width': skillLevel[language.level]}"></div>
           </div>
-          <h6 class="level_name">Master</h6>
-        </div>
-
-        <div class="language_item mt-3">
-          <h5 class="title">French</h5>
-          <div class="level_bar_wrapper">
-            <div class="level_bar" style="width: 50%"></div>
-          </div>
-          <h6 class="level_name">Intermediate</h6>
+          <h6 class="level_name">{{language.level | capitalize}}</h6>
         </div>
       </div>
     </div>
 
     <div id="relevant_info_panel">
-      <div class="professional_summary">
+      <div class="professional_summary" v-if="getProfessionalSummary.length">
         <h2 class="title">Professional Summary</h2>
-        <p>
-          IT Professional with over 10 years of experience specializing in IT department management for international logistics
-          companies. I can implement effective IT strategies at local and global levels.
-        </p>
+        <p>{{getProfessionalSummary}}</p>
       </div>
 
-      <div class="experience">
+      <div class="experience" v-if="getRelevantExperience.length">
         <h2 class="title">Experience</h2>
 
         <!-- start of experience items -->
         <!-- 1 -->
-        <div class="experience_item">
+        <div
+          class="experience_item"
+          v-for="(item, index) in 
+        getRelevantExperience"
+          :key="index"
+        >
           <div class="active_period">
-            <h2>2006-12 - 2009-11</h2>
+            <h2>
+              {{item.date.start.month + ", " +
+              item.date.start.year}} - {{
+              item.date.end.month + ", " +
+              item.date.end.year
+              }}
+            </h2>
           </div>
           <div class="description">
-            <h2 class="job_title">Software Engineer</h2>
+            <h2 class="job_title">{{item.title}}</h2>
             <h4 class="employer">
-              <i>Microsoft</i>
+              <i>{{item.employer}}</i>
             </h4>
-            <p>
-              Loem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-            </p>
+            <p>{{item.description}}</p>
           </div>
         </div>
-        <!-- 2 -->
-        <div class="experience_item">
-          <div class="active_period">
-            <h2>2004-06 - 2006-12</h2>
-          </div>
-          <div class="description">
-            <h2 class="job_title">Junior Software Developer</h2>
-            <h4 class="employer">
-              <i>Instagram</i>
-            </h4>
-            <p>
-              Loem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua.
-            </p>
-          </div>
-        </div>
-        <!-- 3 -->
-        <div class="experience_item">
-          <div class="active_period">
-            <h2>2004-06 - 2006-12</h2>
-          </div>
-          <div class="description">
-            <h2 class="job_title">iOS Software Developer</h2>
-            <h4 class="employer">
-              <i>BytesForce</i>
-            </h4>
-            <p>
-              Loem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. dipiscing elit, sed do eiusmod tempor
-            </p>
-          </div>
-        </div>
+
         <div class="clearfix"></div>
-        <!-- end of experience items -->
       </div>
 
-      <div class="education">
+      <div class="education" v-if="getRelevantEducation.length">
         <h2 class="title">Education</h2>
-        <!-- start of education items -->
 
-        <!-- 1 -->
-        <div class="education_item">
+        <div
+          class="education_item"
+          v-for="(item, index) in 
+        getRelevantEducation"
+          :key="index"
+        >
           <div class="active_period">
-            <h2>2004-06 - 2006-12</h2>
+            <h2>
+              {{item.date.start.month + ", " +
+              item.date.start.year}} - {{
+              item.date.end.month + ", " +
+              item.date.end.year
+              }}
+            </h2>
           </div>
           <div class="description">
             <h2 class="headline">
-              <b>Master of Computer Science, University of Maryland</b>
+              <b>{{item.degree}}, {{item.institute}}</b>
             </h2>
-            <p>Loem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p>{{item.description}}</p>
           </div>
         </div>
 
-        <!-- 2 -->
-        <div class="education_item">
-          <div class="active_period">
-            <h2>2004-06 - 2006-12</h2>
-          </div>
-          <div class="description">
-            <h2 class="headline">
-              <b>Bachelor of Computer Science, University of Maryland</b>
-            </h2>
-            <p>Loem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-
-        <!-- end of education items -->
         <div class="clearfix"></div>
       </div>
 
-      <div class="certifications">
-        <h2 class="title">Certifications</h2>
-        <!-- start of certicate items -->
-        <!-- 1 -->
-        <div class="certifcate_item">
-          <div class="active_period">
-            <h2>2010-05</h2>
-          </div>
-          <div class="description">
-            <p class="pt-2">PMP - Project Management Institute</p>
-          </div>
-        </div>
-        <!-- 2 -->
-        <div class="certifcate_item">
-          <div class="active_period">
-            <h2>2010-05</h2>
-          </div>
-          <div class="description">
-            <p class="pt-2">CAPM - Project Management Institute</p>
-          </div>
-        </div>
+      <div class="courses" v-if="getRelevantCourses.length">
+        <h2 class="title">Courses</h2>
 
-        <!-- end of certificate items -->
-        <div class="clearfix"></div>
+        <div class="course-item" v-for="(course, index) in getRelevantCourses" :key="index">
+          <div class="active_period">
+            <h2>
+              {{course.date.start.month + ", " +
+              course.date.start.year}} - {{
+              course.date.end.month + ", " +
+              course.date.end.year
+              }}
+            </h2>
+          </div>
+          <div class="description">
+            <p class="pt-2">
+              <i>{{course.name}}</i>
+              at {{course.institute}}
+            </p>
+          </div>
+          <div class="clearfix"></div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+import { mapGetters } from "vuex";
+
+export default {
+  data() {
+    return {
+      skillLevel: {
+        beginner: "25%",
+        novice: "50%",
+        experienced: "75%",
+        expert: "100%"
+      }
+    };
+  },
+  computed: {
+    ...mapGetters([
+      "getPersonalDetails",
+      "getLinks",
+      "getSkills",
+      "getLanguages",
+      "getProfessionalSummary",
+      "getEmploymentHistory",
+      "getEducation",
+      "getCourses"
+    ]),
+    getAddress() {
+      let address = this.getPersonalDetails.address
+        ? this.getPersonalDetails.address
+        : "";
+      let city = this.getPersonalDetails.city
+        ? "\n " + this.getPersonalDetails.city
+        : "";
+      let country = this.getPersonalDetails.country
+        ? ", " + this.getPersonalDetails.country
+        : "";
+      let postalCode = this.getPersonalDetails.postal_code
+        ? ", " + this.getPersonalDetails.postal_code
+        : "";
+
+      return address + city + country + postalCode;
+    },
+    getPhoneNumber() {
+      let phoneNumber = this.getPersonalDetails.phone_number;
+      let result = "";
+      if (phoneNumber.length >= 10) {
+        result += "(" + phoneNumber.slice(0, 4) + ") ";
+        result += phoneNumber.slice(4, 7) + " ";
+        result += phoneNumber.slice(7, phoneNumber.length);
+      }
+
+      return result;
+    },
+    getImportantLinks() {
+      if (this.getLinks.length === 1) return this.getLinks;
+      else return this.getLinks.slice(0, 2);
+    },
+    getImportantSkills() {
+      if (this.getSkills.length <= 3) return this.getSkills;
+      else return this.getSkills.slice(0, 3);
+    },
+    getRelevantLanguages() {
+      if (this.getLanguages <= 3) return this.getLanguages;
+      else return this.getLanguages.slice(0, 3);
+    },
+    getRelevantExperience() {
+      if (this.getEmploymentHistory.length <= 3)
+        return this.getEmploymentHistory;
+      else return this.getEmploymentHistory.slice(0, 3);
+    },
+    getRelevantEducation() {
+      if (this.getEducation.length <= 2) return this.getEducation;
+      else return this.getEducation.slice(0, 2);
+    },
+    getRelevantCourses() {
+      if (this.getCourses.length <= 3) return this.getCourses;
+      else return this.getCourses.slice(0, 3);
+    },
+    isEmptyPersonalInfo() {
+      let pd = this.getPersonalDetails;
+      if (pd.email === "" && pd.phone_number === "" && this.getAddress === "")
+        return false;
+      return true;
+    }
+  }
+};
 </script>
 <style scoped>
 #root {
@@ -268,46 +292,46 @@ a {
 
 .smurf #general_info_panel .head h2.name {
   font-weight: 600;
-  font-size: 1.4em;
-  letter-spacing: 0.05em;
-  padding: 0.5em 0 0 0.5em;
+  font-size: 1.4rem;
+  letter-spacing: 0.05rem;
+  padding: 0.5em 0 0 0.5rem;
   color: white;
 }
 
 .smurf #general_info_panel .head h4.title {
   font-weight: 500;
   color: white;
-  font-size: 0.9em;
-  padding: 0.3em 0 0 0.5em;
+  font-size: 0.8rem;
+  padding: 0.3em 0 0 0.5rem;
 }
 
 .smurf h2.head {
   color: white;
   width: 100%;
   font-weight: 500;
-  font-size: 1em;
-  padding: 0.3em 0 0.5em 0.5em;
+  font-size: 1rem;
+  padding: 0.3em 0 0.5em 0.5rem;
   background: var(--smurf-dark-bg);
 }
 
 .smurf #general_info_panel h5.title,
 .smurf #general_info_panel h6 {
   color: white;
-  font-size: 0.7em;
+  font-size: 0.7rem;
   font-weight: 400;
-  padding: 0.3em 0 0 0.5em;
+  padding: 0.3em 0 0 0.5rem;
 }
 
 .smurf #general_info_panel .personal_info h6 {
-  padding-top: 0.1em;
-  font-size: 0.7em;
+  padding-top: 0.1rem;
+  font-size: 0.7rem;
 }
 
 .smurf .level_bar_wrapper {
   width: calc(100% - 1em);
-  margin-left: 0.5em;
-  margin-right: 0.5em;
-  height: 0.4em;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  height: 0.4rem;
   border-radius: 8px;
   overflow: hidden;
   background: var(--smurf-dark-bg);
@@ -321,13 +345,13 @@ a {
 
 .level_name {
   float: right;
-  margin-right: 0.5em;
+  margin-right: 0.5rem;
 }
 
 .smurf #relevant_info_panel h2.title {
-  font-size: 1em;
+  font-size: 1rem;
   position: relative;
-  margin: 0.5em 0 0.5em 0.5em;
+  margin: 0.5em 0 0.5em 0.5rem;
   padding: 0.3em 0 0.3em 0;
   width: calc(100% - 1em);
   border-top: 1px solid #eee;
@@ -340,8 +364,8 @@ a {
 }
 
 .smurf #relevant_info_panel .professional_summary p {
-  font-size: 0.7em;
-  padding: 0.7em 0.7em 0 0.7em;
+  font-size: 0.7rem;
+  padding: 0.7em 0.7em 0 0.7rem;
 }
 .smurf .experience {
   position: relative;
@@ -363,10 +387,10 @@ a {
 }
 
 .smurf #relevant_info_panel div .active_period h2 {
-  font-size: 0.65em;
-  padding: 0.8em;
-  padding-left: 0.8em;
-  line-height: 1.1em;
+  font-size: 0.65rem;
+  padding: 0.3rem;
+  padding-left: 0.6rem;
+  line-height: 1.1rem;
   font-weight: 500;
 }
 
@@ -379,20 +403,20 @@ a {
 
 .smurf #relevant_info_panel div .description .job_title,
 .smurf #relevant_info_panel div .description .headline {
-  padding-left: 0.3em;
-  padding-top: 0.3em;
-  font-size: 0.7em;
+  padding-left: 0.3rem;
+  padding-top: 0.3rem;
+  font-size: 0.7rem;
   font-weight: 700;
 }
 
 .smurf #relevant_info_panel div .description .employer {
-  padding-left: 0.3em;
-  font-size: 0.7em;
+  padding-left: 0.3rem;
+  font-size: 0.7rem;
 }
 
 .smurf #relevant_info_panel div .description p {
-  padding: 0em 0.5em 0 0.3em;
-  font-size: 0.6em;
+  padding: 0em 0.5em 0 0.3rem;
+  font-size: 0.6rem;
 }
 </style>
 

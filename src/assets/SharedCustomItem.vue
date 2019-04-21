@@ -18,15 +18,15 @@
           <custom-date-input :placeholder="'Mar, 2019'" :date="model.date" class="col-md-12"></custom-date-input>
         </div>
       </div>
-      <div class="col-md-5 offset-md-2" style="padding: 0">
+      <div class="col-md-5 offset-md-2" style="padding: 0" v-if="cityVisible === undefined">
         <label for class="col-md-12 label">City</label>
         <custom-input-field class="col-md-12" :model="model" :attr="'city'" :label="'City'"></custom-input-field>
       </div>
     </div>
 
-    <div class="row my-4">
+    <div class="row my-4" v-if="descriptionVisible === undefined">
       <label class="col-md-12">Description</label>
-      <textarea class="col-md-12" rows="5"></textarea>
+      <textarea class="col-md-12" rows="5" :value="model.description" @input="updateDescription"></textarea>
       <div class="after"></div>
     </div>
   </div>
@@ -36,10 +36,24 @@
 import CustomInputField from "./CustomInputField.vue";
 import CustomDateInput from "./CustomDateInput.vue";
 export default {
-  props: ["model", "attr1", "attr2", "label1", "label2"],
+  props: [
+    "model",
+    "attr1",
+    "attr2",
+    "label1",
+    "label2",
+    "cityVisible",
+    "descriptionVisible"
+  ],
   components: {
     CustomInputField,
     CustomDateInput
+  },
+
+  methods: {
+    updateDescription(ev) {
+      this.model.description = ev.target.value;
+    }
   }
 };
 </script>

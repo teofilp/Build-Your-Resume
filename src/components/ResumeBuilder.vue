@@ -60,6 +60,14 @@
     </div>
 
     <div class="row mt-5">
+      <languages></languages>
+    </div>
+
+    <div class="row mt-5">
+      <courses></courses>
+    </div>
+
+    <div class="row mt-5">
       <div style="width: 2px; height: 200px"></div>
     </div>
   </div>
@@ -73,6 +81,8 @@ import SocialLinks from "./sections/SocialLinks.vue";
 import Skills from "./sections/Skills.vue";
 import Education from "./sections/Education.vue";
 import EmploymentHistory from "./sections/EmploymentHistory.vue";
+import Languages from "./sections/Languages.vue";
+import Courses from "./sections/Courses.vue";
 export default {
   methods: {
     selectTitle() {
@@ -100,7 +110,9 @@ export default {
     SocialLinks,
     Skills,
     Education,
-    EmploymentHistory
+    EmploymentHistory,
+    Languages,
+    Courses
   }
 };
 </script>

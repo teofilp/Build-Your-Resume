@@ -29,6 +29,8 @@ export default {
     EventBus.$on("previewUpdated", isActive => {
       instance._data.activeBuilder = isActive;
     });
+
+    this.$store.dispatch("loadResume");
   }
 };
 </script>

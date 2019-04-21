@@ -9,13 +9,25 @@
         placeholder="e.g. Passionate science teacher with 8+ years of experience and a track record of ..."
         class="col-md-12"
         rows="5"
+        :value="getProfessionalSummary"
+        @input="updateProfessionalSummary"
       ></textarea>
       <div class="after"></div>
     </div>
   </div>
 </template>
 <script>
-export default {};
+import { mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters(["getProfessionalSummary"])
+  },
+  methods: {
+    updateProfessionalSummary(ev) {
+      this.$store.commit("updateProfessionalSummary", ev.target.value);
+    }
+  }
+};
 </script>
 <style scoped>
 textarea {

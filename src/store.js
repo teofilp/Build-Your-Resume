@@ -26,10 +26,15 @@ export default new Vuex.Store({
       links: [],
       skills: [],
       education: [],
-      employmentHistory: []
+      employmentHistory: [],
+      languages: [],
+      courses: []
     }
   },
   getters: {
+    getPersonalDetails(state) {
+      return state.resume.personal_details;
+    },
     getTitle(state) {
       return state.resume.title;
     },
@@ -39,11 +44,20 @@ export default new Vuex.Store({
     getSkills(state) {
       return state.resume.skills;
     },
+    getProfessionalSummary(state) {
+      return state.resume.professionalSummary;
+    },
     getEducation(state) {
       return state.resume.education;
     },
     getEmploymentHistory(state) {
       return state.resume.employmentHistory;
+    },
+    getLanguages(state) {
+      return state.resume.languages;
+    },
+    getCourses(state) {
+      return state.resume.courses;
     },
     getCompleteness(state) {
       let completeness = 0;
@@ -103,7 +117,7 @@ export default new Vuex.Store({
     },
     addEducation(state) {
       state.resume.education.push({
-        school: "(Not specified)", degree: '(Not specified)', date: {
+        institute: "(Not specified)", degree: '(Not specified)', date: {
           start: {
             month: 'Mar',
             year: 2019
@@ -139,7 +153,55 @@ export default new Vuex.Store({
     deleteEmploymentItem(state, employmentItem) {
       let employmentIndex = state.resume.employmentHistory.indexOf(employmentItem);
       state.resume.employmentHistory.splice(employmentIndex, 1);
+    },
+    addLanguage(state) {
+      state.resume.languages.push({ language: '(Not Specified)', level: 'beginner', expanded: true });
+    },
+    deleteLanguage(state, language) {
+      let languageIndex = state.resume.languages.indexOf(language);
+      state.resume.languages.splice(languageIndex, 1);
+    },
+    updateProfessionalSummary(state, value) {
+      state.resume.professionalSummary = value;
+    },
+    addCourse(state) {
+      state.resume.courses.push({
+        name: '(Not Specified)',
+        institute: '(Not Specified)',
+        date: {
+          start: {
+            year: 2019,
+            month: 'Apr'
+          },
+          end: {
+            year: 2019,
+            month: 'Apr'
+          }
+        },
+        expanded: true
+      });
+    },
+    deleteCourse(state, course) {
+      let courseIndex = state.resume.courses.indexOf(course);
+      state.resume.courses.splice(courseIndex, 1);
     }
   },
-  actions: {}
+  actions: {
+    saveResume({ state, commit }) {
+
+      let resume = JSON.parse(JSON.stringify(state.resume));
+      commit('hide', resume.skills);
+      commit('hide', resume.education);
+      commit('hide', resume.links);
+      commit('hide', resume.employmentHistory);
+      commit('hide', resume.languages);
+      commit('hide', resume.courses);
+
+      localStorage.setItem('resume', JSON.stringify(resume));
+    },
+    loadResume({ state }) {
+
+      state.resume = JSON.parse(localStorage.getItem('resume'));
+    }
+  }
 })

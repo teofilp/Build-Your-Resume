@@ -27,15 +27,8 @@
 export default {
   data() {
     return {
-      options: [
-        "Stockholm",
-        "Barcelona",
-        "Madrid",
-        "Milano",
-        "Moscow",
-        "New York"
-      ],
-      active_option: "Stockholm",
+      options: ["Smurf", "Barcelona", "Madrid", "Milano", "Moscow", "New York"],
+      active_option: "Smurf",
       isActive: false
     };
   },
