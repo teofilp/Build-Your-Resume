@@ -219,7 +219,7 @@ export default {
       let result = "";
       if (phoneNumber.length >= 10) {
         result += "(" + phoneNumber.slice(0, 4) + ") ";
-        result += phoneNumber.slice(4, 7) + " ";
+        result += phoneNumber.slice(4, 7) + "-";
         result += phoneNumber.slice(7, phoneNumber.length);
       }
 
@@ -479,7 +479,7 @@ a {
 .gunpowder #general_info_panel h2.head,
 .gunpowder #relevant_info_panel h2.title {
   color: var(--gunpowder-dark-bg);
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--gunpowder-dark-bg);
   padding-bottom: 0.2rem;
   font-weight: 700;
   font-size: 0.9rem;

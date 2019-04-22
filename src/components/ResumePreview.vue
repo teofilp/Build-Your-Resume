@@ -45,34 +45,25 @@ export default {
   },
   mounted() {
     this.setInitialPositionAndDimensionsResumePreview();
-    let instance = this;
-    window.addEventListener("resize", () => {
-      if (!instance._data.previewActive)
-        instance.setInitialPositionAndDimensionsResumePreview();
-      else instance.positionPreview();
-    });
   },
   methods: {
     setInitialPositionAndDimensionsResumePreview() {
       let resume_preview = document.querySelector("#resume_preview");
-      let resume_options = document.querySelector(".options");
-      resume_preview.style.height = resume_preview.offsetWidth * 1.41 + "px";
-      console.log(resume_preview.offsetWidth, resume_preview.offsetHeight);
-      if (resume_preview.classList.contains("active"))
-        resume_preview.classList.remove("active");
+      this.resizeToA4(resume_preview, "85%");
     },
     enablePreview() {
       if (this.previewActive) return;
 
       this.previewActive = true;
       EventBus.$emit("previewUpdated", false);
+
       this.activeClass = true;
       this.previewActive = true;
-
-      this.positionPreview();
     },
-    positionPreview() {
-      document.querySelector("#resume_preview").classList.add("active");
+
+    resizeToA4(el, heightSize) {
+      el.style.height = heightSize;
+      el.style.width = el.offsetHeight * 0.71 + "px";
     },
     disablePreview() {
       this.previewActive = false;
@@ -126,7 +117,6 @@ export default {
 
 #resume_preview {
   position: relative;
-  width: 58%;
   left: 50%;
   top: 45%;
   transform: translate(-50%, -50%);
@@ -134,9 +124,7 @@ export default {
   border-radius: 4px;
   box-shadow: 2px 2px 15px #222;
 }
-#resume_preview.active {
-  width: 30%;
-}
+
 .resume_overlay {
   position: absolute;
   z-index: 10000;
