@@ -49,6 +49,7 @@ export default {
     window.addEventListener("resize", () => {
       if (!instance._data.previewActive)
         instance.setInitialPositionAndDimensionsResumePreview();
+      else instance.positionPreview();
     });
   },
   methods: {
@@ -56,6 +57,9 @@ export default {
       let resume_preview = document.querySelector("#resume_preview");
       let resume_options = document.querySelector(".options");
       resume_preview.style.height = resume_preview.offsetWidth * 1.41 + "px";
+      console.log(resume_preview.offsetWidth, resume_preview.offsetHeight);
+      if (resume_preview.classList.contains("active"))
+        resume_preview.classList.remove("active");
     },
     enablePreview() {
       if (this.previewActive) return;
@@ -65,14 +69,10 @@ export default {
       this.activeClass = true;
       this.previewActive = true;
 
-      let bodyWidth = document.body.offsetWidth;
-      let previewWidth = bodyWidth * 0.3;
-      let previewHeight = previewWidth * 1.41 + "px";
-
-      previewWidth += "px";
-
-      document.querySelector("#resume_preview").style.height = previewHeight;
-      document.querySelector("#resume_preview").style.width = previewWidth;
+      this.positionPreview();
+    },
+    positionPreview() {
+      document.querySelector("#resume_preview").classList.add("active");
     },
     disablePreview() {
       this.previewActive = false;
@@ -101,6 +101,7 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 * {
   font-family: "Open Sans", sans-serif;
+  font-weight: 400;
 }
 #preview_wrapper {
   position: fixed;
@@ -133,15 +134,17 @@ export default {
   border-radius: 4px;
   box-shadow: 2px 2px 15px #222;
 }
-
+#resume_preview.active {
+  width: 30%;
+}
 .resume_overlay {
   position: absolute;
+  z-index: 10000;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
 }
-
 .resume_overlay:hover {
   cursor: pointer;
 }
@@ -236,6 +239,17 @@ button.download:hover {
 #preview_wrapper.active .preview_button:hover,
 #preview_wrapper.active .preview_button:hover h2 {
   cursor: default;
+}
+@media only screen and (max-width: 1725px) {
+  #resume_preview {
+    width: 65%;
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  #resume_preview {
+    width: 70%;
+  }
 }
 </style>
 

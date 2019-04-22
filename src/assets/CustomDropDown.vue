@@ -1,9 +1,9 @@
 <template>
   <div class="dropdown_wrapper wrapper" @click="toggleDropDown">
     <div class="row">
-      <h5 class="col-xs-8 col-sm-8 col-md-8">{{ active_option }}</h5>
+      <h5 class="col-xs-8 col-sm-8 col-md-8">{{getActiveTheme | capitalize }}</h5>
       <i
-        class="fas col-xs-2 col-sm-2 col-md-2 offset-xs-2 offset-sm-2 offset-md-2 mt-3"
+        class="fas col-xs-3 col-sm-3 col-md-3 offset-xs-1 offset-sm-1 offset-md-1 mt-3"
         :class="{'fa-chevron-up': isActive, 'fa-chevron-down': !isActive}"
       ></i>
       <div class="wrapper_after" :class="{'active': isActive}"></div>
@@ -11,12 +11,12 @@
         <ul id="dropdown-ul">
           <li
             class="li-item"
-            v-for="(option, index) in options"
+            v-for="(option, index) in getThemes"
             :key="index"
-            :class="{'active': option === active_option}"
+            :class="{'active': option === getActiveTheme}"
             @click="updateActiveOption(option)"
           >
-            <h5 class="li-item">{{ option }}</h5>
+            <h5 class="li-item">{{ option | capitalize }}</h5>
           </li>
         </ul>
       </div>
@@ -24,11 +24,10 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      options: ["Smurf", "Barcelona", "Madrid", "Milano", "Moscow", "New York"],
-      active_option: "Smurf",
       isActive: false
     };
   },
@@ -37,8 +36,11 @@ export default {
       this.isActive = !this.isActive;
     },
     updateActiveOption(option) {
-      this.active_option = option;
+      this.$store.state.activeTheme = option.toLowerCase();
     }
+  },
+  computed: {
+    ...mapGetters(["getThemes", "getActiveTheme"])
   },
   mounted() {
     let vueInstance = this;
@@ -65,13 +67,14 @@ export default {
 }
 .wrapper h5 {
   font-size: 1em;
-  padding: 12px 15px;
+  padding: 0.8em 0.5em;
   height: 100%;
   margin: 0;
 }
 .wrapper i {
-  font-size: 1em;
+  font-size: 0.9em;
   transition: transform 0.3s;
+  text-align: right;
 }
 
 .wrapper i.active {

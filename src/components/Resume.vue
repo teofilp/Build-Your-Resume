@@ -1,5 +1,6 @@
 <template>
-  <div id="root" class="wrapper smurf">
+  <div id="root" class="wrapper" :class="getActiveTheme">
+    <div class="aux"></div>
     <div id="general_info_panel">
       <div class="head">
         <h2 class="name">{{getPersonalDetails.first_name + " " + getPersonalDetails.last_name}}</h2>
@@ -31,7 +32,7 @@
         </div>
 
         <div class="links" v-if="getLinks.length">
-          <div class="mt-2" v-for="(link, index) in getImportantLinks" :key="index">
+          <div class="mt-2" v-for="(link, index) in getRelevantLinks" :key="index">
             <h5 class="title">
               <b>{{link.label}}</b>
             </h5>
@@ -42,13 +43,13 @@
         </div>
       </div>
 
-      <div class="skills mt-3" v-if="getImportantSkills.length">
+      <div class="skills mt-3" v-if="getRelevantSkills.length">
         <h2 class="head">Skills</h2>
 
         <div
           class="skill_item"
           :class="{'mt-3': index!=0}"
-          v-for="(skill, index) in getImportantSkills"
+          v-for="(skill, index) in getRelevantSkills"
           :key="index"
         >
           <h5 class="title">{{skill.name}}</h5>
@@ -194,7 +195,8 @@ export default {
       "getProfessionalSummary",
       "getEmploymentHistory",
       "getEducation",
-      "getCourses"
+      "getCourses",
+      "getActiveTheme"
     ]),
     getAddress() {
       let address = this.getPersonalDetails.address
@@ -223,11 +225,11 @@ export default {
 
       return result;
     },
-    getImportantLinks() {
+    getRelevantLinks() {
       if (this.getLinks.length === 1) return this.getLinks;
       else return this.getLinks.slice(0, 2);
     },
-    getImportantSkills() {
+    getRelevantSkills() {
       if (this.getSkills.length <= 3) return this.getSkills;
       else return this.getSkills.slice(0, 3);
     },
@@ -261,11 +263,14 @@ export default {
 #root {
   --smurf-bg: #77abff;
   --smurf-dark-bg: #5495ff;
+  --gunpowder-bg: #4a4a4a;
+  --gunpowder-dark-bg: #393939;
   font-size: 16px;
 }
 .wrapper {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .wrapper.smurf #general_info_panel {
@@ -322,18 +327,21 @@ a {
   padding: 0.3em 0 0 0.5rem;
 }
 
-.smurf #general_info_panel .personal_info h6 {
+#general_info_panel .personal_info h6 {
   padding-top: 0.1rem;
   font-size: 0.7rem;
 }
 
-.smurf .level_bar_wrapper {
+.level_bar_wrapper {
   width: calc(100% - 1em);
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   height: 0.4rem;
   border-radius: 8px;
   overflow: hidden;
+}
+
+.smurf .level_bar_wrapper {
   background: var(--smurf-dark-bg);
 }
 
@@ -346,6 +354,7 @@ a {
 .level_name {
   float: right;
   margin-right: 0.5rem;
+  margin-top: 0.2rem;
 }
 
 .smurf #relevant_info_panel h2.title {
@@ -378,6 +387,7 @@ a {
   position: relative;
 }
 
+.gunpowder #relevant_info_panel div .active_period,
 .smurf #relevant_info_panel div .active_period {
   position: relative;
   overflow: hidden;
@@ -386,6 +396,7 @@ a {
   height: 100%;
 }
 
+.gunpowder #relevant_info_panel div .active_period h2,
 .smurf #relevant_info_panel div .active_period h2 {
   font-size: 0.65rem;
   padding: 0.3rem;
@@ -394,6 +405,7 @@ a {
   font-weight: 500;
 }
 
+.gunpowder #relevant_info_panel div .description,
 .smurf #relevant_info_panel div .description {
   position: relative;
   width: 80%;
@@ -402,21 +414,119 @@ a {
 }
 
 .smurf #relevant_info_panel div .description .job_title,
-.smurf #relevant_info_panel div .description .headline {
+.smurf #relevant_info_panel div .description .headline,
+.gunpowder #relevant_info_panel div .description .job_title,
+.gunpowder #relevant_info_panel div .description .headline {
   padding-left: 0.3rem;
   padding-top: 0.3rem;
   font-size: 0.7rem;
   font-weight: 700;
 }
 
-.smurf #relevant_info_panel div .description .employer {
+.smurf #relevant_info_panel div .description .employer,
+.gunpowder #relevant_info_panel div .description .employer {
   padding-left: 0.3rem;
   font-size: 0.7rem;
 }
 
-.smurf #relevant_info_panel div .description p {
+.smurf #relevant_info_panel div .description p,
+.gunpowder #relevant_info_panel div .description p {
   padding: 0em 0.5em 0 0.3rem;
   font-size: 0.6rem;
+}
+/* GUNPOWDER THEME START */
+
+.gunpowder .aux {
+  z-index: 100;
+  height: 10%;
+  width: 100%;
+  background: var(--gunpowder-dark-bg);
+}
+
+.gunpowder #relevant_info_panel {
+  top: 10%;
+  left: 0;
+}
+.gunpowder #general_info_panel {
+  left: 70%;
+  background: #dfdfdf;
+  z-index: 10;
+}
+.gunpowder #general_info_panel div.head {
+  height: 10%;
+  width: 100%;
+  color: white;
+  background: var(--gunpowder-dark-bg);
+}
+
+.gunpowder #general_info_panel div.head h2,
+.gunpowder #general_info_panel div.head h4 {
+  margin-left: -230%;
+}
+.gunpowder #general_info_panel .head h2 {
+  font-size: 1.5em;
+  padding: 0.6rem 0 0 0.6rem;
+  margin: 0;
+  font-weight: bolder;
+}
+
+.gunpowder #general_info_panel .head h4 {
+  font-size: 1.2rem;
+  padding: 0.2rem 0 0 0.6rem;
+  font-weight: 400;
+}
+
+.gunpowder #general_info_panel h2.head,
+.gunpowder #relevant_info_panel h2.title {
+  color: var(--gunpowder-dark-bg);
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.2rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 0 0.6rem;
+  text-align: left;
+}
+
+.gunpowder #general_info_panel h5.title {
+  padding: 0.2rem 0.6rem 0 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.gunpowder #general_info_panel a {
+  color: black;
+}
+.gunpowder #general_info_panel h6 {
+  font-size: 0.7rem;
+  padding: 0 0.6rem 0 0.6rem;
+}
+
+.gunpowder .level_bar_wrapper {
+  background: #c4c4c4;
+}
+.gunpowder .level_name {
+  margin-right: 0;
+}
+.gunpowder .level_bar_wrapper .level_bar {
+  background: var(--gunpowder-dark-bg);
+  width: 25%;
+  height: 100%;
+}
+
+.gunpowder .skill_item {
+  margin-top: 0.5rem;
+}
+
+.gunpowder .professional_summary .title {
+  display: none;
+}
+
+.gunpowder .professional_summary p {
+  font-size: 0.75rem;
+  padding: 0.4rem;
+}
+
+.gunpowder #relevant_info_panel h2.title {
+  font-size: 1rem;
 }
 </style>
 

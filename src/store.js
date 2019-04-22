@@ -6,6 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    themes: ['smurf', 'gunpowder'],
+    activeTheme: 'smurf',
     resume: {
       personal_details: {
         job_title: '',
@@ -87,6 +89,12 @@ export default new Vuex.Store({
 
       return completeness > 100 ? 100 : completeness;
 
+    },
+    getThemes(state) {
+      return state.themes;
+    },
+    getActiveTheme(state) {
+      return state.activeTheme;
     }
   },
   mutations: {
@@ -201,7 +209,31 @@ export default new Vuex.Store({
     },
     loadResume({ state }) {
 
-      state.resume = JSON.parse(localStorage.getItem('resume'));
+      let resume = JSON.parse(localStorage.getItem('resume'));
+      state.resume = resume ? resume : {
+        personal_details: {
+          job_title: '',
+          first_name: '',
+          last_name: '',
+          email: '',
+          phone_number: '',
+          country: '',
+          city: '',
+          address: '',
+          postal_code: '',
+          nationality: '',
+          place_of_birth: '',
+          date_of_birth: ''
+        },
+        title: 'Untitled',
+        professionalSummary: '',
+        links: [],
+        skills: [],
+        education: [],
+        employmentHistory: [],
+        languages: [],
+        courses: []
+      }
     }
   }
 })
