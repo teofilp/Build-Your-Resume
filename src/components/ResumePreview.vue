@@ -73,11 +73,11 @@ export default {
     },
     download() {
       const filename = "your_resume.pdf";
-      const quality = 3;
+      const quality = 1;
       html2canvas(document.querySelector("#root"), {
         scale: quality
       }).then(canvas => {
-        let pdf = new jsPDF("p", "mm", "a4");
+        let pdf = new jsPDF();
         pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 211, 298);
         pdf.save(filename);
       });

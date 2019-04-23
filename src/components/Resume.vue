@@ -1,12 +1,12 @@
 <template>
   <div id="root" class="wrapper" :class="getActiveTheme">
-    <div class="aux"></div>
-    <div id="general_info_panel">
+    <div class="header">
       <div class="head">
         <h2 class="name">{{getPersonalDetails.first_name + " " + getPersonalDetails.last_name}}</h2>
         <h4 class="title">{{getPersonalDetails.job_title}}</h4>
       </div>
-
+    </div>
+    <div id="general_info_panel">
       <div class="personal_info mt-3" v-if="isEmptyPersonalInfo">
         <h2 class="head">Personal info</h2>
 
@@ -14,7 +14,7 @@
           <h5 class="title">
             <b>Address</b>
           </h5>
-          <h6>{{getAddress}}</h6>
+          <h6 v-html="getAddress"></h6>
         </div>
 
         <div class="mt-2" v-if="getPersonalDetails.phone_number != ''">
@@ -81,12 +81,12 @@
     </div>
 
     <div id="relevant_info_panel">
-      <div class="professional_summary" v-if="getProfessionalSummary.length">
-        <h2 class="title">Professional Summary</h2>
+      <div class="professional_summary section" v-if="getProfessionalSummary.length">
+        <h2 class="title">Profile</h2>
         <p>{{getProfessionalSummary}}</p>
       </div>
 
-      <div class="experience" v-if="getRelevantExperience.length">
+      <div class="experience section" v-if="getRelevantExperience.length">
         <h2 class="title">Experience</h2>
 
         <!-- start of experience items -->
@@ -118,7 +118,7 @@
         <div class="clearfix"></div>
       </div>
 
-      <div class="education" v-if="getRelevantEducation.length">
+      <div class="education section" v-if="getRelevantEducation.length">
         <h2 class="title">Education</h2>
 
         <div
@@ -147,10 +147,10 @@
         <div class="clearfix"></div>
       </div>
 
-      <div class="courses" v-if="getRelevantCourses.length">
+      <div class="courses section" v-if="getRelevantCourses.length">
         <h2 class="title">Courses</h2>
 
-        <div class="course-item" v-for="(course, index) in getRelevantCourses" :key="index">
+        <div class="course_item" v-for="(course, index) in getRelevantCourses" :key="index">
           <div class="active_period">
             <h2>
               {{course.date.start.month + ", " +
@@ -203,10 +203,10 @@ export default {
         ? this.getPersonalDetails.address
         : "";
       let city = this.getPersonalDetails.city
-        ? "\n " + this.getPersonalDetails.city
+        ? " " + this.getPersonalDetails.city
         : "";
       let country = this.getPersonalDetails.country
-        ? ", " + this.getPersonalDetails.country
+        ? ",<br>  " + this.getPersonalDetails.country
         : "";
       let postalCode = this.getPersonalDetails.postal_code
         ? ", " + this.getPersonalDetails.postal_code
@@ -230,8 +230,8 @@ export default {
       else return this.getLinks.slice(0, 2);
     },
     getRelevantSkills() {
-      if (this.getSkills.length <= 3) return this.getSkills;
-      else return this.getSkills.slice(0, 3);
+      if (this.getSkills.length <= 4) return this.getSkills;
+      else return this.getSkills.slice(0, 4);
     },
     getRelevantLanguages() {
       if (this.getLanguages <= 3) return this.getLanguages;
@@ -243,8 +243,8 @@ export default {
       else return this.getEmploymentHistory.slice(0, 3);
     },
     getRelevantEducation() {
-      if (this.getEducation.length <= 2) return this.getEducation;
-      else return this.getEducation.slice(0, 2);
+      if (this.getEducation.length <= 3) return this.getEducation;
+      else return this.getEducation.slice(0, 3);
     },
     getRelevantCourses() {
       if (this.getCourses.length <= 3) return this.getCourses;
@@ -265,6 +265,8 @@ export default {
   --smurf-dark-bg: #5495ff;
   --gunpowder-bg: #4a4a4a;
   --gunpowder-dark-bg: #393939;
+  --yogurt-bg: #fff;
+  --yogurt-dark-bg: #eee;
   font-size: 16px;
 }
 .wrapper {
@@ -282,9 +284,18 @@ a {
 #general_info_panel {
   position: absolute;
   width: 30%;
-  height: 100%;
+  height: 90%;
+  left: 0;
+  top: 10%;
+}
+
+.smurf .header {
+  position: absolute;
+  width: 30%;
+  height: calc(10% + 2px);
   left: 0;
   top: 0;
+  background: var(--smurf-bg);
 }
 
 #relevant_info_panel {
@@ -295,7 +306,7 @@ a {
   top: 0;
 }
 
-.smurf #general_info_panel .head h2.name {
+.smurf .header .head h2.name {
   font-weight: 600;
   font-size: 1.4rem;
   letter-spacing: 0.05rem;
@@ -303,7 +314,7 @@ a {
   color: white;
 }
 
-.smurf #general_info_panel .head h4.title {
+.smurf .header .head h4.title {
   font-weight: 500;
   color: white;
   font-size: 0.8rem;
@@ -333,7 +344,7 @@ a {
 }
 
 .level_bar_wrapper {
-  width: calc(100% - 1em);
+  width: calc(100% - 1rem);
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   height: 0.4rem;
@@ -397,7 +408,8 @@ a {
 }
 
 .gunpowder #relevant_info_panel div .active_period h2,
-.smurf #relevant_info_panel div .active_period h2 {
+.smurf #relevant_info_panel div .active_period h2,
+.yogurt #relevant_info_panel div .active_period h2 {
   font-size: 0.65rem;
   padding: 0.3rem;
   padding-left: 0.6rem;
@@ -416,7 +428,9 @@ a {
 .smurf #relevant_info_panel div .description .job_title,
 .smurf #relevant_info_panel div .description .headline,
 .gunpowder #relevant_info_panel div .description .job_title,
-.gunpowder #relevant_info_panel div .description .headline {
+.gunpowder #relevant_info_panel div .description .headline,
+.yogurt #relevant_info_panel div .description .job_title,
+.yogurt #relevant_info_panel div .description .headline {
   padding-left: 0.3rem;
   padding-top: 0.3rem;
   font-size: 0.7rem;
@@ -424,19 +438,21 @@ a {
 }
 
 .smurf #relevant_info_panel div .description .employer,
-.gunpowder #relevant_info_panel div .description .employer {
+.gunpowder #relevant_info_panel div .description .employer,
+.yogurt #relevant_info_panel div .description .employer {
   padding-left: 0.3rem;
   font-size: 0.7rem;
 }
 
 .smurf #relevant_info_panel div .description p,
-.gunpowder #relevant_info_panel div .description p {
+.gunpowder #relevant_info_panel div .description p,
+.yogurt #relevant_info_panel div .description p {
   padding: 0em 0.5em 0 0.3rem;
   font-size: 0.6rem;
 }
 /* GUNPOWDER THEME START */
 
-.gunpowder .aux {
+.gunpowder .header {
   z-index: 100;
   height: 10%;
   width: 100%;
@@ -449,28 +465,26 @@ a {
 }
 .gunpowder #general_info_panel {
   left: 70%;
+  top: 10%;
+  height: 90%;
   background: #dfdfdf;
   z-index: 10;
 }
-.gunpowder #general_info_panel div.head {
+.gunpowder .header div.head {
   height: 10%;
   width: 100%;
   color: white;
   background: var(--gunpowder-dark-bg);
 }
 
-.gunpowder #general_info_panel div.head h2,
-.gunpowder #general_info_panel div.head h4 {
-  margin-left: -230%;
-}
-.gunpowder #general_info_panel .head h2 {
+.gunpowder .header .head h2 {
   font-size: 1.5em;
   padding: 0.6rem 0 0 0.6rem;
   margin: 0;
   font-weight: bolder;
 }
 
-.gunpowder #general_info_panel .head h4 {
+.gunpowder .header .head h4 {
   font-size: 1.2rem;
   padding: 0.2rem 0 0 0.6rem;
   font-weight: 400;
@@ -527,6 +541,157 @@ a {
 
 .gunpowder #relevant_info_panel h2.title {
   font-size: 1rem;
+}
+
+/* END OF GUNPOWDER THEME */
+
+/* ----------------------------- */
+
+/* START OF YOGURT THEME */
+
+.yogurt .header {
+  top: 0;
+  left: 0;
+  width: (100% - 3rem);
+  margin: 0 1.5rem 0 1.5rem;
+  height: 11%;
+  border-bottom: 1px solid var(--yogurt-dark-bg);
+}
+
+.yogurt #general_info_panel {
+  width: (32% - 1.5rem);
+  height: 89%;
+  top: 11%;
+  left: 0;
+  margin-left: 1.5rem;
+}
+
+.yogurt #relevant_info_panel {
+  width: calc(68% - 1.5rem);
+  height: 89%;
+  padding-left: 1.5rem;
+  top: 11%;
+  left: 32%;
+  border-left: 1px solid var(--yogurt-dark-bg);
+}
+
+.yogurt .header .head h2.name {
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: bolder;
+  letter-spacing: 2px;
+  padding-top: 1rem;
+}
+
+.yogurt .header .head h4.title {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.yogurt #general_info_panel .head,
+.yogurt #relevant_info_panel h2.title {
+  position: relative;
+  color: black;
+  font-weight: bolder;
+  font-size: 1rem;
+  padding-bottom: 0.3rem;
+  text-transform: uppercase;
+}
+
+.yogurt #general_info_panel .head::after,
+.yogurt #relevant_info_panel h2.title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 2rem;
+  height: 2px;
+  background: black;
+}
+
+.yogurt #general_info_panel h5.title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
+.yogurt #general_info_panel h6 {
+  color: #777;
+  padding-bottom: 0.4rem;
+}
+
+.yogurt #general_info_panel a {
+  color: #777;
+}
+
+.yogurt .level_bar_wrapper {
+  margin-left: 0;
+  width: calc(100% - 1.5rem);
+  background: var(--yogurt-dark-bg);
+  margin-bottom: 1rem;
+}
+
+.yogurt .level_bar_wrapper .level_bar {
+  background: #777;
+  height: 100%;
+}
+
+.yogurt .level_name {
+  display: none;
+}
+
+.yogurt #relevant_info_panel h2.title {
+  padding-top: 1rem;
+}
+
+.yogurt #relevant_info_panel .section {
+  border-bottom: 1px solid var(--yogurt-dark-bg);
+  width: 100%;
+}
+.yogurt #relevant_info_panel .professional_summary .title {
+  display: none;
+}
+.yogurt #relevant_info_panel .professional_summary p {
+  padding-top: 0.5rem;
+  font-size: 0.6rem;
+  padding-right: 0;
+  width: 100%;
+  color: #777;
+  margin-bottom: 0.5rem;
+}
+.yogurt #relevant_info_panel .experience_item,
+.yogurt #relevant_info_panel .education_item {
+  display: flex;
+  flex-direction: column;
+}
+.yogurt #relevant_info_panel div .active_period {
+  order: 1;
+}
+.yogurt #relevant_info_panel div .active_period h2 {
+  font-size: 0.5rem;
+  padding: 0;
+  padding-left: 0.3rem;
+}
+.yogurt #relevant_info_panel div .description p {
+  margin-bottom: 0;
+  padding-left: 0.3rem;
+}
+
+.yogurt #relevant_info_panel div h4.employer {
+  margin-bottom: 0.25rem;
+}
+
+.yogurt #relevant_info_panel .course_item {
+  display: flex;
+  flex-direction: row;
+}
+
+.yogurt #relevant_info_panel .course_item .active_period {
+  order: 1;
+}
+.yogurt #relevant_info_panel .course_item .active_period h2 {
+  padding-top: 0.45rem;
+  font-size: 0.6rem;
 }
 </style>
 

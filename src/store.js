@@ -6,8 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    themes: ['smurf', 'gunpowder'],
-    activeTheme: 'smurf',
+    themes: ['smurf', 'gunpowder', 'yogurt'],
+    activeTheme: 'yogurt',
     resume: {
       personal_details: {
         job_title: '',
