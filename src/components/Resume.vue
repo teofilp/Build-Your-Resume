@@ -243,12 +243,12 @@ export default {
       else return this.getEmploymentHistory.slice(0, 3);
     },
     getRelevantEducation() {
-      if (this.getEducation.length <= 3) return this.getEducation;
-      else return this.getEducation.slice(0, 3);
+      if (this.getEducation.length <= 2) return this.getEducation;
+      else return this.getEducation.slice(0, 2);
     },
     getRelevantCourses() {
-      if (this.getCourses.length <= 3) return this.getCourses;
-      else return this.getCourses.slice(0, 3);
+      if (this.getCourses.length <= 2) return this.getCourses;
+      else return this.getCourses.slice(0, 2);
     },
     isEmptyPersonalInfo() {
       let pd = this.getPersonalDetails;
@@ -596,6 +596,7 @@ a {
   font-size: 1rem;
   padding-bottom: 0.3rem;
   text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .yogurt #general_info_panel .head::after,
