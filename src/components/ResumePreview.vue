@@ -130,10 +130,7 @@ export default {
             doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
           }
-          // doc.save(filename);
-          alert(
-            "We are in beta.. you just got a free resume ticket which will be available from 1st May, 2019"
-          );
+          doc.save(filename);
 
           instance.setInitialPositionAndDimensionsResumePreview();
           document.querySelector("#loading_bar").classList.remove("active");
