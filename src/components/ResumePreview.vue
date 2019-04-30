@@ -102,19 +102,23 @@ export default {
         alert("Your Resume Completeness has to be greater or equal to 70");
         return;
       }
-      // document.querySelector("#loading_bar").classList.add("active");
+      document.querySelector("#loading_bar").classList.add("active");
       let instance = this;
       setTimeout(() => {
         const filename = "your_resume.pdf";
         const quality = 1;
 
         let resume = document.querySelector("#relevant_info_panel");
+        let currHeight = document.querySelector("#resume_preview").offsetHeight;
         document.querySelector("#resume_preview").style.height = "auto";
         document.querySelector("#resume_preview").style.height =
-          document.querySelector("#resume_preview").offsetHeight +
-          resume.scrollHeight +
-          20 +
-          "px";
+          Math.max(
+            document.querySelector("#resume_preview").offsetHeight +
+              resume.scrollHeight +
+              20,
+            currHeight
+          ) + "px";
+
         html2canvas(document.querySelector("#root"), {
           scale: quality
         }).then(canvas => {
@@ -135,10 +139,10 @@ export default {
             doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
           }
-          // doc.save(filename);
+          doc.save(filename);
 
-          // instance.setInitialPositionAndDimensionsResumePreview();
-          // document.querySelector("#loading_bar").classList.remove("active");
+          instance.setInitialPositionAndDimensionsResumePreview();
+          document.querySelector("#loading_bar").classList.remove("active");
         });
       }, 300);
     },
