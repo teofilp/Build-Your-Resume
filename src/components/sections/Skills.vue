@@ -8,12 +8,12 @@
       <!-- individual els -->
       <div v-for="(skill, index) in getSkills" :key="index" class="item_wrapper col-md-12">
         <div class="row item_expand" @click="toggleExpand(skill)">
-          <h5 class="col-md-10">{{skill.name}} - {{skill.level | capitalize}}</h5>
-          <i class="fas fa-trash delete_icon col-md-1 mt-3 px-2" @click="deleteSkill(skill);"></i>
-          <i class="fas fa-chevron-down expand_icon col-md-1 mt-3"></i>
+          <h5 class="col-md-10 col-sm-9 col-9">{{skill.name}} - {{skill.level | capitalize}}</h5>
+          <i class="fas fa-trash delete_icon col-md-1 col-sm-1 col-1 mt-3 px-2" @click="deleteSkill(skill);"></i>
+          <i class="fas fa-chevron-down expand_icon col-md-1 col-sm-1 col-1 mt-3"></i>
         </div>
 
-        <div class="skill_details mb-3" :class="{'inactive': !skill.expanded}">
+        <div class="skill_details" :class="{'inactive': !skill.expanded}">
           <div class="row">
             <div class="col-md-5" style="padding: 0">
               <label for class="col-md-12 label">Skill</label>
@@ -79,12 +79,17 @@ export default {
   height: auto;
   left: 0;
   bottom: 0;
+  max-height: 400px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  transition: max-height .3s, margin-bottom .3s;
 }
 
 .skill_details.inactive {
-  position: absolute;
-  height: 0;
+  max-height: 0;
   overflow: hidden;
+  transition: max-height .3s;
+  margin-bottom: 0;
 }
 </style>
 

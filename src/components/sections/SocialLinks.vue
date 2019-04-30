@@ -6,18 +6,18 @@
     <!-- here goes array with social links -->
     <div class="row mt-3">
       <!-- individual els -->
-      <div v-for="(link, index) in getLinks" :key="index" class="item_wrapper col-md-12">
+      <div v-for="(link, index) in getLinks" :key="index" class="item_wrapper col-md-12 col-sm-12 col-12">
         <div class="row item_expand" @click="toggleExpand(link)">
-          <h5 class="col-md-10">{{link.label}} - {{link.link}}</h5>
-          <i class="fas fa-trash delete_icon col-md-1 mt-3 px-2" @click="deleteLink(link)"></i>
-          <i class="fas fa-chevron-down expand_icon col-md-1 mt-3"></i>
+          <h5 class="col-md-10 col-sm-9 col-9">{{link.label}} - {{link.link}}</h5>
+          <i class="fas fa-trash delete_icon col-md-1 col-sm-1 col-1 mt-3 px-2" @click="deleteLink(link)"></i>
+          <i class="fas fa-chevron-down expand_icon col-md-1 col-sm-1 col-1 mt-3"></i>
         </div>
-        <div class="link_details mb-3" :class="{'inactive': !link.expanded}">
+        <div class="link_details" :class="{'inactive': !link.expanded}">
           <div class="row">
-            <label for class="col-md-5 label">Label</label>
-            <label for class="col-md-5 label offset-md-2">Link</label>
-            <custom-input-field class="col-md-5" :model="link" :attr="'label'"></custom-input-field>
-            <custom-input-field class="col-md-5 offset-md-2" :model="link" :attr="'link'"></custom-input-field>
+            <label for class="col-md-5 col-sm-5 col-5 label">Label</label>
+            <label for class="col-md-5 col-sm-5 col-5 label offset-md-2 offset-sm-2">Link</label>
+            <custom-input-field class="col-md-5 col-sm-5 col-5" :model="link" :attr="'label'"></custom-input-field>
+            <custom-input-field class="col-md-5 col-sm-5 col-5 offset-md-2 offset-sm-2" :model="link" :attr="'link'"></custom-input-field>
           </div>
         </div>
       </div>
@@ -75,15 +75,18 @@ export default {
 .link_details {
   width: 100%;
   position: relative;
-  height: auto;
+  max-height: 400px;
   left: 0;
   bottom: 0;
+  transition: max-height .3s, margin .3s;
+  margin-bottom: 1.5rem;
 }
 
 .link_details.inactive {
-  position: absolute;
-  height: 0;
+  position: relative;
+  max-height: 0;
   overflow: hidden;
+  margin-bottom: 0;
 }
 </style>
 

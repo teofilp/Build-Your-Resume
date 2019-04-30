@@ -1,32 +1,32 @@
 <template>
   <div class="item_details">
     <div class="row mt-3">
-      <div class="col-md-5" style="padding: 0">
-        <label for class="col-md-12 label">{{ label1 }}</label>
-        <custom-input-field class="col-md-12" :model="model" :attr="attr1" :label="label1"></custom-input-field>
+      <div class="col-md-5 col-sm-12 col-12 col-sm-12 col-12" style="padding: 0">
+        <label for class="col-md-12 col-sm-12 col-12 col-sm-12 col-12 label">{{ label1 }}</label>
+        <custom-input-field class="col-md-12 col-sm-12 col-12" :model="model" :attr="attr1" :label="label1"></custom-input-field>
       </div>
-      <div class="col-md-5 offset-md-2" style="padding: 0">
-        <label for class="col-md-12 label">{{ label2 }}</label>
-        <custom-input-field class="col-md-12" :model="model" :attr="attr2" :label="label2"></custom-input-field>
+      <div class="col-md-5 col-sm-12 col-12 offset-md-2 " style="padding: 0">
+        <label for class="col-md-12 col-sm-12 col-12 label">{{ label2 }}</label>
+        <custom-input-field class="col-md-12 col-sm-12 col-12" :model="model" :attr="attr2" :label="label2"></custom-input-field>
       </div>
     </div>
 
     <div class="row mt-4">
-      <div class="col-md-5" style="padding: 0">
-        <label for class="col-md-12 label">Start & End Date</label>
+      <div class="col-md-5 col-sm-12 col-12" style="padding: 0">
+        <label for class="col-md-12 col-sm-12 col-12 label">Start & End Date</label>
         <div class="row">
-          <custom-date-input :placeholder="'Mar, 2019'" :date="model.date" class="col-md-12"></custom-date-input>
+          <custom-date-input :placeholder="'Mar, 2019'" :date="model.date" class="col-md-12 col-sm-12 col-12"></custom-date-input>
         </div>
       </div>
-      <div class="col-md-5 offset-md-2" style="padding: 0" v-if="cityVisible === undefined">
-        <label for class="col-md-12 label">City</label>
-        <custom-input-field class="col-md-12" :model="model" :attr="'city'" :label="'City'"></custom-input-field>
+      <div class="col-md-5 col-sm-12 col-12 offset-md-2 " style="padding: 0" v-if="cityVisible === undefined">
+        <label for class="col-md-12 col-sm-12 col-12 label">City</label>
+        <custom-input-field class="col-md-12 col-sm-12 col-12" :model="model" :attr="'city'" :label="'City'"></custom-input-field>
       </div>
     </div>
 
     <div class="row my-4" v-if="descriptionVisible === undefined">
-      <label class="col-md-12">Description</label>
-      <textarea class="col-md-12" rows="5" :value="model.description" @input="updateDescription"></textarea>
+      <label class="col-md-12 col-sm-12 col-12">Description</label>
+      <textarea class="col-md-12 col-sm-12 col-12" rows="5" :value="model.description" @input="updateDescription"></textarea>
       <div class="after"></div>
     </div>
   </div>

@@ -1,16 +1,16 @@
 <template>
   <div id="builder_wrapper" class="container">
     <div class="row mt-5 resume_title_section">
-      <div id="resume_title_wrapper" class="col-md-6 offset-md-3">
+      <div id="resume_title_wrapper" class="col-md-6 col-sm-12 col-12 col-6 offset-md-3">
         <input
           type="text"
-          class="col-md-4 offset-md-4"
+          class="col-md-4 col-sm-12 col-12 offset-md-4 offset-sm-12"
           id="resume_title"
           placeholder="Untitled"
           @click="selectTitle"
           :value="getTitle"
         >
-        <i class="fas fa-edit col-md-1 rename_title" @click="selectTitle"></i>
+        <i class="fas fa-edit col-md-1 col-sm-1 col-1 rename_title" @click="selectTitle"></i>
         <div id="resume_title_wrapper_after"></div>
       </div>
     </div>
@@ -32,7 +32,7 @@
 
     <div class="row mt-5 px-3">
       <label class="col-xs-12 col-sm-12 col-md-12">Template</label>
-      <custom-drop-down class="col-xs-5 col-sm-5 col-md-5"></custom-drop-down>
+      <custom-drop-down class="col-xs-12 col-sm-12 col-md-5 col-lg-5"></custom-drop-down>
     </div>
 
     <div class="row mt-5">
@@ -68,8 +68,14 @@
     </div>
 
     <div class="row mt-5">
+      <Internships></Internships>
+    </div>
+
+
+    <div class="row mt-5">
       <div style="width: 2px; height: 200px"></div>
     </div>
+    <i class="fas fa-search mobile_preview" @click="enableMobilePreview"></i>
   </div>
 </template>
 <script>
@@ -83,10 +89,27 @@ import Education from "./sections/Education.vue";
 import EmploymentHistory from "./sections/EmploymentHistory.vue";
 import Languages from "./sections/Languages.vue";
 import Courses from "./sections/Courses.vue";
+import Internships from './sections/Internships.vue';
 export default {
   methods: {
     selectTitle() {
       document.getElementById("resume_title").select();
+    },
+    enableMobilePreview(){
+      document.querySelector("#builder_wrapper").style.display = 'none';
+      let preview = document.querySelector("#preview_wrapper");
+      let resume_preview = document.querySelector("#resume_preview");
+      preview.style.display = "block";
+      preview.style.width = "100%";
+      preview.style.left = "0";
+      document.querySelector(".preview_button").classList.add("mobile_preview_disable");
+      document.querySelector(".mobile_preview_disable").addEventListener('click', ()=> {
+          document.querySelector("#builder_wrapper").style.display = "block";
+          preview.style.display = "none";
+          ev.target.classList.remove('mobile_preview_disable');
+      });
+
+      resume_preview.style.width = resume_preview.offsetHeight * 0.71 + "px";
     }
   },
   computed: {
@@ -112,7 +135,8 @@ export default {
     Education,
     EmploymentHistory,
     Languages,
-    Courses
+    Courses,
+    Internships
   }
 };
 </script>
@@ -312,4 +336,41 @@ label.col-md-6 {
   margin: 0;
   padding: 15px 10px;
 }
+.expandable {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s;
+}
+
+.expandable.active {
+    max-height: 700px;
+    transition: max-height .3s;
+}
+.mobile_preview {
+  position: sticky;
+  bottom: 1.5rem;
+  right: -1.5rem;
+  color: white;
+  background: #aaa;
+  padding: 1.5rem;
+  font-size: 3rem;
+  border-radius: 50%;
+  display: none;
+}
+@media only screen and (max-width: 1180px){
+  #builder_wrapper {
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+   .mobile_preview {
+    display: inline;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .rename_title {
+    display: none;
+  }
+}
+
 </style>

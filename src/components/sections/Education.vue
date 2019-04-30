@@ -7,15 +7,16 @@
     <div class="mt-3">
       <div v-for="(education, index) in getEducation" :key="index" class="item_wrapper">
         <div class="row item_expand" @click="toggleExpand(education)">
-          <h5 class="col-md-10">{{education.institute}} - {{education.degree}}</h5>
+          <h5 class="col-md-10 col-sm-9 col-9">{{education.institute}} - {{education.degree}}</h5>
           <i
-            class="fas fa-trash delete_icon col-md-1 mt-3 px-2"
+            class="fas fa-trash delete_icon col-md-1 col-sm-1 col-1 mt-3 px-2"
             @click="deleteEducation(education);"
           ></i>
-          <i class="fas fa-chevron-down expand_icon col-md-1 mt-3"></i>
+          <i class="fas fa-chevron-down expand_icon col-md-1 col-sm-1 col-1 mt-3"></i>
         </div>
         <shared-custom-item
-          v-show="education.expanded"
+          class="expandable"
+        :class="{active : education.expanded}"
           :model="education"
           :attr1="'institute'"
           :attr2="'degree'"

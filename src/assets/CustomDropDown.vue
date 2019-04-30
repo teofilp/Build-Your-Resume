@@ -1,9 +1,9 @@
 <template>
   <div class="dropdown_wrapper wrapper" @click="toggleDropDown">
     <div class="row">
-      <h5 class="col-xs-8 col-sm-8 col-md-8">{{getActiveTheme | capitalize }}</h5>
+      <h5 class="col-lg-8 col-md-8 col-sm-8 col-8">{{getActiveTheme | capitalize }}</h5>
       <i
-        class="fas col-xs-3 col-sm-3 col-md-3 offset-xs-1 offset-sm-1 offset-md-1 mt-3"
+        class="fas col-3 col-sm-3 col-md-3 offset-xs-2 mt-3"
         :class="{'fa-chevron-up': isActive, 'fa-chevron-down': !isActive}"
       ></i>
       <div class="wrapper_after" :class="{'active': isActive}"></div>
@@ -140,6 +140,7 @@ ul li.active {
 .dropdown_options_wrapper::-webkit-scrollbar-thumb:hover {
   background: #5183d3;
 }
+
 </style>
 
 

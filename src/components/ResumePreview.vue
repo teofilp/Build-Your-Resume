@@ -1,10 +1,13 @@
 <template>
   <div id="preview_wrapper" :class="{active: activeClass}">
+    <div id="loading_bar">
+     <div class="loader_circle"></div>
+      <div class="loader_circle loader_circle_reverse"></div>
+      <h2 class="loading_message">Loading</h2>
+    </div>
     <div id="resume_preview">
       <resume></resume>
-      <div class="resume_overlay" @click="enablePreview">
-        <i class="fas fa-eye"></i>
-      </div>
+      
     </div>
     <i class="far fa-times-circle disable_preview" v-if="activeClass" @click="disablePreview"></i>
     <ul class="options">
@@ -44,6 +47,10 @@ export default {
     Resume
   },
   mounted() {
+    let instance = this;
+    document.addEventListener("resize", () => {
+      setInitialPositionAndDimensionsResumePreview;
+    });
     this.setInitialPositionAndDimensionsResumePreview();
   },
   methods: {
@@ -53,7 +60,7 @@ export default {
     },
     enablePreview() {
       if (this.previewActive) return;
-
+      if(document.querySelector(".preview_button").classList.contains('mobile_preview_disable')) return;
       this.previewActive = true;
       EventBus.$emit("previewUpdated", false);
 
@@ -72,15 +79,45 @@ export default {
       this.setInitialPositionAndDimensionsResumePreview();
     },
     download() {
-      const filename = "your_resume.pdf";
+      document.querySelector("#loading_bar").classList.add('active');
+      let instance = this;
+      setTimeout(() => {
+        const filename = "your_resume.pdf";
       const quality = 1;
+      
+      let resume = document.querySelector("#relevant_info_panel");
+      document.querySelector("#resume_preview").style.height = "auto";
+      document.querySelector("#resume_preview").style.height = 
+        document.querySelector("#resume_preview").offsetHeight 
+          + resume.scrollHeight + 20 + "px";
       html2canvas(document.querySelector("#root"), {
         scale: quality
       }).then(canvas => {
-        let pdf = new jsPDF();
-        pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 211, 298);
-        pdf.save(filename);
+        var imgData = canvas.toDataURL('image/png');
+        var imgWidth = 210; 
+        var pageHeight = 295;  
+        var imgHeight = canvas.height * imgWidth / canvas.width;
+        var heightLeft = imgHeight;
+        var doc = new jsPDF('p', 'mm');
+        var position = 0;
+
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight - 2;
+          doc.addPage();
+          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+        // doc.save(filename);
+
+        instance.setInitialPositionAndDimensionsResumePreview();
+        document.querySelector("#loading_bar").classList.remove('active');
       });
+      }, 300);
+      
+
     },
     saveResume() {
       this.$store.dispatch("saveResume");
@@ -101,7 +138,7 @@ export default {
   height: 100%;
   width: 50%;
   background: rgba(151, 177, 219, 1);
-  overflow-y: auto;
+  user-select: none;
 }
 
 #preview_wrapper.active {
@@ -109,10 +146,7 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 100;
-  user-select: none;
-}
-#preview_wrapper.active .resume_overlay {
-  display: none;
+
 }
 
 #resume_preview {
@@ -123,36 +157,7 @@ export default {
   background: white;
   border-radius: 4px;
   box-shadow: 2px 2px 15px #222;
-}
-
-.resume_overlay {
-  position: absolute;
-  z-index: 10000;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.resume_overlay:hover {
-  cursor: pointer;
-}
-
-.resume_overlay:hover i {
-  font-size: 32px;
-  padding: 12px;
-}
-
-.resume_overlay i {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 0px;
-  padding: 0px;
-  background: #2d6fd8;
-  color: white;
-  border-radius: 50%;
-  transition: font-size 0.1s, padding 0.1s;
+  overflow: auto;
 }
 
 .options {
@@ -162,7 +167,7 @@ export default {
   width: 60%;
   height: 60px;
   left: 20%;
-  bottom: 2%;
+  bottom: 1%;
 }
 #preview_wrapper.active .options {
   width: 30%;
@@ -228,6 +233,93 @@ button.download:hover {
 #preview_wrapper.active .preview_button:hover h2 {
   cursor: default;
 }
+
+#loading_bar {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 0;
+  background: rgba(151, 177, 219, 1);
+  transition: opacity .3s, z-index .3s;
+}
+
+#loading_bar.active {
+  z-index: 9999;
+  opacity: 1;
+}
+.loader_circle {
+	width: 15rem;
+	height: 15rem;
+	box-sizing: border-box;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	border-top: 5px solid #fefefe;
+	border-bottom: 2px solid transparent;
+	border-left: 2px solid transparent;
+	border-right: 2px solid transparent;
+	border-radius: 50%;
+	margin-top: -7.5rem;
+	margin-left: -7.5rem;
+	animation: loader 1s infinite linear;
+}
+
+.loader_circle_reverse {
+  width: 13rem;
+  height: 13rem;
+  margin-top: -6.5rem;
+	margin-left: -6.5rem;
+  animation: loader-reverse 1.2s infinite linear;
+}
+
+.loading_message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  animation: fade 2s infinite linear;
+}
+
+@keyframes loader {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes loader-reverse {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(-360deg);
+	}
+}
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: .5;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 @media only screen and (max-width: 1725px) {
   #resume_preview {
     width: 65%;
@@ -237,6 +329,12 @@ button.download:hover {
 @media only screen and (max-width: 1440px) {
   #resume_preview {
     width: 70%;
+  }
+}
+
+@media only screen and (max-width: 1180px){
+  #preview_wrapper {
+    display: none;
   }
 }
 </style>

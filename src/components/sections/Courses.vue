@@ -7,15 +7,16 @@
     <div>
       <div v-for="(course, index) in getCourses" :key="index" class="item_wrapper">
         <div class="row item_expand" @click="toggleExpand(course)">
-          <h5 class="col-md-10">
+          <h5 class="col-md-10 col-sm-9 col-9">
             <i>{{course.name}}</i>
             at {{course.institute}}
           </h5>
-          <i class="fas fa-trash delete_icon col-md-1 mt-3 px-2" @click="deleteCourse(course);"></i>
-          <i class="fas fa-chevron-down expand_icon col-md-1 mt-3"></i>
+          <i class="fas fa-trash delete_icon col-md-1 col-sm-1 col-1 mt-3 px-2" @click="deleteCourse(course);"></i>
+          <i class="fas fa-chevron-down expand_icon col-md-1 col-sm-1 col-1 mt-3"></i>
         </div>
         <shared-custom-item
-          v-show="course.expanded"
+          class="expandable"
+        :class="{active : course.expanded}"
           :model="course"
           :attr1="'name'"
           :attr2="'institute'"
@@ -30,7 +31,7 @@
     </div>
 
     <div
-      class="col-md-12 add_button mt-3"
+      class="col-md-12 add_button"
       @click="
       $store.commit('hide', getCourses);
       $store.commit('addCourse');

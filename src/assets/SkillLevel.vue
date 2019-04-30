@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper">
     <div class="row">
-      <div class="col-md-3 hoverable" :class="activeClass" @click="updateLevel('beginner')"></div>
-      <div class="col-md-3 hoverable" :class="activeClass" @click="updateLevel('novice')"></div>
-      <div class="col-md-3 hoverable" :class="activeClass" @click="updateLevel('experienced')"></div>
-      <div class="col-md-3 hoverable no_after" :class="activeClass" @click="updateLevel('expert')"></div>
+      <div class="col-md-3 col-sm-3 col-3 hoverable" :class="activeClass" @click="updateLevel('beginner')"></div>
+      <div class="col-md-3 col-sm-3 col-3 hoverable" :class="activeClass" @click="updateLevel('novice')"></div>
+      <div class="col-md-3 col-sm-3 col-3 hoverable" :class="activeClass" @click="updateLevel('experienced')"></div>
+      <div class="col-md-3 col-sm-3 col-3 hoverable no_after" :class="activeClass" @click="updateLevel('expert')"></div>
       <div id="thumb" :class="activeThumbClass"></div>
     </div>
   </div>

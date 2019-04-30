@@ -30,7 +30,8 @@ export default new Vuex.Store({
       education: [],
       employmentHistory: [],
       languages: [],
-      courses: []
+      courses: [],
+      internships: []
     }
   },
   getters: {
@@ -95,6 +96,9 @@ export default new Vuex.Store({
     },
     getActiveTheme(state) {
       return state.activeTheme;
+    },
+    getInternshipHistory(state) {
+      return state.resume.internships;
     }
   },
   mutations: {
@@ -192,6 +196,24 @@ export default new Vuex.Store({
     deleteCourse(state, course) {
       let courseIndex = state.resume.courses.indexOf(course);
       state.resume.courses.splice(courseIndex, 1);
+    },
+    addInternship(state) {
+      state.resume.internships.push({
+        title: "(Not specified)", employer: '(Not specified)', date: {
+          start: {
+            month: 'Mar',
+            year: 2019
+          },
+          end: {
+            month: 'Jun',
+            year: 2020
+          }
+        }, city: '(Not specified)', description: '', expanded: true
+      });
+    },
+    deleteInternship(state, internshipItem) {
+      let internshipIndex = state.resume.internships.indexOf(internshipItem);
+      state.resume.internships.splice(internshipIndex, 1);
     }
   },
   actions: {
@@ -204,6 +226,7 @@ export default new Vuex.Store({
       commit('hide', resume.employmentHistory);
       commit('hide', resume.languages);
       commit('hide', resume.courses);
+      commit('hide', resume.internships);
 
       localStorage.setItem('resume', JSON.stringify(resume));
     },
@@ -232,8 +255,11 @@ export default new Vuex.Store({
         education: [],
         employmentHistory: [],
         languages: [],
-        courses: []
+        courses: [],
+        internships: []
       }
+
     }
+
   }
 })

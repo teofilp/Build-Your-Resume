@@ -1,5 +1,6 @@
 <template>
   <div id="root" class="wrapper" :class="getActiveTheme">
+    
     <div class="header">
       <div class="head">
         <h2 class="name">{{getPersonalDetails.first_name + " " + getPersonalDetails.last_name}}</h2>
@@ -37,7 +38,7 @@
               <b>{{link.label}}</b>
             </h5>
             <h6>
-              <a :href="link.link" target="_blank">{{link.link}}</a>
+              <a>{{link.link}}</a>
             </h6>
           </div>
         </div>
@@ -169,7 +170,40 @@
           <div class="clearfix"></div>
         </div>
       </div>
+
+
+       <div class="education section" v-if="getRelevantInternships.length">
+        <h2 class="title">Internships</h2>
+
+        <div
+          class="education_item"
+          v-for="(item, index) in 
+        getRelevantInternships"
+          :key="index"
+        >
+          <div class="active_period">
+            <h2>
+              {{item.date.start.month + ", " +
+              item.date.start.year}} - {{
+              item.date.end.month + ", " +
+              item.date.end.year
+              }}
+            </h2>
+          </div>
+          <div class="description">
+            <h2 class="headline">
+              <b>{{item.title}}, {{item.employer}}</b>
+            </h2>
+            <p>{{item.description}}</p>
+          </div>
+        </div>
+
+        <div class="clearfix"></div>
+      </div>
+
+
     </div>
+  
   </div>
 </template>
 <script>
@@ -196,6 +230,7 @@ export default {
       "getEmploymentHistory",
       "getEducation",
       "getCourses",
+      "getInternshipHistory",
       "getActiveTheme"
     ]),
     getAddress() {
@@ -230,8 +265,8 @@ export default {
       else return this.getLinks.slice(0, 2);
     },
     getRelevantSkills() {
-      if (this.getSkills.length <= 4) return this.getSkills;
-      else return this.getSkills.slice(0, 4);
+      if (this.getSkills.length <= 5) return this.getSkills;
+      else return this.getSkills.slice(0, 5);
     },
     getRelevantLanguages() {
       if (this.getLanguages <= 3) return this.getLanguages;
@@ -243,8 +278,8 @@ export default {
       else return this.getEmploymentHistory.slice(0, 3);
     },
     getRelevantEducation() {
-      if (this.getEducation.length <= 2) return this.getEducation;
-      else return this.getEducation.slice(0, 2);
+      if (this.getEducation.length <= 3) return this.getEducation;
+      else return this.getEducation.slice(0, 3);
     },
     getRelevantCourses() {
       if (this.getCourses.length <= 2) return this.getCourses;
@@ -255,6 +290,11 @@ export default {
       if (pd.email === "" && pd.phone_number === "" && this.getAddress === "")
         return false;
       return true;
+    },
+    getRelevantInternships(){
+      if(this.getInternshipHistory.length <= 3)
+        return this.getInternshipHistory;
+      else return this.getInternshipHistory.slice(0, 3);
     }
   }
 };
@@ -268,11 +308,11 @@ export default {
   --yogurt-bg: #fff;
   --yogurt-dark-bg: #eee;
   font-size: 16px;
+
 }
 .wrapper {
   width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 
 .wrapper.smurf #general_info_panel {
@@ -281,10 +321,14 @@ export default {
 a {
   color: white;
 }
+a:hover {
+  text-decoration: none;
+}
 #general_info_panel {
+  overflow: auto;
+  height: 90%;
   position: absolute;
   width: 30%;
-  height: 90%;
   left: 0;
   top: 10%;
 }
@@ -299,11 +343,27 @@ a {
 }
 
 #relevant_info_panel {
+  overflow: auto;
+  height: 100%;
   position: absolute;
   width: 70%;
-  height: 100%;
   left: 30%;
   top: 0;
+}
+
+::-webkit-scrollbar {
+  width: .1rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #ddd; 
+}
+::-webkit-scrollbar-thumb {
+  background: #eee; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #eee; 
 }
 
 .smurf .header .head h2.name {
@@ -461,6 +521,7 @@ a {
 
 .gunpowder #relevant_info_panel {
   top: 10%;
+  height: 90%;
   left: 0;
 }
 .gunpowder #general_info_panel {

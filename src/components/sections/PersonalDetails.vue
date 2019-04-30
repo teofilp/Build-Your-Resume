@@ -150,14 +150,14 @@ export default {
 </script>
 <style scoped>
 .additional_details {
-  height: 0;
+  max-height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: height 0.3s, opacity 0.3s;
+  transition: max-height 0.3s, opacity 0.3s;
 }
 
 .additional_details.active {
-  height: auto;
+  max-height: 2000px;
   opacity: 1;
 }
 .additional_info_toggler {
