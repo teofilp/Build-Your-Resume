@@ -32,7 +32,7 @@
             </div>
             <div class="col-md-4">
               <h3 class="step_number">3</h3>
-              <p>Download & start and get a job today!</p>
+              <p>Download & and apply for a job today!</p>
             </div>
           </div>
         </div>
