@@ -1,6 +1,5 @@
 <template>
   <div id="root" class="wrapper" :class="getActiveTheme">
-    
     <div class="header">
       <div class="head">
         <h2 class="name">{{getPersonalDetails.first_name + " " + getPersonalDetails.last_name}}</h2>
@@ -171,10 +170,8 @@
         </div>
       </div>
 
-
-       <div class="education section" v-if="getRelevantInternships.length">
+      <div class="education section" v-if="getRelevantInternships.length">
         <h2 class="title">Internships</h2>
-
         <div
           class="education_item"
           v-for="(item, index) in 
@@ -197,13 +194,9 @@
             <p>{{item.description}}</p>
           </div>
         </div>
-
         <div class="clearfix"></div>
       </div>
-
-
     </div>
-  
   </div>
 </template>
 <script>
@@ -291,8 +284,8 @@ export default {
         return false;
       return true;
     },
-    getRelevantInternships(){
-      if(this.getInternshipHistory.length <= 3)
+    getRelevantInternships() {
+      if (this.getInternshipHistory.length <= 3)
         return this.getInternshipHistory;
       else return this.getInternshipHistory.slice(0, 3);
     }
@@ -308,7 +301,6 @@ export default {
   --yogurt-bg: #fff;
   --yogurt-dark-bg: #eee;
   font-size: 16px;
-
 }
 .wrapper {
   width: 100%;
@@ -352,18 +344,18 @@ a:hover {
 }
 
 ::-webkit-scrollbar {
-  width: .1rem;
+  width: 0.1rem;
 }
 
 ::-webkit-scrollbar-track {
-  background: #ddd; 
+  background: #ddd;
 }
 ::-webkit-scrollbar-thumb {
-  background: #eee; 
+  background: #eee;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #eee; 
+  background: #eee;
 }
 
 .smurf .header .head h2.name {

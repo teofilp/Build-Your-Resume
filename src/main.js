@@ -2,9 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import VueSweetalert2 from 'vue-sweetalert2';
+import VueResource from 'vue-resource';
 
-Vue.use(VueSweetalert2);
+Vue.use(VueResource);
 export const EventBus = new Vue();
 Vue.config.productionTip = false
 Vue.filter('capitalize', function (value) {
