@@ -35,6 +35,7 @@ import Resume from "./Resume.vue";
 import { EventBus } from "../main.js";
 import * as jsPDF from "jspdf";
 import * as html2canvas from "html2canvas";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -97,6 +98,10 @@ export default {
       this.setInitialPositionAndDimensionsResumePreview();
     },
     download() {
+      if (this.getCompleteness < 70) {
+        alert("Your Resume Completeness has to be greater or equal to 70");
+        return;
+      }
       document.querySelector("#loading_bar").classList.add("active");
       let instance = this;
       setTimeout(() => {
@@ -140,6 +145,9 @@ export default {
     saveResume() {
       this.$store.dispatch("saveResume");
     }
+  },
+  computed: {
+    ...mapGetters(["getCompleteness"])
   }
 };
 </script>
