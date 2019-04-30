@@ -1,13 +1,12 @@
 <template>
   <div id="preview_wrapper" :class="{active: activeClass}">
     <div id="loading_bar">
-     <div class="loader_circle"></div>
+      <div class="loader_circle"></div>
       <div class="loader_circle loader_circle_reverse"></div>
       <h2 class="loading_message">Loading</h2>
     </div>
     <div id="resume_preview">
       <resume></resume>
-      
     </div>
     <i class="far fa-times-circle disable_preview" v-if="activeClass" @click="disablePreview"></i>
     <ul class="options">
@@ -60,7 +59,12 @@ export default {
     },
     enablePreview() {
       if (this.previewActive) return;
-      if(document.querySelector(".preview_button").classList.contains('mobile_preview_disable')) return;
+      if (
+        document
+          .querySelector(".preview_button")
+          .classList.contains("mobile_preview_disable")
+      )
+        return;
       this.previewActive = true;
       EventBus.$emit("previewUpdated", false);
 
@@ -79,45 +83,45 @@ export default {
       this.setInitialPositionAndDimensionsResumePreview();
     },
     download() {
-      document.querySelector("#loading_bar").classList.add('active');
+      document.querySelector("#loading_bar").classList.add("active");
       let instance = this;
       setTimeout(() => {
         const filename = "your_resume.pdf";
-      const quality = 1;
-      
-      let resume = document.querySelector("#relevant_info_panel");
-      document.querySelector("#resume_preview").style.height = "auto";
-      document.querySelector("#resume_preview").style.height = 
-        document.querySelector("#resume_preview").offsetHeight 
-          + resume.scrollHeight + 20 + "px";
-      html2canvas(document.querySelector("#root"), {
-        scale: quality
-      }).then(canvas => {
-        var imgData = canvas.toDataURL('image/png');
-        var imgWidth = 210; 
-        var pageHeight = 295;  
-        var imgHeight = canvas.height * imgWidth / canvas.width;
-        var heightLeft = imgHeight;
-        var doc = new jsPDF('p', 'mm');
-        var position = 0;
+        const quality = 1;
 
-        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
+        let resume = document.querySelector("#relevant_info_panel");
+        document.querySelector("#resume_preview").style.height = "auto";
+        document.querySelector("#resume_preview").style.height =
+          document.querySelector("#resume_preview").offsetHeight +
+          resume.scrollHeight +
+          20 +
+          "px";
+        html2canvas(document.querySelector("#root"), {
+          scale: quality
+        }).then(canvas => {
+          var imgData = canvas.toDataURL("image/png");
+          var imgWidth = 210;
+          var pageHeight = 295;
+          var imgHeight = (canvas.height * imgWidth) / canvas.width;
+          var heightLeft = imgHeight;
+          var doc = new jsPDF("p", "mm");
+          var position = 0;
 
-        while (heightLeft >= 0) {
-          position = heightLeft - imgHeight - 2;
-          doc.addPage();
-          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
-        }
-        // doc.save(filename);
 
-        instance.setInitialPositionAndDimensionsResumePreview();
-        document.querySelector("#loading_bar").classList.remove('active');
-      });
+          while (heightLeft >= 0) {
+            position = heightLeft - imgHeight - 2;
+            doc.addPage();
+            doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+          }
+          doc.save(filename);
+
+          instance.setInitialPositionAndDimensionsResumePreview();
+          document.querySelector("#loading_bar").classList.remove("active");
+        });
       }, 300);
-      
-
     },
     saveResume() {
       this.$store.dispatch("saveResume");
@@ -146,7 +150,6 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 100;
-
 }
 
 #resume_preview {
@@ -241,7 +244,7 @@ button.download:hover {
   opacity: 0;
   z-index: 0;
   background: rgba(151, 177, 219, 1);
-  transition: opacity .3s, z-index .3s;
+  transition: opacity 0.3s, z-index 0.3s;
 }
 
 #loading_bar.active {
@@ -249,27 +252,27 @@ button.download:hover {
   opacity: 1;
 }
 .loader_circle {
-	width: 15rem;
-	height: 15rem;
-	box-sizing: border-box;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	border-top: 5px solid #fefefe;
-	border-bottom: 2px solid transparent;
-	border-left: 2px solid transparent;
-	border-right: 2px solid transparent;
-	border-radius: 50%;
-	margin-top: -7.5rem;
-	margin-left: -7.5rem;
-	animation: loader 1s infinite linear;
+  width: 15rem;
+  height: 15rem;
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-top: 5px solid #fefefe;
+  border-bottom: 2px solid transparent;
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  border-radius: 50%;
+  margin-top: -7.5rem;
+  margin-left: -7.5rem;
+  animation: loader 1s infinite linear;
 }
 
 .loader_circle_reverse {
   width: 13rem;
   height: 13rem;
   margin-top: -6.5rem;
-	margin-left: -6.5rem;
+  margin-left: -6.5rem;
   animation: loader-reverse 1.2s infinite linear;
 }
 
@@ -287,34 +290,34 @@ button.download:hover {
 }
 
 @keyframes loader {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes loader-reverse {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(-360deg);
-	}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
 }
 @keyframes fade {
   0% {
     opacity: 1;
   }
   25% {
-    opacity: .5;
+    opacity: 0.5;
   }
   50% {
     opacity: 0;
   }
   75% {
-    opacity: .5;
+    opacity: 0.5;
   }
   100% {
     opacity: 1;
@@ -332,7 +335,7 @@ button.download:hover {
   }
 }
 
-@media only screen and (max-width: 1180px){
+@media only screen and (max-width: 1180px) {
   #preview_wrapper {
     display: none;
   }
