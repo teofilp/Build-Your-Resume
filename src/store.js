@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     themes: ['smurf', 'gunpowder', 'yogurt'],
-    activeTheme: 'yogurt',
+    activeTheme: 'smurf',
     resume: {
       personal_details: {
         job_title: '',
@@ -77,15 +77,18 @@ export default new Vuex.Store({
         completeness += 10;
 
       if (state.resume.links.length > 0)
-        completeness += 15;
+        completeness += 5;
 
       if (state.resume.skills.length > 0)
-        completeness += 15;
+        completeness += 5;
 
       if (state.resume.education.length > 0)
         completeness += 15;
 
       if (state.resume.employmentHistory.length > 0)
+        completeness += 15;
+
+      if (state.resume.internships.length > 0)
         completeness += 15;
 
       return completeness > 100 ? 100 : completeness;

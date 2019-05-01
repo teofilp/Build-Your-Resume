@@ -40,7 +40,8 @@ export default {
   data() {
     return {
       activeClass: false,
-      previewActive: false
+      previewActive: false,
+      abandonedDownload: false
     };
   },
   components: {
@@ -52,7 +53,7 @@ export default {
       this.setInitialPositionAndDimensionsResumePreview();
     });
     this.setInitialPositionAndDimensionsResumePreview();
-    this.increaseVisitors(false);
+    this.increaseVisitors(true);
   },
   methods: {
     setInitialPositionAndDimensionsResumePreview() {
@@ -85,6 +86,7 @@ export default {
       this.setInitialPositionAndDimensionsResumePreview();
     },
     download() {
+      this.abandonedDownload = false;
       if (this.getCompleteness < 70) {
         alert("Your Resume Completeness has to be greater or equal to 70");
         return;
@@ -126,18 +128,16 @@ export default {
             doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
           }
-          // doc.output("blob");
-          // // doc.save(filename);
-          window.open(doc.output("blob"), "_blank");
-
           instance.setInitialPositionAndDimensionsResumePreview();
           document.querySelector("#loading_bar").classList.remove("active");
+          doc.save(filename);
         });
       }, 300);
     },
     saveResume() {
       this.$store.dispatch("saveResume");
     },
+
     increaseVisitors(productionMode) {
       if (!productionMode) return;
       let instance = this;

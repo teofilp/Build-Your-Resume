@@ -8,8 +8,13 @@
       <!-- individual els -->
       <div v-for="(language, index) in getLanguages" :key="index" class="item_wrapper col-md-12">
         <div class="row item_expand" @click="toggleExpand(language)">
-          <h5 class="col-md-10 col-sm-9 col-9">{{language.language}} - {{language.level | capitalize}}</h5>
-          <i class="fas fa-trash delete_icon col-md-1 col-sm-1 col-1 mt-3 px-2" @click="deletelanguage(language);"></i>
+          <h5
+            class="col-md-10 col-sm-9 col-9"
+          >{{language.language}} - {{language.level | capitalize}}</h5>
+          <i
+            class="fas fa-trash delete_icon col-md-1 col-sm-1 col-1 mt-3 px-2"
+            @click="deletelanguage(language);"
+          ></i>
           <i class="fas fa-chevron-down expand_icon col-md-1 col-sm-1 col-1 mt-3"></i>
         </div>
 
@@ -82,13 +87,13 @@ export default {
   max-height: 400px;
   overflow: hidden;
   margin-bottom: 1.5rem;
-  transition: max-height .3s;
+  transition: max-height 0.3s, margin-bottom 0.2s;
 }
 
 .languages_details.inactive {
   max-height: 0;
   overflow: hidden;
-  transition: max-height .3s;
+  transition: max-height 0.3s;
   margin-bottom: 0;
 }
 </style>
