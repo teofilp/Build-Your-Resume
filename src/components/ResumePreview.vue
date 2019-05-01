@@ -53,7 +53,7 @@ export default {
       this.setInitialPositionAndDimensionsResumePreview();
     });
     this.setInitialPositionAndDimensionsResumePreview();
-    this.increaseVisitors(true);
+    this.increaseVisitors(false);
   },
   methods: {
     setInitialPositionAndDimensionsResumePreview() {

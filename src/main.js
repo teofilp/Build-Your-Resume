@@ -3,6 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueResource from 'vue-resource';
+import jQuery from 'jquery';
+
+global.jQuery = jQuery;
+global.$ = jQuery;
 
 Vue.use(VueResource);
 export const EventBus = new Vue();

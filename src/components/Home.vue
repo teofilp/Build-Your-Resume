@@ -39,7 +39,11 @@
           <br>Intuitive. Easy to use. Professional.
         </h2>
         <div class="row">
-          <router-link tag="button" to="/app" class="button col-md-8 offset-md-2">Start brewing now</router-link>
+          <router-link
+            tag="button"
+            to="/resume-templates"
+            class="button col-md-8 offset-md-2"
+          >Start brewing now</router-link>
         </div>
       </div>
     </div>
