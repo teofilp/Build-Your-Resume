@@ -49,7 +49,7 @@ export default {
   mounted() {
     let instance = this;
     document.addEventListener("resize", () => {
-      setInitialPositionAndDimensionsResumePreview;
+      this.setInitialPositionAndDimensionsResumePreview();
     });
     this.setInitialPositionAndDimensionsResumePreview();
     this.increaseVisitors(false);

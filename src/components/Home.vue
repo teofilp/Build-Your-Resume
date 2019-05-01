@@ -315,7 +315,6 @@ ul.mobile_nav.active li:first-of-type {
 ul.mobile_nav.active li:nth-of-type(2) {
   animation: slide 1s ease-in-out forwards;
 }
-
 ul.mobile_nav.active li:last-of-type {
   animation: slide 1.5s ease-in-out forwards;
 }

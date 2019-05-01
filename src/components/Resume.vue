@@ -531,7 +531,7 @@ a:hover {
 }
 
 .gunpowder .header .head h2 {
-  font-size: 1.5em;
+  font-size: 1.5rem;
   padding: 0.6rem 0 0 0.6rem;
   margin: 0;
   font-weight: bolder;

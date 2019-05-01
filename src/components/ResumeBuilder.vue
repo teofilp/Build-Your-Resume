@@ -1,5 +1,8 @@
 <template>
   <div id="builder_wrapper" class="container">
+    <div id="disclaimer_wrapper">
+      <h2 class="disclaimer">For a better experience please use our desktop version</h2>
+    </div>
     <div class="row mt-5 resume_title_section">
       <div id="resume_title_wrapper" class="col-md-6 col-sm-12 col-12 col-6 offset-md-3">
         <input
@@ -113,6 +116,17 @@ export default {
         });
 
       resume_preview.style.width = resume_preview.offsetHeight * 0.71 + "px";
+    },
+    disclaimerSetup() {
+      // target only mobile
+      if (window.innerWidth >= 768) return;
+
+      document.querySelector("#disclaimer_wrapper").classList.add("active");
+      setTimeout(() => {
+        document
+          .querySelector("#disclaimer_wrapper")
+          .classList.remove("active");
+      }, 4500);
     }
   },
   computed: {
@@ -140,6 +154,9 @@ export default {
     Languages,
     Courses,
     Internships
+  },
+  mounted() {
+    this.disclaimerSetup();
   }
 };
 </script>
@@ -159,7 +176,35 @@ export default {
   padding-right: 5em;
   background: white;
 }
-
+#disclaimer_wrapper {
+  background: white;
+  position: absolute;
+  left: 50%;
+  top: -100%;
+  width: 80%;
+  transform: translateX(-50%);
+  z-index: 999999;
+  opacity: 0;
+  transition: all 1s;
+}
+h2.disclaimer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  font-family: "Roboto", sans-serif;
+  background: rgba(66, 134, 244, 0.2);
+  padding: 3rem;
+  display: inline-block;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #333;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+#disclaimer_wrapper.active {
+  top: 0;
+  opacity: 1;
+}
 #resume_title {
   width: 100%;
   height: 100%;

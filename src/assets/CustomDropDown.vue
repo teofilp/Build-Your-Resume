@@ -80,7 +80,6 @@ export default {
 .wrapper i.active {
   transform: rotate(180deg);
 }
-
 .wrapper_after {
   position: absolute;
   left: 50%;
@@ -140,7 +139,6 @@ ul li.active {
 .dropdown_options_wrapper::-webkit-scrollbar-thumb:hover {
   background: #5183d3;
 }
-
 </style>
 
 

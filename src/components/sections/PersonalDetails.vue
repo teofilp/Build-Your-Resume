@@ -4,7 +4,7 @@
       <b>Personal Details</b>
     </h2>
     <div class="row mt-3">
-      <div class="col-md-5 p-0">
+      <div class="col-md-5 col-sm-12 col-12 p-0">
         <label class="col-md-12">Job title</label>
         <custom-input-field
           placeholder="e.g. Teacher"
@@ -16,7 +16,7 @@
     </div>
 
     <div class="row mt-3">
-      <div class="col-md-5 p-0">
+      <div class="col-md-5 col-sm-12 col-12 p-0">
         <label class="col-md-12">First Name</label>
         <custom-input-field
           type="text"
@@ -24,7 +24,7 @@
           :attr="'first_name'"
         ></custom-input-field>
       </div>
-      <div class="col-md-5 offset-md-2 p-0">
+      <div class="col-md-5 col-sm-12 col-12 offset-md-2 p-0">
         <label class="col-md-12">Last Name</label>
         <custom-input-field
           type="text"
@@ -35,7 +35,7 @@
     </div>
 
     <div class="row mt-3">
-      <div class="col-md-5 p-0">
+      <div class="col-md-5 col-sm-12 col-12 p-0">
         <label class="col-md-12">Email</label>
         <custom-input-field
           type="email"
@@ -43,7 +43,7 @@
           :attr="'email'"
         ></custom-input-field>
       </div>
-      <div class="col-md-5 offset-md-2 p-0">
+      <div class="col-md-5 col-sm-12 col-12 offset-md-2 p-0">
         <label class="col-md-12">Phone Number</label>
         <custom-input-field
           type="text"
@@ -55,7 +55,7 @@
 
     <div class="additional_details" :class="{'active': additionalPanelVisible}">
       <div class="row mt-3">
-        <div class="col-md-5 p-0">
+        <div class="col-md-5 col-sm-12 col-12 p-0">
           <label class="col-md-12">Country</label>
           <custom-input-field
             type="text"
@@ -63,7 +63,7 @@
             :attr="'country'"
           ></custom-input-field>
         </div>
-        <div class="col-md-5 offset-md-2 p-0">
+        <div class="col-md-5 col-sm-12 col-12 offset-md-2 p-0">
           <label class="col-md-12">City</label>
           <custom-input-field
             type="text"
@@ -73,7 +73,7 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-md-5 p-0">
+        <div class="col-md-5 col-sm-12 col-12 p-0">
           <label class="col-md-12">Address</label>
           <custom-input-field
             type="address"
@@ -81,7 +81,7 @@
             :attr="'address'"
           ></custom-input-field>
         </div>
-        <div class="col-md-5 offset-md-2 p-0">
+        <div class="col-md-5 col-sm-12 col-12 offset-md-2 p-0">
           <label class="col-md-12">Postal Code</label>
           <custom-input-field
             type="text"
@@ -91,7 +91,7 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-md-5 p-0">
+        <div class="col-md-5 col-sm-12 col-12 p-0">
           <label class="col-md-12">Nationality</label>
           <custom-input-field
             type="text"
@@ -99,7 +99,7 @@
             :attr="'nationality'"
           ></custom-input-field>
         </div>
-        <div class="col-md-5 offset-md-2 p-0">
+        <div class="col-md-5 col-sm-12 col-12 offset-md-2 p-0">
           <label class="col-md-12">Place of Birth</label>
           <custom-input-field
             type="text"
@@ -109,7 +109,7 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-md-5 p-0">
+        <div class="col-md-5 col-sm-12 col-12 p-0">
           <label class="col-md-12">Date of Birth</label>
           <custom-input-field
             type="email"

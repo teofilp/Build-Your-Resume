@@ -1,8 +1,8 @@
 <template>
-    <div id="app_wrapper">
+  <div id="app_wrapper">
     <resume-builder v-show="getActiveBuilder"></resume-builder>
     <resume-preview></resume-preview>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -31,7 +31,8 @@ export default {
     });
 
     this.$store.dispatch("loadResume");
-  }
+  },
+  mounted() {}
 };
 </script>
 
