@@ -170,7 +170,7 @@
         </div>
       </div>
 
-      <div class="education section" v-if="getRelevantInternships.length">
+      <div class="internships section" v-if="getRelevantInternships.length">
         <h2 class="title">Internships</h2>
         <div
           class="education_item"
@@ -195,6 +195,7 @@
           </div>
         </div>
         <div class="clearfix"></div>
+        <div style="width: 100%; height: 50px"></div>
       </div>
     </div>
   </div>
