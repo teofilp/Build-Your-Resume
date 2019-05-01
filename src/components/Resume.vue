@@ -660,7 +660,7 @@ a:hover {
   bottom: 0;
   left: 0;
   width: 2rem;
-  height: 2px;
+  height: 0.15rem;
   background: black;
 }
 
