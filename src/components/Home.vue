@@ -39,7 +39,7 @@
           <br>Intuitive. Easy to use. Professional.
         </h2>
         <div class="row">
-          <router-link tag="div" to="/app" class="button col-md-8 offset-md-2">Start brewing now</router-link>
+          <router-link tag="button" to="/app" class="button col-md-8 offset-md-2">Start brewing now</router-link>
         </div>
       </div>
     </div>
@@ -76,9 +76,11 @@ export default {
   },
   methods: {
     toggleMobileNav() {
-      if (this.activeClass === "inactive" || this.activeClass === "fade-out") {
+      if (this.activeClass !== "active") {
         this.activeClass = "active";
-      } else if (this.activeClass === "active") this.activeClass = "fade-out";
+      } else if (this.activeClass === "active") {
+        this.activeClass = "inactive";
+      }
       console.log(this.activeClass);
     }
   }
@@ -280,21 +282,20 @@ ul.mobile_nav {
   width: 100%;
   height: 100%;
   background: white;
-  left: 0;
+  left: -100;
+  opacity: 0;
   z-index: 9;
 }
-
-ul.mobile_nav.active {
-  animation: fade-in 0.5s ease-in-out forwards;
+ul.active {
+  left: 0;
+  opacity: 1;
+  transition: left 0.5s, opacity 0.5s;
 }
 
 ul.mobile_nav.inactive {
+  left: -100%;
   opacity: 0;
-  display: none;
-}
-
-ul.mobile_nav.fade-out {
-  animation: fade-out 0.5s ease-in-out forwards;
+  transition: left 0.5s, opacity 0.5s;
 }
 
 ul.mobile_nav li {
@@ -309,14 +310,14 @@ ul.mobile_nav li a {
 }
 
 ul.mobile_nav.active li:first-of-type {
-  animation: slide 1s ease-in-out forwards;
+  animation: slide 0.5s ease-in-out forwards;
 }
 ul.mobile_nav.active li:nth-of-type(2) {
-  animation: slide 2s ease-in-out forwards;
+  animation: slide 1s ease-in-out forwards;
 }
 
 ul.mobile_nav.active li:last-of-type {
-  animation: slide 3s ease-in-out forwards;
+  animation: slide 1.5s ease-in-out forwards;
 }
 
 @keyframes slide {
@@ -329,37 +330,6 @@ ul.mobile_nav.active li:last-of-type {
   }
 }
 
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-    display: none;
-  }
-
-  1% {
-    opacity: 0.01;
-    display: block;
-  }
-  100% {
-    display: block;
-    opacity: 1;
-  }
-}
-
-@keyframes fade-out {
-  0% {
-    opacity: 1;
-    display: block;
-  }
-
-  99% {
-    opacity: 0.01;
-    display: none;
-  }
-  100% {
-    display: none;
-    opacity: 0;
-  }
-}
 @media only screen and (min-width: 500px) {
   .mobile_nav_toggler {
     display: none;
@@ -381,6 +351,25 @@ ul.mobile_nav.active li:last-of-type {
   }
   nav .container ul.mobile_nav {
     display: block;
+  }
+
+  .logo {
+    width: 4rem;
+    height: 4rem;
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 370px) {
+  .step_number {
+    width: 40px;
+    height: 40px;
+    padding-top: 1.2rem;
+  }
+
+  .step_number ~ p {
+    margin-top: 20px;
   }
 }
 </style>
