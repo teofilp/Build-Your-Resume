@@ -118,7 +118,7 @@ export default {
   height: 100vh;
   background: rgba(255, 255, 255, 0.7);
   clip-path: polygon(0 0, 0 45%, 50% 75%, 100% 45%, 100% 0);
-  z-index: 0.99;
+  z-index: 1;
 }
 .button {
   text-align: center;
