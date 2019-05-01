@@ -332,14 +332,15 @@ label.col-md-6 {
 .add_button h5 {
   height: 100%;
   margin: 0;
-  padding: 15px 10px;
-  font-size: 0.9em;
+  padding: 1rem 0.8rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: #4286f4;
 }
 
 .add_button i {
-  font-size: 0.9em;
+  font-size: 0.9rem;
+  height: 100%;
   color: #4286f4;
 }
 
@@ -352,7 +353,7 @@ label.col-md-6 {
 
 .delete_icon,
 .expand_icon {
-  font-size: 0.95em;
+  font-size: 0.95rem;
   text-align: center;
   transition: opacity 0.1s, color 0.1s;
 }
@@ -380,7 +381,7 @@ label.col-md-6 {
 }
 .item_wrapper h5 {
   height: 100%;
-  font-size: 0.9em;
+  font-size: 0.9rem;
   margin: 0;
   padding: 15px 10px;
 }
@@ -400,7 +401,7 @@ label.col-md-6 {
   color: white;
   background: #aaa;
   padding: 1.5rem;
-  font-size: 3rem;
+  font-size: 2rem;
   border-radius: 50%;
   display: none;
 }
