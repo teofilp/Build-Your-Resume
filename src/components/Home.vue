@@ -309,26 +309,6 @@ ul.mobile_nav li a {
   color: #478dff;
 }
 
-ul.mobile_nav.active li:first-of-type {
-  animation: slide 0.5s ease-in-out forwards;
-}
-ul.mobile_nav.active li:nth-of-type(2) {
-  animation: slide 1s ease-in-out forwards;
-}
-ul.mobile_nav.active li:last-of-type {
-  animation: slide 1.5s ease-in-out forwards;
-}
-
-@keyframes slide {
-  from {
-    padding-left: 0;
-  }
-
-  to {
-    padding-left: 3rem;
-  }
-}
-
 @media only screen and (min-width: 500px) {
   .mobile_nav_toggler {
     display: none;

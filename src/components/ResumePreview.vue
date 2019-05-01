@@ -126,7 +126,9 @@ export default {
             doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
           }
-          doc.save(filename);
+          // doc.output("blob");
+          // // doc.save(filename);
+          window.open(doc.output("blob"), "_blank");
 
           instance.setInitialPositionAndDimensionsResumePreview();
           document.querySelector("#loading_bar").classList.remove("active");

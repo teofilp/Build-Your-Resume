@@ -1,7 +1,10 @@
 <template>
   <div id="builder_wrapper" class="container">
     <div id="disclaimer_wrapper">
-      <h2 class="disclaimer">For a better experience please use our desktop version</h2>
+      <h2 class="disclaimer">
+        For a better experience please use our desktop version.
+        You won't be able to download your resume if you're using an iOS device.
+      </h2>
     </div>
     <div class="row mt-5 resume_title_section">
       <div id="resume_title_wrapper" class="col-md-6 col-sm-12 col-12 col-6 offset-md-3">
@@ -119,14 +122,14 @@ export default {
     },
     disclaimerSetup() {
       // target only mobile
-      if (window.innerWidth >= 768) return;
+      if (window.innerWidth >= 800 && window.innerHeight >= 600) return;
 
       document.querySelector("#disclaimer_wrapper").classList.add("active");
       setTimeout(() => {
         document
           .querySelector("#disclaimer_wrapper")
           .classList.remove("active");
-      }, 4500);
+      }, 6500);
     }
   },
   computed: {
