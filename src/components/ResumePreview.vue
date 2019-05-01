@@ -52,20 +52,7 @@ export default {
       setInitialPositionAndDimensionsResumePreview;
     });
     this.setInitialPositionAndDimensionsResumePreview();
-
-    this.$http
-      .get("https://stocktrader-f457a.firebaseio.com/visitors.json")
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        data++;
-        return this.$http.put(
-          "https://stocktrader-f457a.firebaseio.com/visitors.json",
-          data
-        );
-      })
-      .then(result => console.log(result));
+    this.increaseVisitors(false);
   },
   methods: {
     setInitialPositionAndDimensionsResumePreview() {
@@ -106,7 +93,7 @@ export default {
       let instance = this;
       setTimeout(() => {
         const filename = "your_resume.pdf";
-        const quality = 1;
+        const quality = 4;
 
         let resume = document.querySelector("#relevant_info_panel");
         let currHeight = document.querySelector("#resume_preview").offsetHeight;
@@ -148,6 +135,24 @@ export default {
     },
     saveResume() {
       this.$store.dispatch("saveResume");
+    },
+    increaseVisitors(productionMode) {
+      if (!productionMode) return;
+      let instance = this;
+
+      this.$http
+        .get("https://stocktrader-f457a.firebaseio.com/visitors.json")
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          data++;
+          return this.$http.put(
+            "https://stocktrader-f457a.firebaseio.com/visitors.json",
+            data
+          );
+        })
+        .then(result => console.log(result));
     }
   },
   computed: {
@@ -364,6 +369,23 @@ button.download:hover {
 @media only screen and (max-width: 1180px) {
   #preview_wrapper {
     display: none;
+  }
+}
+
+@media only screen and (max-height: 750px) {
+  .options {
+    bottom: 0;
+    margin-bottom: 0.2rem;
+  }
+  button.download {
+    padding: 12px 25px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .options {
+    width: 80%;
+    left: 10%;
   }
 }
 </style>

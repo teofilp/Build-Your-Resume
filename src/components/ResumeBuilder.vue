@@ -71,7 +71,6 @@
       <Internships></Internships>
     </div>
 
-
     <div class="row mt-5">
       <div style="width: 2px; height: 200px"></div>
     </div>
@@ -89,25 +88,29 @@ import Education from "./sections/Education.vue";
 import EmploymentHistory from "./sections/EmploymentHistory.vue";
 import Languages from "./sections/Languages.vue";
 import Courses from "./sections/Courses.vue";
-import Internships from './sections/Internships.vue';
+import Internships from "./sections/Internships.vue";
 export default {
   methods: {
     selectTitle() {
       document.getElementById("resume_title").select();
     },
-    enableMobilePreview(){
-      document.querySelector("#builder_wrapper").style.display = 'none';
+    enableMobilePreview() {
+      document.querySelector("#builder_wrapper").style.display = "none";
       let preview = document.querySelector("#preview_wrapper");
       let resume_preview = document.querySelector("#resume_preview");
       preview.style.display = "block";
       preview.style.width = "100%";
       preview.style.left = "0";
-      document.querySelector(".preview_button").classList.add("mobile_preview_disable");
-      document.querySelector(".mobile_preview_disable").addEventListener('click', ()=> {
+      document
+        .querySelector(".preview_button")
+        .classList.add("mobile_preview_disable");
+      document
+        .querySelector(".mobile_preview_disable")
+        .addEventListener("click", () => {
           document.querySelector("#builder_wrapper").style.display = "block";
           preview.style.display = "none";
-          ev.target.classList.remove('mobile_preview_disable');
-      });
+          ev.target.classList.remove("mobile_preview_disable");
+        });
 
       resume_preview.style.width = resume_preview.offsetHeight * 0.71 + "px";
     }
@@ -337,14 +340,13 @@ label.col-md-6 {
   padding: 15px 10px;
 }
 .expandable {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .3s;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s;
 }
-
 .expandable.active {
-    max-height: 700px;
-    transition: max-height .3s;
+  max-height: 700px;
+  transition: max-height 0.3s;
 }
 .mobile_preview {
   position: sticky;
@@ -357,13 +359,13 @@ label.col-md-6 {
   border-radius: 50%;
   display: none;
 }
-@media only screen and (max-width: 1180px){
+@media only screen and (max-width: 1180px) {
   #builder_wrapper {
     width: 100%;
     left: 50%;
     transform: translateX(-50%);
   }
-   .mobile_preview {
+  .mobile_preview {
     display: inline;
   }
 }
@@ -372,5 +374,16 @@ label.col-md-6 {
     display: none;
   }
 }
-
+@media only screen and (max-width: 500px) {
+  div#builder_wrapper {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+@media only screen and (max-width: 450px) {
+  div#builder_wrapper {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
 </style>

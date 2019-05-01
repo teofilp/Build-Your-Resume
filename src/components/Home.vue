@@ -1,6 +1,17 @@
 <template>
   <div class="wrapper">
-    <div class="container">
+    <ul class="mobile_nav" :class="activeClass">
+      <li class="mt-4">
+        <a>Templates</a>
+      </li>
+      <li>
+        <a>Examples</a>
+      </li>
+      <li>
+        <a>FAQ</a>
+      </li>
+    </ul>
+    <div class="container" style="height: 90%">
       <nav>
         <div class="container">
           <div class="logo">
@@ -17,26 +28,10 @@
               <a>FAQ</a>
             </li>
           </ul>
+          <i class="fas fa-bars mobile_nav_toggler" @click="toggleMobileNav"></i>
         </div>
       </nav>
-      <div class="steps">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4">
-              <h3 class="step_number">1</h3>
-              <p>Choose from our professionally designed resumes</p>
-            </div>
-            <div class="col-md-4">
-              <h3 class="step_number">2</h3>
-              <p>Fill in your details with our simple prompts</p>
-            </div>
-            <div class="col-md-4">
-              <h3 class="step_number">3</h3>
-              <p>Download & and apply for a job today!</p>
-            </div>
-          </div>
-        </div>
-      </div>
+
       <div id="geo"></div>
       <div class="head">
         <h2 class="mb-5 pb-2">
@@ -48,13 +43,44 @@
         </div>
       </div>
     </div>
+    <div class="steps">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-12 col-12">
+            <h3 class="step_number">1</h3>
+            <p>Choose from our professionally designed resumes</p>
+          </div>
+          <div class="col-md-4 col-sm-12 col-12">
+            <h3 class="step_number">2</h3>
+            <p>Fill in your details with our simple prompts</p>
+          </div>
+          <div class="col-md-4 col-sm-12 col-12">
+            <h3 class="step_number">3</h3>
+            <p>Download & and apply for a job today!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <h2>Copyright 2019 Resume Builder</h2>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      activeClass: "inactive"
+    };
+  },
+  methods: {
+    toggleMobileNav() {
+      if (this.activeClass === "inactive" || this.activeClass === "fade-out") {
+        this.activeClass = "active";
+      } else if (this.activeClass === "active") this.activeClass = "fade-out";
+      console.log(this.activeClass);
+    }
   }
 };
 </script>
@@ -92,7 +118,7 @@ export default {
   height: 100vh;
   background: rgba(255, 255, 255, 0.7);
   clip-path: polygon(0 0, 0 45%, 50% 75%, 100% 45%, 100% 0);
-  z-index: 1;
+  z-index: 0.99;
 }
 .button {
   text-align: center;
@@ -186,12 +212,12 @@ ul li:hover {
 }
 
 .steps {
-  position: fixed;
-  height: 100px;
+  position: relative;
   width: 100%;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgb(255, 255, 255);
   bottom: 0;
   left: 0;
+  box-shadow: 1px 1px 5px #aaa;
 }
 .steps .container {
   height: 100%;
@@ -204,11 +230,12 @@ ul li:hover {
 }
 
 .step_number {
-  height: 60%;
+  height: 60px;
   width: 60px;
   text-align: center;
-  margin-top: 20px;
-  padding-top: 15px;
+  margin-top: 0.9rem;
+  margin-bottom: 0.9rem;
+  padding-top: 1.4rem;
   font-weight: 700;
   color: white;
   background: rgba(71, 141, 255, 0.8);
@@ -222,9 +249,138 @@ ul li:hover {
   color: #555;
   height: 100%;
   float: left;
-  width: calc(100% - 80px);
+  max-width: calc(100% - 80px);
   margin-left: 10px;
   margin-top: 25px;
   user-select: none;
+}
+
+.footer {
+  width: 100%;
+  background: white;
+}
+
+.footer h2 {
+  color: #4286f4;
+  padding: 1.25rem;
+  padding-top: 1.6rem;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.mobile_nav_toggler {
+  font-size: 3.5rem;
+  color: #478dff;
+  float: right;
+  padding-top: 1rem;
+}
+
+ul.mobile_nav {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: white;
+  left: 0;
+  z-index: 9;
+}
+
+ul.mobile_nav.active {
+  animation: fade-in 0.5s ease-in-out forwards;
+}
+
+ul.mobile_nav.inactive {
+  opacity: 0;
+  display: none;
+}
+
+ul.mobile_nav.fade-out {
+  animation: fade-out 0.5s ease-in-out forwards;
+}
+
+ul.mobile_nav li {
+  display: block;
+  padding-left: 3rem;
+  padding-top: 8rem;
+}
+
+ul.mobile_nav li a {
+  font-size: 5rem;
+  color: #478dff;
+}
+
+ul.mobile_nav.active li:first-of-type {
+  animation: slide 1s ease-in-out forwards;
+}
+ul.mobile_nav.active li:nth-of-type(2) {
+  animation: slide 2s ease-in-out forwards;
+}
+
+ul.mobile_nav.active li:last-of-type {
+  animation: slide 3s ease-in-out forwards;
+}
+
+@keyframes slide {
+  from {
+    padding-left: 0;
+  }
+
+  to {
+    padding-left: 3rem;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    display: none;
+  }
+
+  1% {
+    opacity: 0.01;
+    display: block;
+  }
+  100% {
+    display: block;
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+    display: block;
+  }
+
+  99% {
+    opacity: 0.01;
+    display: none;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+  }
+}
+@media only screen and (min-width: 500px) {
+  .mobile_nav_toggler {
+    display: none;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .step_number ~ p {
+    text-align: center;
+  }
+
+  .step_number {
+    margin-left: 2rem;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  nav .container ul {
+    display: none;
+  }
+  nav .container ul.mobile_nav {
+    display: block;
+  }
 }
 </style>
