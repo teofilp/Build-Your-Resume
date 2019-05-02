@@ -1,72 +1,29 @@
 <template>
   <div class="wrapper">
+    <h4 class="headline mt-4">Choose from one of our templates</h4>
     <div class="slider">
       <div class="separator">
-        <div class="left_separator" @click="slideLeft"></div>
-        <div class="right_separator" @click="slideRight"></div>
+        <div class="left_separator">
+          <i class="fas fa-chevron-left desktop_previous"></i>
+        </div>
+        <div class="right_separator">
+          <i class="fas fa-chevron-right desktop_next"></i>
+        </div>
       </div>
       <div class="slider_inner_wrapper">
-        <div class="slider_item">
+        <div v-for="(template, index) in templates" :key="index" class="slider_item">
           <div class="scaler">
-            <i class="fas fa-chevron-right next_template" @click="slideRight"></i>
-            <i class="fas fa-chevron-left previous_template" @click="slideLeft"></i>
-            <img src="https://source.unsplash.com/user/erondu/422x594" alt>
-          </div>
-        </div>
-        <div class="slider_item">
-          <div class="scaler">
-            <i class="fas fa-chevron-right next_template" @click="slideRight"></i>
-            <i class="fas fa-chevron-left previous_template" @click="slideLeft"></i>
-            <img src="https://source.unsplash.com/user/erondu/422x594" alt>
-          </div>
-        </div>
-        <div class="slider_item">
-          <div class="scaler">
-            <i class="fas fa-chevron-right next_template" @click="slideRight"></i>
-            <i class="fas fa-chevron-left previous_template" @click="slideLeft"></i>
-            <img src="https://source.unsplash.com/user/erondu/422x594" alt>
-          </div>
-        </div>
-        <div class="slider_item">
-          <div class="scaler">
-            <i class="fas fa-chevron-right next_template" @click="slideRight"></i>
-            <i class="fas fa-chevron-left previous_template" @click="slideLeft"></i>
-            <img src="https://source.unsplash.com/user/erondu/422x594" alt>
-          </div>
-        </div>
-        <div class="slider_item">
-          <div class="scaler">
-            <i class="fas fa-chevron-right next_template" @click="slideRight"></i>
-            <i class="fas fa-chevron-left previous_template" @click="slideLeft"></i>
-            <img src="https://source.unsplash.com/user/erondu/422x594" alt>
-          </div>
-        </div>
-        <div class="slider_item">
-          <div class="scaler">
-            <i class="fas fa-chevron-right next_template" @click="slideRight"></i>
-            <i class="fas fa-chevron-left previous_template" @click="slideLeft"></i>
-            <img src="https://source.unsplash.com/user/erondu/422x594" alt>
-          </div>
-        </div>
-        <div class="slider_item">
-          <div class="scaler">
-            <i class="fas fa-chevron-right next_template" @click="slideRight"></i>
-            <i class="fas fa-chevron-left previous_template" @click="slideLeft"></i>
-            <img src="https://source.unsplash.com/user/erondu/422x594" alt>
-          </div>
-        </div>
-        <div class="slider_item">
-          <div class="scaler">
-            <i class="fas fa-chevron-right next_template" @click="slideRight"></i>
-            <i class="fas fa-chevron-left previous_template" @click="slideLeft"></i>
-            <img src="https://source.unsplash.com/user/erondu/422x594" alt>
-          </div>
-        </div>
-        <div class="slider_item">
-          <div class="scaler">
-            <i class="fas fa-chevron-right next_template" @click="slideRight"></i>
-            <i class="fas fa-chevron-left previous_template" @click="slideLeft"></i>
-            <img src="https://source.unsplash.com/user/erondu/422x594" alt>
+            <i class="fas fa-chevron-right mobile next_template"></i>
+            <i class="fas fa-chevron-left mobile next_template"></i>
+            <div class="img_wrapper">
+              <img :src="template" alt>
+            </div>
+            <div class="not_available">
+              <div class="wrap">
+                <h2>not available</h2>
+              </div>
+            </div>
+            <h2 class="use_template">use this template</h2>
           </div>
         </div>
       </div>
@@ -74,220 +31,59 @@
   </div>
 </template>
 <script>
+import * as carousel_handler from "../assets/js/template_carousel.js";
 export default {
   data() {
     return {
-      activeTemplateIndex: 0,
-      numberOfTemplates: -1,
-      availableForSwipe: true,
-      slides: []
+      templates: []
     };
   },
-  mounted() {
-    this.handleTemplates();
-  },
-  methods: {
-    handleTemplates() {
-      this.slides = Array.prototype.slice.call(
-        document.getElementsByClassName("slider_item")
-      );
-      this.numberOfTemplates = this.slides.length;
-      this.resizeTemplates(this.slides);
-      this.positionActiveTemplate(this.slides[this.activeTemplateIndex]);
-      this.positionLeftTemplate(
-        { arr: this.slides, index: this.activeTemplateIndex },
-        4
-      );
-      this.positionRightTemplate(
-        { arr: this.slides, index: this.activeTemplateIndex },
-        4
-      );
-    },
-    positionActiveTemplate(slide) {
-      slide.classList.add("active");
-      slide.style.left = window.innerWidth / 2 - slide.offsetWidth / 2 + "px";
-    },
-    resizeTemplates(slides) {
-      slides.map(el => {
-        let height = el.offsetHeight;
-        el.style.width = height * 0.71 + "px";
-        el.style.top = height / 8 + "px";
-      });
-    },
-    positionLeftTemplate(wrap, shouldContinue) {
-      let index = wrap.index;
-      index += wrap.arr.length;
-      index--;
-      index %= wrap.arr.length;
+  async mounted() {
+    for (let i = 1; i <= 7; i++)
+      this.templates.push(await require("../assets/img/t" + i + ".png"));
 
-      let leftTemplate = wrap.arr[index];
-      let rightTemplate = wrap.arr[wrap.index];
-
-      leftTemplate.style.left =
-        rightTemplate.getBoundingClientRect().left -
-        leftTemplate.offsetWidth -
-        40 +
-        "px";
-      if (shouldContinue > 0) {
-        wrap.index = index;
-        this.positionLeftTemplate(wrap, shouldContinue - 1);
-      }
-    },
-    positionRightTemplate(wrap, shouldContinue) {
-      let index = wrap.index;
-      index += wrap.arr.length;
-      index++;
-      index %= wrap.arr.length;
-
-      let rightTemplate = wrap.arr[index];
-      let leftTemplate = wrap.arr[wrap.index];
-
-      rightTemplate.style.left =
-        leftTemplate.getBoundingClientRect().right + 40 + "px";
-
-      if (shouldContinue > 0) {
-        wrap.index = index;
-        this.positionRightTemplate(wrap, shouldContinue - 1);
-      }
-    },
-    slideLeft() {
-      if (this.availableForSwipe) this.disableSwipe();
-      else return;
-
-      this.slides[this.activeTemplateIndex].classList.remove("active");
-      let activeLeft = this.getActiveTemplateLeftBoundary();
-      this.moveLeftTemplatesToRight(
-        this.slides.length,
-        this.getNextIndex(this.activeTemplateIndex)
-      );
-
-      let nextActive = this.getPreviousIndex(this.activeTemplateIndex);
-      this.changeActive(
-        this.slides[this.activeTemplateIndex],
-        this.slides[nextActive]
-      );
-
-      this.animateLeft(this.slides[nextActive], activeLeft, 300);
-
-      this.increaseActiveTemplateIndex();
-    },
-    moveLeftTemplatesToRight(many, currIndex) {
-      many--;
-      let index = currIndex;
-      let currentEl = this.slides[currIndex];
-      index += this.slides.length;
-      index--;
-      index %= this.slides.length;
-      if (many > 0) this.moveLeftTemplatesToRight(many, index);
-      let leftEl = this.slides[index];
-
-      this.animateLeft(leftEl, currentEl.getBoundingClientRect().left, 300);
-      if (many == 0) return;
-    },
-
-    animateLeft(element, position, duration) {
-      let distanceToTravel = Math.abs(
-        element.getBoundingClientRect().left - position
-      );
-
-      if (distanceToTravel >= (3 / 4) * window.innerWidth) {
-        $(element).css("left", position);
-        return;
-      }
-
-      $(element).animate(
-        {
-          left: position
-        },
-        duration
-      );
-    },
-    changeActive(oldActive, newActive) {
-      $(newActive).addClass("active");
-    },
-    getActiveTemplateLeftBoundary() {
-      return this.slides[this.activeTemplateIndex].getBoundingClientRect().left;
-    },
-    getNextIndex(currIndex) {
-      return (currIndex + this.slides.length + 1) % this.slides.length;
-    },
-    getPreviousIndex(currIndex) {
-      return (currIndex + this.slides.length - 1) % this.slides.length;
-    },
-    increaseActiveTemplateIndex() {
-      this.activeTemplateIndex += this.numberOfTemplates;
-      this.activeTemplateIndex--;
-      this.activeTemplateIndex %= this.numberOfTemplates;
-    },
-    decreaseActiveTemplateIndex() {
-      this.activeTemplateIndex += this.numberOfTemplates;
-      this.activeTemplateIndex++;
-      this.activeTemplateIndex %= this.numberOfTemplates;
-    },
-    disableSwipe() {
-      this.availableForSwipe = false;
-      let instance = this;
-      setTimeout(() => {
-        instance._data.availableForSwipe = true;
-      }, 400);
-    },
-    slideRight() {
-      if (this.availableForSwipe) this.disableSwipe();
-      else return;
-
-      this.slides[this.activeTemplateIndex].classList.remove("active");
-      let activeLeft = this.getActiveTemplateLeftBoundary();
-      this.moveRightTemplatesToLeft(
-        this.slides.length,
-        this.getNextIndex(this.activeTemplateIndex)
-      );
-
-      let nextActive = this.getNextIndex(this.activeTemplateIndex);
-      this.changeActive(
-        this.slides[this.activeTemplateIndex],
-        this.slides[nextActive]
-      );
-
-      this.animateLeft(this.slides[nextActive], activeLeft, 300);
-
-      this.decreaseActiveTemplateIndex();
-    },
-    moveRightTemplatesToLeft(many, currIndex) {
-      many--;
-      let index = currIndex;
-      let currentEl = this.slides[currIndex];
-      index += this.slides.length;
-      index++;
-      index %= this.slides.length;
-      if (many > 0) this.moveRightTemplatesToLeft(many, index);
-      let leftEl = this.slides[index];
-
-      this.animateLeft(leftEl, currentEl.getBoundingClientRect().left, 300);
-      if (many == 0) return;
-    }
+    setTimeout(() => {
+      let carousel_config = {
+        leftController: [document.querySelector(".left_separator")],
+        rightController: [document.querySelector(".right_separator")],
+        activeSlideIndex: 4,
+        slidesClassName: "slider_item",
+        useArrows: true
+      };
+      carousel_handler.configureCarousel(carousel_config);
+    }, 10);
   }
 };
 </script>
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 .wrapper {
+  font-family: "Roboto", sans-serif;
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: rgb(81, 92, 107);
+  background: rgb(255, 255, 255);
 }
+.headline {
+  text-align: center;
+  color: #478dff;
+  font-size: 1.3rem;
+}
+
 .slider {
-  max-width: 5000px;
+  max-width: 100vw;
   position: absolute;
-  height: 80%;
-  top: 15%;
+  height: 90%;
+  top: 7%;
 }
+
 .slider_inner_wrapper {
-  max-width: 5000px;
-  width: 5000px;
+  width: 100%;
   position: relative;
   height: 100%;
 }
+
 .slider_item {
   height: 80%;
   left: -100%;
@@ -301,7 +97,9 @@ export default {
 .active {
   z-index: 10;
 }
+
 .scaler {
+  position: relative;
   width: 100%;
   height: 100%;
   transition: transform 0.3s ease-in-out;
@@ -309,10 +107,51 @@ export default {
   border: 0.3rem solid transparent;
 }
 
+.wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
 .active .scaler {
   transform: scale(1.1);
   background: white;
-  border-color: #ff6d67;
+  border-color: #478dff;
+}
+
+.scaler .not_available {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.scaler .not_available .wrap h2 {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  text-align: center;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 1.4rem;
+  text-transform: capitalize;
+}
+
+.active .scaler .not_available {
+  background: rgba(100, 100, 100, 0.6);
+  opacity: 1;
+  display: none;
+}
+
+.active .scaler .not_available:hover {
+  cursor: not-allowed;
+}
+
+.active .scaler .use_template {
+  opacity: 1;
 }
 
 .separator {
@@ -320,7 +159,7 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   z-index: 3;
 }
@@ -328,22 +167,24 @@ export default {
 .separator .right_separator {
   width: 50vw;
   height: 100%;
-  float: left;
+  position: absolute;
+  left: 50%;
   background: linear-gradient(
     to left,
-    rgba(81, 92, 107, 0.8),
-    rgba(81, 92, 107, 0.2)
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.2)
   );
 }
-/* rgba(81, 92, 107, 0.8) */
+/* rgba(255, 255, 255, 0.8) */
 .separator .left_separator {
   width: 50vw;
   height: 100%;
-  float: left;
+  position: absolute;
+  left: 0;
   background: linear-gradient(
     to right,
-    rgba(81, 92, 107, 0.8),
-    rgba(81, 92, 107, 0.2)
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.2)
   );
 }
 .left_separator:hover,
@@ -354,7 +195,7 @@ i:hover {
 i.previous_template,
 i.next_template {
   position: absolute;
-  background: #ff6d67;
+  background: #478dff;
   color: white;
   font-size: 2rem;
   padding: 0.35rem 0.5rem;
@@ -370,13 +211,64 @@ i.next_template {
   left: calc(100% + 0.2rem);
 }
 
-.active i {
-  opacity: 1;
+i.mobile {
+  display: none;
 }
-
-.scaler img {
+.img_wrapper {
   width: 100%;
   height: 100%;
+}
+.scaler .img_wrapper img {
+  width: 100%;
+  height: 100%;
+  filter: grayscale(100%);
+  transition: filter 0.3s;
+}
+
+.active .scaler .img_wrapper img {
+  filter: grayscale(0);
+}
+
+.desktop_next,
+.desktop_previous {
+  position: absolute;
+  font-size: 6rem;
+  top: calc(50% - 3rem);
+  color: rgba(71, 141, 255, 0.7);
+  transition: color 0.3s;
+}
+.desktop_previous {
+  left: 6rem;
+}
+.desktop_next {
+  right: 6rem;
+}
+
+.left_separator:hover i,
+.right_separator:hover i {
+  color: rgb(71, 141, 255);
+}
+
+h2.use_template {
+  position: absolute;
+  color: white;
+  top: calc(100% + 0.3rem - 1px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  padding: 0.5rem 2rem;
+  background: rgb(71, 141, 255);
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border: 0.3rem solid transparent;
+  border-top: none;
+  user-select: none;
+  opacity: 0;
+}
+
+h2.use_template:hover {
+  cursor: pointer;
 }
 </style>
 
