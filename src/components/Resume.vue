@@ -8,7 +8,7 @@
     </div>
     <div id="general_info_panel">
       <div class="personal_info mt-3" v-if="isEmptyPersonalInfo">
-        <h2 class="head">Personal info</h2>
+        <h2 class="head">Info</h2>
 
         <div class="mt-2" v-if="getAddress != ''">
           <h5 class="title">

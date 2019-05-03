@@ -53,7 +53,7 @@ export default {
       this.setInitialPositionAndDimensionsResumePreview();
     });
     this.setInitialPositionAndDimensionsResumePreview();
-    this.increaseVisitors(false);
+    this.increaseVisitors(true);
   },
   methods: {
     setInitialPositionAndDimensionsResumePreview() {
@@ -123,7 +123,7 @@ export default {
           heightLeft -= pageHeight;
 
           while (heightLeft >= 0) {
-            position = heightLeft - imgHeight - 2;
+            position = heightLeft - imgHeight - 3;
             doc.addPage();
             doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
