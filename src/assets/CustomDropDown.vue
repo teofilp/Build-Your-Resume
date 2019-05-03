@@ -11,12 +11,12 @@
         <ul id="dropdown-ul">
           <li
             class="li-item"
-            v-for="(option, index) in getThemes"
+            v-for="(option, index) in getAvailableThemes"
             :key="index"
-            :class="{'active': option === getActiveTheme}"
+            :class="{'active': option.name === getActiveTheme}"
             @click="updateActiveOption(option)"
           >
-            <h5 class="li-item">{{ option | capitalize }}</h5>
+            <h5 class="li-item">{{ option.name | capitalize }}</h5>
           </li>
         </ul>
       </div>
@@ -36,11 +36,14 @@ export default {
       this.isActive = !this.isActive;
     },
     updateActiveOption(option) {
-      this.$store.state.activeTheme = option.toLowerCase();
+      this.$store.state.activeTheme = option.name.toLowerCase();
     }
   },
   computed: {
-    ...mapGetters(["getThemes", "getActiveTheme"])
+    ...mapGetters(["getThemes", "getActiveTheme"]),
+    getAvailableThemes() {
+      return this.getThemes.filter(theme => theme.available);
+    }
   },
   mounted() {
     let vueInstance = this;

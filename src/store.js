@@ -6,7 +6,34 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    themes: ['smurf', 'gunpowder', 'yogurt'],
+    themes: [{
+      name: 'smurf',
+      available: true
+    }, {
+      name: 'gunpowder',
+      available: true
+    }, {
+      name: 'yogurt',
+      available: true
+    },
+    {
+      name: 't1',
+      available: false
+    },
+    {
+      name: 't2',
+      available: false
+    },
+    {
+      name: 't3',
+      available: false
+    },
+    {
+      name: 't4',
+      available: false
+    }
+
+    ],
     activeTheme: 'smurf',
     resume: {
       personal_details: {

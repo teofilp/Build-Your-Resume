@@ -18,12 +18,16 @@
             <div class="img_wrapper">
               <img :src="template" alt>
             </div>
-            <div class="not_available">
+            <div class="not_available" v-show="!getThemes[index].available">
               <div class="wrap">
                 <h2>not available</h2>
               </div>
             </div>
-            <h2 class="use_template">use this template</h2>
+            <h2
+              class="use_template"
+              v-show="getThemes[index].available"
+              @click="selectTemplate(getThemes[index].name)"
+            >use this template</h2>
           </div>
         </div>
       </div>
@@ -32,6 +36,7 @@
 </template>
 <script>
 import * as carousel_handler from "../assets/js/template_carousel.js";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -39,8 +44,10 @@ export default {
     };
   },
   async mounted() {
-    for (let i = 1; i <= 7; i++)
-      this.templates.push(await require("../assets/img/t" + i + ".png"));
+    for (let i = 0; i < this.getThemes.length; i++)
+      this.templates.push(
+        await require("../assets/img/" + this.getThemes[i].name + ".png")
+      );
 
     setTimeout(() => {
       let carousel_config = {
@@ -52,6 +59,17 @@ export default {
       };
       carousel_handler.configureCarousel(carousel_config);
     }, 10);
+  },
+  computed: {
+    ...mapGetters(["getThemes"])
+  },
+  methods: {
+    selectTemplate(templateName) {
+      this.$store.state.activeTheme = templateName.toLowerCase();
+      this.$router.push({
+        path: "/app"
+      });
+    }
   }
 };
 </script>
@@ -143,7 +161,7 @@ export default {
 .active .scaler .not_available {
   background: rgba(100, 100, 100, 0.6);
   opacity: 1;
-  display: none;
+  /* display: none; */
 }
 
 .active .scaler .not_available:hover {

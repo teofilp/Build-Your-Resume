@@ -8,10 +8,12 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "autoprefixer": "^9.5.1",
     "express": "^4.16.4",
     "html2canvas": "^1.0.0-rc.1",
     "jquery": "^3.4.0",
     "jspdf": "^1.5.3",
+    "postcss-cli": "^6.1.2",
     "serve-static": "^1.13.2",
     "vue": "^2.6.6",
     "vue-resource": "^1.5.1",
