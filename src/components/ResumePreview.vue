@@ -86,7 +86,7 @@ export default {
         alert("Your Resume Completeness has to be greater or equal to 70");
         return;
       }
-      // document.querySelector("#loading_bar").classList.add("active");
+      document.querySelector("#loading_bar").classList.add("active");
       let instance = this;
       setTimeout(() => {
         const filename = "your_resume.pdf";
