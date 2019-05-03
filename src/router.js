@@ -7,7 +7,7 @@ import ResumeApp from './components/ResumeApp.vue';
 import Home from './components/Home.vue';
 import TemplateCarousel from './components/TemplateCarousel.vue';
 export default new Router({
-  mode: 'hash',
+  mode: 'history',
   base: process.env.BASE_URL,
   routes: [{
     path: '/app', component: ResumeApp
