@@ -1,10 +1,5 @@
 <template>
   <div id="preview_wrapper" :class="{active: activeClass}">
-    <div id="loading_bar">
-      <div class="loader_circle"></div>
-      <div class="loader_circle loader_circle_reverse"></div>
-      <h2 class="loading_message">Loading</h2>
-    </div>
     <div id="resume_preview">
       <resume></resume>
     </div>
@@ -91,20 +86,29 @@ export default {
         alert("Your Resume Completeness has to be greater or equal to 70");
         return;
       }
-      document.querySelector("#loading_bar").classList.add("active");
+      // document.querySelector("#loading_bar").classList.add("active");
       let instance = this;
       setTimeout(() => {
         const filename = "your_resume.pdf";
         const quality = 4;
 
-        let resume = document.querySelector("#relevant_info_panel");
-        let currHeight = document.querySelector("#resume_preview").offsetHeight;
-        document.querySelector("#resume_preview").style.height = "auto";
-        document.querySelector("#resume_preview").style.height =
+        let resumeRelevantInfoPanel = document.querySelector(
+          "#relevant_info_panel"
+        );
+        let resume = document.querySelector("#resume_preview");
+        resume.style.width = 422 + "px";
+        resume.style.height = resume.offsetWidth * 1.41;
+
+        var fontSize = $("html").css("fontSize");
+        fontSize = parseInt(fontSize) + 1 + "px";
+
+        $("html").css("fontSize", "12px");
+
+        let currHeight = resume.offsetHeight;
+        resume.style.height = "auto";
+        resume.style.height =
           Math.max(
-            document.querySelector("#resume_preview").offsetHeight +
-              resume.scrollHeight +
-              20,
+            resume.offsetHeight + resumeRelevantInfoPanel.scrollHeight + 20,
             currHeight
           ) + "px";
 
@@ -129,6 +133,7 @@ export default {
             heightLeft -= pageHeight;
           }
           instance.setInitialPositionAndDimensionsResumePreview();
+          $("html").css("fontSize", fontSize);
           document.querySelector("#loading_bar").classList.remove("active");
           doc.save(filename);
         });
@@ -136,6 +141,13 @@ export default {
     },
     saveResume() {
       this.$store.dispatch("saveResume");
+      this.$swal({
+        position: "center",
+        type: "success",
+        title: "Your resume has been saved",
+        showConfirmButton: false,
+        timer: 1500
+      });
     },
 
     increaseVisitors(productionMode) {
@@ -153,8 +165,7 @@ export default {
             "https://stocktrader-f457a.firebaseio.com/visitors.json",
             data
           );
-        })
-        .then(result => console.log(result));
+        });
     }
   },
   computed: {
@@ -270,92 +281,6 @@ button.download:hover {
   cursor: default;
 }
 
-#loading_bar {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  z-index: 0;
-  background: rgba(151, 177, 219, 1);
-  transition: opacity 0.3s, z-index 0.3s;
-}
-
-#loading_bar.active {
-  z-index: 9999;
-  opacity: 1;
-}
-.loader_circle {
-  width: 15rem;
-  height: 15rem;
-  box-sizing: border-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border-top: 5px solid #fefefe;
-  border-bottom: 2px solid transparent;
-  border-left: 2px solid transparent;
-  border-right: 2px solid transparent;
-  border-radius: 50%;
-  margin-top: -7.5rem;
-  margin-left: -7.5rem;
-  animation: loader 1s infinite linear;
-}
-
-.loader_circle_reverse {
-  width: 13rem;
-  height: 13rem;
-  margin-top: -6.5rem;
-  margin-left: -6.5rem;
-  animation: loader-reverse 1.2s infinite linear;
-}
-
-.loading_message {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-weight: 400;
-  text-transform: uppercase;
-  font-size: 1.5rem;
-  letter-spacing: 1px;
-  animation: fade 2s infinite linear;
-}
-
-@keyframes loader {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes loader-reverse {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
-}
-@keyframes fade {
-  0% {
-    opacity: 1;
-  }
-  25% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 0;
-  }
-  75% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 @media only screen and (max-width: 1725px) {
   #resume_preview {
     width: 65%;

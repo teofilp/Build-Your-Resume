@@ -272,8 +272,8 @@ export default {
       else return this.getEmploymentHistory.slice(0, 3);
     },
     getRelevantEducation() {
-      if (this.getEducation.length <= 3) return this.getEducation;
-      else return this.getEducation.slice(0, 3);
+      if (this.getEducation.length <= 2) return this.getEducation;
+      else return this.getEducation.slice(0, 2);
     },
     getRelevantCourses() {
       if (this.getCourses.length <= 2) return this.getCourses;
@@ -286,9 +286,9 @@ export default {
       return true;
     },
     getRelevantInternships() {
-      if (this.getInternshipHistory.length <= 3)
+      if (this.getInternshipHistory.length <= 2)
         return this.getInternshipHistory;
-      else return this.getInternshipHistory.slice(0, 3);
+      else return this.getInternshipHistory.slice(0, 2);
     }
   }
 };
@@ -363,7 +363,7 @@ a:hover {
   font-weight: 600;
   font-size: 1.4rem;
   letter-spacing: 0.05rem;
-  padding: 0.5em 0 0 0.5rem;
+  padding: 0.5rem 0 0 0.5rem;
   color: white;
 }
 
@@ -371,7 +371,7 @@ a:hover {
   font-weight: 500;
   color: white;
   font-size: 0.8rem;
-  padding: 0.3em 0 0 0.5rem;
+  padding: 0.3rem 0 0 0.5rem;
 }
 
 .smurf h2.head {
@@ -379,7 +379,7 @@ a:hover {
   width: 100%;
   font-weight: 500;
   font-size: 1rem;
-  padding: 0.3em 0 0.5em 0.5rem;
+  padding: 0.3rem 0 0.5rem 0.5rem;
   background: var(--smurf-dark-bg);
 }
 
@@ -388,7 +388,7 @@ a:hover {
   color: white;
   font-size: 0.7rem;
   font-weight: 400;
-  padding: 0.3em 0 0 0.5rem;
+  padding: 0.3rem 0 0 0.5rem;
 }
 
 #general_info_panel .personal_info h6 {
@@ -424,9 +424,9 @@ a:hover {
 .smurf #relevant_info_panel h2.title {
   font-size: 1rem;
   position: relative;
-  margin: 0.5em 0 0.5em 0.5rem;
-  padding: 0.3em 0 0.3em 0;
-  width: calc(100% - 1em);
+  margin: 0.5rem 0 0.5rem 0.5rem;
+  padding: 0.3rem 0 0.3rem 0;
+  width: calc(100% - 1rem);
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
   color: var(--smurf-dark-bg);
@@ -438,7 +438,7 @@ a:hover {
 
 .smurf #relevant_info_panel .professional_summary p {
   font-size: 0.7rem;
-  padding: 0.7em 0.7em 0 0.7rem;
+  padding: 0.7rem 0.7rem 0 0.7rem;
 }
 .smurf .experience {
   position: relative;
@@ -500,7 +500,7 @@ a:hover {
 .smurf #relevant_info_panel div .description p,
 .gunpowder #relevant_info_panel div .description p,
 .yogurt #relevant_info_panel div .description p {
-  padding: 0em 0.5em 0 0.3rem;
+  padding: 0rem 0.5rem 0 0.3rem;
   font-size: 0.6rem;
 }
 /* GUNPOWDER THEME START */

@@ -16,7 +16,7 @@
         </div>
         <shared-custom-item
           class="expandable"
-        :class="{active : education.expanded}"
+          :class="{active : education.expanded}"
           :model="education"
           :attr1="'institute'"
           :attr2="'degree'"
