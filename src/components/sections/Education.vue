@@ -5,7 +5,7 @@
     </h2>
     <!-- education items -->
     <div class="mt-3">
-      <div v-for="(education, index) in getEducation" :key="index" class="item_wrapper">
+      <div v-for="(education, index) in getEducation" :key="index" class="item_wrapper col-md-12">
         <div class="row item_expand" @click="toggleExpand(education)">
           <h5 class="col-md-10 col-sm-9 col-9">{{education.institute}} - {{education.degree}}</h5>
           <i
@@ -27,16 +27,15 @@
     </div>
 
     <div
-      class="col-md-12 add_button"
+      class="add_button"
       @click="
       $store.commit('hide', getEducation);
       $store.commit('addEducation');
     "
     >
-      <div class="row" style="height: 100%">
-        <i class="fas fa-plus mt-3"></i>
-        <h5>Add education</h5>
-      </div>
+      <h5>
+        <i class="fas fa-plus mt-3"></i> Add education
+      </h5>
     </div>
   </div>
 </template>

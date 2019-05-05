@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown_wrapper wrapper" @click="toggleDropDown">
     <div class="row">
-      <h5 class="col-lg-8 col-md-8 col-sm-8 col-8">{{getActiveTheme | capitalize }}</h5>
+      <h5 class="col-lg-8 col-md-8 col-sm-8 col-8">{{getActiveTheme.name | capitalize }}</h5>
       <i
         class="fas col-3 col-sm-3 col-md-3 offset-xs-2 mt-3"
         :class="{'fa-chevron-up': isActive, 'fa-chevron-down': !isActive}"
@@ -36,7 +36,7 @@ export default {
       this.isActive = !this.isActive;
     },
     updateActiveOption(option) {
-      this.$store.state.activeTheme = option.name.toLowerCase();
+      this.$store.commit("updateTheme", option);
     }
   },
   computed: {

@@ -37,16 +37,15 @@
     </div>
 
     <div
-      class="col-md-12 add_button"
+      class="add_button"
       @click="
       $store.commit('hide', getLanguages);
       $store.commit('addLanguage');
     "
     >
-      <div class="row" style="height: 100%">
-        <i class="fas fa-plus mt-3"></i>
-        <h5>Add language</h5>
-      </div>
+      <h5>
+        <i class="fas fa-plus mt-3"></i> Add language
+      </h5>
     </div>
   </div>
 </template>

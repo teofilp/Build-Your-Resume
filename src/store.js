@@ -1,19 +1,24 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { strictEqual } from 'assert';
-
+import YogurtResume from './components/ResumeTemplates/YogurtResume.vue';
+import SmurfTemplate from './components/ResumeTemplates/SmurfTemplate.vue';
+import GunpowderTemplate from './components/ResumeTemplates/GunpowderTemplate.vue';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     themes: [{
       name: 'smurf',
+      template: SmurfTemplate,
       available: true
     }, {
       name: 'gunpowder',
+      template: GunpowderTemplate,
       available: true
     }, {
       name: 'yogurt',
+      template: YogurtResume,
       available: true
     },
     {
@@ -34,7 +39,11 @@ export default new Vuex.Store({
     }
 
     ],
-    activeTheme: 'smurf',
+    activeTheme: {
+      name: 'smurf',
+      available: true,
+      template: SmurfTemplate
+    },
     resume: {
       personal_details: {
         job_title: '',
@@ -129,6 +138,12 @@ export default new Vuex.Store({
     },
     getInternshipHistory(state) {
       return state.resume.internships;
+    },
+    getActiveThemeTemplate(state) {
+      return state.activeTheme.template;
+    },
+    getActiveThemeName(state) {
+      return state.activeTheme.name;
     }
   },
   mutations: {
@@ -244,6 +259,9 @@ export default new Vuex.Store({
     deleteInternship(state, internshipItem) {
       let internshipIndex = state.resume.internships.indexOf(internshipItem);
       state.resume.internships.splice(internshipIndex, 1);
+    },
+    updateTheme(state, option) {
+      state.activeTheme = option;
     }
   },
   actions: {

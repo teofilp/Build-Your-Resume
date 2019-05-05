@@ -8,7 +8,7 @@
       <div
         v-for="(employmentItem, index) in getEmploymentHistory"
         :key="index"
-        class="item_wrapper"
+        class="item_wrapper col-md-12"
       >
         <div class="row item_expand" @click="toggleExpand(employmentItem)">
           <h5
@@ -22,7 +22,7 @@
         </div>
         <shared-custom-item
           class="expandable"
-        :class="{active : employmentItem.expanded}"
+          :class="{active : employmentItem.expanded}"
           :model="employmentItem"
           :attr1="'title'"
           :attr2="'employer'"
@@ -33,16 +33,15 @@
     </div>
 
     <div
-      class="col-md-12 add_button"
+      class="add_button"
       @click="
       $store.commit('hide', getEmploymentHistory);
       $store.commit('addEmploymentItem');
     "
     >
-      <div class="row" style="height: 100%">
-        <i class="fas fa-plus mt-3"></i>
-        <h5>Add employment</h5>
-      </div>
+      <h5>
+        <i class="fas fa-plus mt-3"></i> Add education
+      </h5>
     </div>
   </div>
 </template>

@@ -8,7 +8,7 @@
       <div
         v-for="(internshipItem, index) in getInternshipHistory"
         :key="index"
-        class="item_wrapper"
+        class="item_wrapper col-md-12"
       >
         <div class="row item_expand" @click="toggleExpand(internshipItem)">
           <h5
@@ -21,8 +21,8 @@
           <i class="fas fa-chevron-down expand_icon col-md-1 col-sm-1 col-1 mt-3"></i>
         </div>
         <shared-custom-item
-        class="expandable"
-        :class="{active : internshipItem.expanded}"
+          class="expandable"
+          :class="{active : internshipItem.expanded}"
           :model="internshipItem"
           :attr1="'title'"
           :attr2="'employer'"
@@ -33,16 +33,15 @@
     </div>
 
     <div
-      class="col-md-12 add_button"
+      class="add_button"
       @click="
       $store.commit('hide', getInternshipHistory);
       $store.commit('addInternship');
     "
     >
-      <div class="row" style="height: 100%">
-        <i class="fas fa-plus mt-3"></i>
-        <h5>Add internship</h5>
-      </div>
+      <h5>
+        <i class="fas fa-plus mt-3"></i> Add internship
+      </h5>
     </div>
   </div>
 </template>

@@ -26,7 +26,7 @@
             <h2
               class="use_template"
               v-show="getThemes[index].available"
-              @click="selectTemplate(getThemes[index].name)"
+              @click="selectTemplate(getThemes[index])"
             >use this template</h2>
           </div>
         </div>
@@ -64,10 +64,10 @@ export default {
     ...mapGetters(["getThemes"])
   },
   methods: {
-    selectTemplate(templateName) {
-      this.$store.state.activeTheme = templateName.toLowerCase();
+    selectTemplate(template) {
+      this.$store.commit("updateTheme", template);
       this.$router.push({
-        path: "/app"
+        path: `/app`
       });
     }
   }

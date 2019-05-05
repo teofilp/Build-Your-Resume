@@ -1,7 +1,7 @@
 <template>
   <div id="preview_wrapper" :class="{active: activeClass}">
     <div id="resume_preview">
-      <resume></resume>
+      <component :is="activeResume"></component>
     </div>
     <i class="far fa-times-circle disable_preview" v-if="activeClass" @click="disablePreview"></i>
     <ul class="options">
@@ -26,21 +26,20 @@
   </div>
 </template>
 <script>
-import Resume from "./Resume.vue";
+// import Resume from "./Resume.vue";
 import { EventBus } from "../main.js";
 import * as jsPDF from "jspdf";
 import * as html2canvas from "html2canvas";
 import { mapGetters } from "vuex";
+import * as uuidv1 from "uuid/v1";
+import * as Crypt from "cryptr";
+import * as axios from "axios";
 export default {
   data() {
     return {
       activeClass: false,
-      previewActive: false,
-      abandonedDownload: false
+      previewActive: false
     };
-  },
-  components: {
-    Resume
   },
   mounted() {
     let instance = this;
@@ -48,7 +47,7 @@ export default {
       this.setInitialPositionAndDimensionsResumePreview();
     });
     this.setInitialPositionAndDimensionsResumePreview();
-    this.increaseVisitors(true);
+    this.increaseVisitors(process.env.VUE_APP_UPDATE_VISITORS);
   },
   methods: {
     setInitialPositionAndDimensionsResumePreview() {
@@ -81,63 +80,83 @@ export default {
       this.setInitialPositionAndDimensionsResumePreview();
     },
     download() {
-      this.abandonedDownload = false;
       if (this.getCompleteness < 70) {
         alert("Your Resume Completeness has to be greater or equal to 70");
         return;
       }
-      document.querySelector("#loading_bar").classList.add("active");
+
+      this.enableLoadingScreen();
+
       let instance = this;
+
       setTimeout(() => {
-        const filename = "your_resume.pdf";
+        const filename = uuidv1(); // unique name - id
         const quality = 4;
+        let fontSize = {};
 
-        let resumeRelevantInfoPanel = document.querySelector(
-          "#relevant_info_panel"
-        );
-        let resume = document.querySelector("#resume_preview");
-        resume.style.width = 422 + "px";
-        resume.style.height = resume.offsetWidth * 1.41;
-
-        var fontSize = $("html").css("fontSize");
-        fontSize = parseInt(fontSize) + 1 + "px";
-
-        $("html").css("fontSize", "12px");
-
-        let currHeight = resume.offsetHeight;
-        resume.style.height = "auto";
-        resume.style.height =
-          Math.max(
-            resume.offsetHeight + resumeRelevantInfoPanel.scrollHeight + 20,
-            currHeight
-          ) + "px";
+        this.resizeWrapperBeforeDownload(fontSize);
 
         html2canvas(document.querySelector("#root"), {
           scale: quality
         }).then(canvas => {
-          var imgData = canvas.toDataURL("image/png");
-          var imgWidth = 210;
-          var pageHeight = 295;
-          var imgHeight = (canvas.height * imgWidth) / canvas.width;
-          var heightLeft = imgHeight;
           var doc = new jsPDF("p", "mm");
-          var position = 0;
 
-          doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-          heightLeft -= pageHeight;
-
-          while (heightLeft >= 0) {
-            position = heightLeft - imgHeight - 3;
-            doc.addPage();
-            doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-          }
-          instance.setInitialPositionAndDimensionsResumePreview();
-          $("html").css("fontSize", fontSize);
-          document.querySelector("#loading_bar").classList.remove("active");
-          doc.save(filename);
+          instance.convertToPdf(doc, canvas);
+          instance.disableLoadingScreen();
+          instance.resizeWrapperAfterDownload(fontSize);
+          instance.savePdf(doc, filename);
         });
       }, 300);
+    },
+    resizeWrapperBeforeDownload(fontSize) {
+      let resumeRelevantInfoPanel = document.querySelector(
+        "#relevant_info_panel"
+      );
+      let resume = document.querySelector("#resume_preview");
+      resume.style.width = 316 + "px";
+      resume.style.height = resume.offsetWidth * 1.41;
+
+      fontSize.value = $("html").css("fontSize");
+      fontSize.value = parseInt(fontSize.value) + "px";
+
+      $("html").css("fontSize", "7px");
+
+      let currHeight = resume.offsetHeight;
+      resume.style.height = "auto";
+
+      EventBus.$emit("preparationsBeforeDownload");
+    },
+    resizeWrapperAfterDownload(fontSize) {
+      this.setInitialPositionAndDimensionsResumePreview();
+      $("html").css("fontSize", fontSize.value);
+    },
+    convertToPdf(doc, canvas) {
+      var imgData = canvas.toDataURL("image/png");
+      var imgWidth = 210;
+      var pageHeight = 295;
+      var imgHeight = (canvas.height * imgWidth) / canvas.width;
+      var heightLeft = imgHeight;
+      var position = 0;
+
+      doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight - 7;
+        doc.addPage();
+        doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+    },
+    enableLoadingScreen() {
+      document.querySelector("#loading_bar").classList.add("active");
+    },
+    disableLoadingScreen() {
+      document.querySelector("#loading_bar").classList.remove("active");
+    },
+    savePdf(doc, filename) {
+      doc.save(filename);
+      this.uploadResume(filename);
     },
     saveResume() {
       this.$store.dispatch("saveResume");
@@ -150,26 +169,42 @@ export default {
       });
     },
 
-    increaseVisitors(productionMode) {
-      if (!productionMode) return;
-      let instance = this;
+    increaseVisitors(increase) {
+      if (!increase) return;
+      if (localStorage.getItem("visitor")) return;
+      localStorage.setItem("visitor", true);
 
-      this.$http
-        .get("https://stocktrader-f457a.firebaseio.com/visitors.json")
+      axios
+        .get("https://resume-builder-5c57f.firebaseio.com/meta/visitors.json")
         .then(res => {
-          return res.json();
+          return res.data;
         })
         .then(data => {
           data++;
-          return this.$http.put(
-            "https://stocktrader-f457a.firebaseio.com/visitors.json",
+          return axios.put(
+            "https://resume-builder-5c57f.firebaseio.com/meta/visitors.json",
             data
           );
         });
+    },
+    uploadResume(name) {
+      let resume = this.$store.state.resume;
+      const crypt = new Crypt("5590fd6409be2494de0226f5d7");
+      const encryptedResume = crypt.encrypt(resume);
+
+      axios.put(
+        "https://resume-builder-5c57f.firebaseio.com/data/" + name + ".json",
+        {
+          encryptedResume
+        }
+      );
     }
   },
   computed: {
-    ...mapGetters(["getCompleteness"])
+    ...mapGetters(["getCompleteness", "getActiveThemeTemplate"]),
+    activeResume: function() {
+      return this.getActiveThemeTemplate;
+    }
   }
 };
 </script>

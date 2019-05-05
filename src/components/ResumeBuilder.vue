@@ -112,7 +112,7 @@ export default {
         .classList.add("mobile_preview_disable");
       document
         .querySelector(".mobile_preview_disable")
-        .addEventListener("click", () => {
+        .addEventListener("click", ev => {
           document.querySelector("#builder_wrapper").style.display = "block";
           preview.style.display = "none";
           ev.target.classList.remove("mobile_preview_disable");
@@ -322,29 +322,25 @@ label.col-md-6 {
 }
 
 .add_button {
-  border: 1px dashed rgba(66, 134, 244, 0.3);
-  border-left: none;
-  border-right: none;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-.add_button:hover {
-  cursor: pointer;
-  border-color: transparent;
-  background: rgba(66, 134, 244, 0.2);
+  display: inline-block;
 }
 .add_button h5 {
-  height: 100%;
+  display: inline;
   margin: 0;
-  padding: 1rem 0.8rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
   font-size: 0.9rem;
   font-weight: 700;
   color: #4286f4;
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s;
 }
 
-.add_button i {
-  font-size: 0.9rem;
-  height: 100%;
-  color: #4286f4;
+.add_button h5:hover {
+  border-color: rgba(66, 134, 244, 0.8);
+  color: white;
+  background: rgba(66, 134, 244, 0.8);
+  cursor: pointer;
 }
 
 .item_expand:hover {

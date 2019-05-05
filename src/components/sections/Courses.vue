@@ -5,18 +5,21 @@
     </h2>
     <!-- education items -->
     <div>
-      <div v-for="(course, index) in getCourses" :key="index" class="item_wrapper">
+      <div v-for="(course, index) in getCourses" :key="index" class="item_wrapper col-md-12">
         <div class="row item_expand" @click="toggleExpand(course)">
           <h5 class="col-md-10 col-sm-9 col-9">
             <i>{{course.name}}</i>
             at {{course.institute}}
           </h5>
-          <i class="fas fa-trash delete_icon col-md-1 col-sm-1 col-1 mt-3 px-2" @click="deleteCourse(course);"></i>
+          <i
+            class="fas fa-trash delete_icon col-md-1 col-sm-1 col-1 mt-3 px-2"
+            @click="deleteCourse(course);"
+          ></i>
           <i class="fas fa-chevron-down expand_icon col-md-1 col-sm-1 col-1 mt-3"></i>
         </div>
         <shared-custom-item
           class="expandable"
-        :class="{active : course.expanded}"
+          :class="{active : course.expanded}"
           :model="course"
           :attr1="'name'"
           :attr2="'institute'"
@@ -31,16 +34,15 @@
     </div>
 
     <div
-      class="col-md-12 add_button"
+      class="add_button"
       @click="
       $store.commit('hide', getCourses);
       $store.commit('addCourse');
     "
     >
-      <div class="row" style="height: 100%">
-        <i class="fas fa-plus mt-3"></i>
-        <h5>Add course</h5>
-      </div>
+      <h5>
+        <i class="fas fa-plus mt-3"></i> Add course
+      </h5>
     </div>
   </div>
 </template>

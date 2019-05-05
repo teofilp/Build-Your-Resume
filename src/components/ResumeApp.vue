@@ -1,9 +1,11 @@
 <template>
   <div id="app_wrapper">
     <div id="loading_bar">
-      <div class="loader_circle"></div>
-      <div class="loader_circle loader_circle_reverse"></div>
-      <h2 class="loading_message">Loading</h2>
+      <div class="text_wrapper_absolute">
+        <div class="text_wrapper">
+          <h2 class="loading_message">Loading</h2>
+        </div>
+      </div>
     </div>
     <resume-builder v-show="getActiveBuilder"></resume-builder>
     <resume-preview></resume-preview>
@@ -34,7 +36,6 @@ export default {
     EventBus.$on("previewUpdated", isActive => {
       instance._data.activeBuilder = isActive;
     });
-
     this.$store.dispatch("loadResume");
   },
   mounted() {}
@@ -49,7 +50,7 @@ export default {
 }
 
 #loading_bar {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   opacity: 0;
@@ -62,76 +63,48 @@ export default {
   z-index: 9999;
   opacity: 1;
 }
-.loader_circle {
-  width: 15rem;
-  height: 15rem;
-  box-sizing: border-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border-top: 5px solid #fefefe;
-  border-bottom: 2px solid transparent;
-  border-left: 2px solid transparent;
-  border-right: 2px solid transparent;
-  border-radius: 50%;
-  margin-top: -7.5rem;
-  margin-left: -7.5rem;
-  animation: loader 1s infinite linear;
-}
 
-.loader_circle_reverse {
-  width: 13rem;
-  height: 13rem;
-  margin-top: -6.5rem;
-  margin-left: -6.5rem;
-  animation: loader-reverse 1.2s infinite linear;
-}
-
-.loading_message {
+.text_wrapper_absolute {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  color: white;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 50%;
+  animation: antifade 3s infinite linear;
+}
+.text_wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+h2.loading_message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(151, 177, 219, 1);
   font-weight: 400;
   text-transform: uppercase;
-  font-size: 1.5rem;
+  font-size: 25px;
+  border-radius: 50%;
+  text-align: center;
+  padding: 10px;
   letter-spacing: 1px;
-  animation: fade 2s infinite linear;
 }
 
-@keyframes loader {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes loader-reverse {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
-}
-@keyframes fade {
+@keyframes antifade {
   0% {
-    opacity: 1;
+    background: rgba(255, 255, 255, 1);
   }
-  25% {
-    opacity: 0.5;
-  }
+
   50% {
-    opacity: 0;
-  }
-  75% {
-    opacity: 0.5;
+    background: rgba(255, 255, 255, 0.2);
   }
   100% {
-    opacity: 1;
+    background: rgba(255, 255, 255, 1);
   }
 }
 </style>
