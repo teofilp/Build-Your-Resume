@@ -3,8 +3,12 @@
     <div id="general_info_panel">
       <div class="header">
         <div class="head">
-          <h2 class="name">{{getPersonalDetails.first_name + " " + getPersonalDetails.last_name}}</h2>
-          <h4 class="title">{{getPersonalDetails.job_title}}</h4>
+          <h2 class="name">
+            {{
+              getPersonalDetails.first_name + " " + getPersonalDetails.last_name
+            }}
+          </h2>
+          <h4 class="title">{{ getPersonalDetails.job_title }}</h4>
         </div>
       </div>
       <div class="personal_info mt-3" v-if="isEmptyPersonalInfo">
@@ -21,23 +25,27 @@
           <h5 class="title">
             <b>Phone</b>
           </h5>
-          <h6>{{getPhoneNumber}}</h6>
+          <h6>{{ getPhoneNumber }}</h6>
         </div>
 
         <div class="mt-2" v-if="getPersonalDetails.email != ''">
           <h5 class="title">
             <b>E-mail</b>
           </h5>
-          <h6>{{getPersonalDetails.email}}</h6>
+          <h6>{{ getPersonalDetails.email }}</h6>
         </div>
 
         <div class="links" v-if="getLinks.length">
-          <div class="mt-2" v-for="(link, index) in getRelevantLinks" :key="index">
+          <div
+            class="mt-2"
+            v-for="(link, index) in getRelevantLinks"
+            :key="index"
+          >
             <h5 class="title">
-              <b>{{link.label}}</b>
+              <b>{{ link.label }}</b>
             </h5>
             <h6>
-              <a>{{link.link}}</a>
+              <a>{{ link.link }}</a>
             </h6>
           </div>
         </div>
@@ -48,15 +56,18 @@
 
         <div
           class="skill_item"
-          :class="{'mt-3': index!=0}"
+          :class="{ 'mt-3': index != 0 }"
           v-for="(skill, index) in getRelevantSkills"
           :key="index"
         >
-          <h5 class="title">{{skill.name}}</h5>
+          <h5 class="title">{{ skill.name }}</h5>
           <div class="level_bar_wrapper">
-            <div class="level_bar" :style="{'width': skillLevel[skill.level]}"></div>
+            <div
+              class="level_bar"
+              :style="{ width: skillLevel[skill.level] }"
+            ></div>
           </div>
-          <h6 class="level_name">{{skill.level | capitalize}}</h6>
+          <h6 class="level_name">{{ skill.level | capitalize }}</h6>
         </div>
 
         <div class="clearfix"></div>
@@ -67,47 +78,48 @@
 
         <div
           class="language_item mt-3"
-          v-for="(language, index) in 
-        getRelevantLanguages"
+          v-for="(language, index) in getRelevantLanguages"
           :key="index"
         >
-          <h5 class="title">{{language.language}}</h5>
+          <h5 class="title">{{ language.language }}</h5>
           <div class="level_bar_wrapper">
-            <div class="level_bar" :style="{'width': skillLevel[language.level]}"></div>
+            <div
+              class="level_bar"
+              :style="{ width: skillLevel[language.level] }"
+            ></div>
           </div>
-          <h6 class="level_name">{{language.level | capitalize}}</h6>
+          <h6 class="level_name">{{ language.level | capitalize }}</h6>
         </div>
       </div>
     </div>
 
     <div id="relevant_info_panel">
-      <div class="professional_summary section" v-if="getProfessionalSummary.length">
+      <div
+        class="professional_summary section"
+        v-if="getProfessionalSummary.length"
+      >
         <h2 class="title">Profile</h2>
-        <p>{{getProfessionalSummary}}</p>
+        <p>{{ getProfessionalSummary }}</p>
       </div>
       <div class="education section" v-if="getRelevantEducation.length">
         <h2 class="title">Education</h2>
 
         <div
           class="education_item"
-          v-for="(item, index) in 
-        getRelevantEducation"
+          v-for="(item, index) in getRelevantEducation"
           :key="index"
         >
           <div class="active_period">
             <h2>
-              {{item.date.start.month + ", " +
-              item.date.start.year}} - {{
-              item.date.end.month + ", " +
-              item.date.end.year
-              }}
+              {{ item.date.start.month + ", " + item.date.start.year }} -
+              {{ item.date.end.month + ", " + item.date.end.year }}
             </h2>
           </div>
           <div class="description">
             <h2 class="headline">
-              <b>{{item.degree}}, {{item.institute}}</b>
+              <b>{{ item.degree }}, {{ item.institute }}</b>
             </h2>
-            <p>{{item.description}}</p>
+            <p>{{ item.description }}</p>
           </div>
         </div>
 
@@ -121,25 +133,21 @@
         <!-- 1 -->
         <div
           class="experience_item"
-          v-for="(item, index) in 
-        getRelevantExperience"
+          v-for="(item, index) in getRelevantExperience"
           :key="index"
         >
           <div class="active_period">
             <h2>
-              {{item.date.start.month + ", " +
-              item.date.start.year}} - {{
-              item.date.end.month + ", " +
-              item.date.end.year
-              }}
+              {{ item.date.start.month + ", " + item.date.start.year }} -
+              {{ item.date.end.month + ", " + item.date.end.year }}
             </h2>
           </div>
           <div class="description">
-            <h2 class="job_title">{{item.title}}</h2>
+            <h2 class="job_title">{{ item.title }}</h2>
             <h4 class="employer">
-              <i>{{item.employer}}</i>
+              <i>{{ item.employer }}</i>
             </h4>
-            <p>{{item.description}}</p>
+            <p>{{ item.description }}</p>
           </div>
         </div>
 
@@ -150,24 +158,20 @@
         <h2 class="title">Internships</h2>
         <div
           class="education_item"
-          v-for="(item, index) in 
-        getRelevantInternships"
+          v-for="(item, index) in getRelevantInternships"
           :key="index"
         >
           <div class="active_period">
             <h2>
-              {{item.date.start.month + ", " +
-              item.date.start.year}} - {{
-              item.date.end.month + ", " +
-              item.date.end.year
-              }}
+              {{ item.date.start.month + ", " + item.date.start.year }} -
+              {{ item.date.end.month + ", " + item.date.end.year }}
             </h2>
           </div>
           <div class="description">
             <h2 class="headline">
-              <b>{{item.title}}, {{item.employer}}</b>
+              <b>{{ item.title }}, {{ item.employer }}</b>
             </h2>
-            <p>{{item.description}}</p>
+            <p>{{ item.description }}</p>
           </div>
         </div>
         <div class="clearfix"></div>
@@ -176,20 +180,21 @@
       <div class="courses section pb-2" v-if="getRelevantCourses.length">
         <h2 class="title">Courses</h2>
 
-        <div class="course_item" v-for="(course, index) in getRelevantCourses" :key="index">
+        <div
+          class="course_item"
+          v-for="(course, index) in getRelevantCourses"
+          :key="index"
+        >
           <div class="active_period">
             <h2>
-              {{course.date.start.month + ", " +
-              course.date.start.year}} - {{
-              course.date.end.month + ", " +
-              course.date.end.year
-              }}
+              {{ course.date.start.month + ", " + course.date.start.year }} -
+              {{ course.date.end.month + ", " + course.date.end.year }}
             </h2>
           </div>
           <div class="description">
             <p class="pt-2">
-              <i>{{course.name}}</i>
-              at {{course.institute}}
+              <i>{{ course.name }}</i>
+              at {{ course.institute }}
             </p>
           </div>
           <div class="clearfix"></div>
@@ -212,7 +217,7 @@ export default {
       if (general_section.offsetHeight < relevant_section_height)
         general_section.style.height = relevant_section_height + "px";
     });
-  }
+  },
 };
 </script>
 <style scoped>
@@ -222,7 +227,7 @@ export default {
 }
 .wrapper {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   overflow: auto;
 }
 
@@ -405,5 +410,3 @@ h2.head {
   font-size: 0.6rem;
 }
 </style>
-
-

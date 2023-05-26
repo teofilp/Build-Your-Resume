@@ -4,17 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "start": "node server.js"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "autoprefixer": "^9.5.1",
     "axios": "^0.18.0",
     "cryptr": "^4.0.2",
-    "express": "^4.16.4",
-    "html2canvas": "^1.0.0-rc.1",
     "jquery": "^3.4.0",
-    "jspdf": "^1.5.3",
     "postcss-cli": "^6.1.2",
     "serve-static": "^1.13.2",
     "uuid": "^3.3.2",

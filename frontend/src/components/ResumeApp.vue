@@ -19,29 +19,28 @@ import { EventBus } from "../main.js";
 export default {
   data() {
     return {
-      activeBuilder: true
+      activeBuilder: true,
     };
   },
   computed: {
     getActiveBuilder() {
       return this.activeBuilder;
-    }
+    },
   },
   components: {
     ResumeBuilder,
-    ResumePreview
+    ResumePreview,
   },
   created() {
     let instance = this;
-    EventBus.$on("previewUpdated", isActive => {
+    EventBus.$on("previewUpdated", (isActive) => {
       instance._data.activeBuilder = isActive;
     });
     this.$store.dispatch("loadResume");
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
-
 
 <style>
 #app_wrapper {

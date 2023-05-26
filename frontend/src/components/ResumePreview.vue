@@ -1,15 +1,17 @@
 <template>
-  <div id="preview_wrapper" :class="{active: activeClass}">
+  <div id="preview_wrapper" :class="{ active: activeClass }">
     <div id="resume_preview">
       <component :is="activeResume"></component>
     </div>
-    <i class="far fa-times-circle disable_preview" v-if="activeClass" @click="disablePreview"></i>
+    <i
+      class="far fa-times-circle disable_preview"
+      v-if="activeClass"
+      @click="disablePreview"
+    ></i>
     <ul class="options">
       <li @click="saveResume">
         <div>
-          <h2>
-            <i class="fas fa-share"></i> Share
-          </h2>
+          <h2><i class="fas fa-share"></i> Share</h2>
         </div>
       </li>
       <li>
@@ -17,9 +19,7 @@
       </li>
       <li class="preview_button">
         <div @click="enablePreview">
-          <h2>
-            <i class="fas fa-eye"></i>Preview
-          </h2>
+          <h2><i class="fas fa-eye"></i>Preview</h2>
         </div>
       </li>
     </ul>
@@ -28,17 +28,14 @@
 <script>
 // import Resume from "./Resume.vue";
 import { EventBus } from "../main.js";
-import * as jsPDF from "jspdf";
-import * as html2canvas from "html2canvas";
 import { mapGetters } from "vuex";
-import * as uuidv1 from "uuid/v1";
 import * as Crypt from "cryptr";
 import * as axios from "axios";
 export default {
   data() {
     return {
       activeClass: false,
-      previewActive: false
+      previewActive: false,
     };
   },
   mounted() {
@@ -79,74 +76,41 @@ export default {
       EventBus.$emit("previewUpdated", true);
       this.setInitialPositionAndDimensionsResumePreview();
     },
-    download() {
+    async download() {
       if (this.getCompleteness < 70) {
         alert("Your Resume Completeness has to be greater or equal to 70");
         return;
       }
 
       this.enableLoadingScreen();
-
-      let instance = this;
-
-      setTimeout(() => {
-        const filename = uuidv1(); // unique name - id
-        const quality = 4;
-        let fontSize = {};
-
-        this.resizeWrapperBeforeDownload(fontSize);
-
-        html2canvas(document.querySelector("#root"), {
-          scale: quality
-        }).then(canvas => {
-          var doc = new jsPDF("p", "mm");
-
-          instance.convertToPdf(doc, canvas);
-          instance.disableLoadingScreen();
-          instance.resizeWrapperAfterDownload(fontSize);
-          instance.savePdf(doc, filename);
-        });
-      }, 300);
-    },
-    resizeWrapperBeforeDownload(fontSize) {
-      let resumeRelevantInfoPanel = document.querySelector(
-        "#relevant_info_panel"
+      const resumeInfo = this.getResume;
+      const resumeInfoBase64 = Buffer.from(JSON.stringify(resumeInfo)).toString(
+        "base64"
       );
-      let resume = document.querySelector("#resume_preview");
-      resume.style.width = 316 + "px";
-      resume.style.height = resume.offsetWidth * 1.41;
 
-      fontSize.value = $("html").css("fontSize");
-      fontSize.value = parseInt(fontSize.value) + "px";
+      const downloadDataUrl = this.$router.resolve({
+        path: `/download-resume/${resumeInfoBase64}`,
+      });
 
-      $("html").css("fontSize", "7px");
+      const urlParams = new URLSearchParams({
+        path: downloadDataUrl.href,
+      });
 
-      let currHeight = resume.offsetHeight;
-      resume.style.height = "auto";
-
-      EventBus.$emit("preparationsBeforeDownload");
-    },
-    resizeWrapperAfterDownload(fontSize) {
-      this.setInitialPositionAndDimensionsResumePreview();
-      $("html").css("fontSize", fontSize.value);
-    },
-    convertToPdf(doc, canvas) {
-      var imgData = canvas.toDataURL("image/png");
-      var imgWidth = 210;
-      var pageHeight = 295;
-      var imgHeight = (canvas.height * imgWidth) / canvas.width;
-      var heightLeft = imgHeight;
-      var position = 0;
-
-      doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight - 7;
-        doc.addPage();
-        doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
+      const { data } = await axios.get(
+        `${
+          process.env.VUE_APP_BACKEND_URL
+        }/download-resume?${urlParams.toString()}`,
+        {
+          responseType: "arraybuffer",
+        }
+      );
+      const blob = new Blob([data], { type: "application/pdf" });
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = "resume.pdf";
+      link.click();
+      this.disableLoadingScreen();
+      return;
     },
     enableLoadingScreen() {
       document.querySelector("#loading_bar").classList.add("active");
@@ -165,7 +129,7 @@ export default {
         type: "success",
         title: "Your resume has been saved",
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500,
       });
     },
 
@@ -176,10 +140,10 @@ export default {
 
       axios
         .get("https://resume-builder-5c57f.firebaseio.com/meta/visitors.json")
-        .then(res => {
+        .then((res) => {
           return res.data;
         })
-        .then(data => {
+        .then((data) => {
           data++;
           return axios.put(
             "https://resume-builder-5c57f.firebaseio.com/meta/visitors.json",
@@ -195,17 +159,17 @@ export default {
       axios.put(
         "https://resume-builder-5c57f.firebaseio.com/data/" + name + ".json",
         {
-          encryptedResume
+          encryptedResume,
         }
       );
-    }
+    },
   },
   computed: {
-    ...mapGetters(["getCompleteness", "getActiveThemeTemplate"]),
+    ...mapGetters(["getCompleteness", "getActiveThemeTemplate", "getResume"]),
     activeResume: function() {
       return this.getActiveThemeTemplate;
-    }
-  }
+    },
+  },
 };
 </script>
 <style>
@@ -240,6 +204,8 @@ export default {
   border-radius: 4px;
   box-shadow: 2px 2px 15px #222;
   overflow: auto;
+  height: 100%;
+  width: 100%;
 }
 
 .options {
@@ -351,5 +317,3 @@ button.download:hover {
   }
 }
 </style>
-
-
