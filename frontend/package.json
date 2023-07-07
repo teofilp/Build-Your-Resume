@@ -7,7 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "autoprefixer": "^9.5.1",
+    "autoprefixer": "^9.8.8",
     "axios": "^0.18.0",
     "cryptr": "^4.0.2",
     "jquery": "^3.4.0",
